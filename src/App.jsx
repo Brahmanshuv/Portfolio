@@ -5,7 +5,6 @@ import Hero from './components/Hero';
 import About from './components/About';
 import Experience from './components/Experience';
 import Capabilities from './components/Capabilities';
-import Footer from './components/Footer';
 import MusicWidget from './components/MusicWidget';
 import SectionWrapper from './components/SectionWrapper';
 import ContactCardSection from "./components/ContactCardSection";
@@ -65,7 +64,6 @@ function App() {
                 <PoweringTheFuture />
             </main>
 
-            <Footer />
             <MusicWidget />
         </>
     )

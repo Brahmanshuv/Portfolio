@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import GridSignalCanvas from './GridSignalCanvas';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -8,11 +9,58 @@ const HeroTop = () => {
     const sectionRef = useRef(null);
     const sceneRef = useRef(null);
     const textRef = useRef(null);
+    const textParallaxRef = useRef(null);
     const cardRef = useRef(null);
     const glowOrbRef = useRef(null);
     const gridRef = useRef(null);
     const bgRef = useRef(null);
     const cursorGlowRef = useRef(null);
+    const verticalListFgRef = useRef(null);
+    const verticalListBgRef = useRef(null);
+    const verticalWrapFgRef = useRef(null);
+    const verticalWrapBgRef = useRef(null);
+    const fgItemRefs = useRef([]);
+    const bgItemRefs = useRef([]);
+
+    // Curated foreground keywords
+    const fgItems = [
+        "IMMEDIACY",
+        "SPATIAL UI",
+        "IMMERSIVE",
+        "CINEMATIC",
+        "FUTURISTIC",
+        "MINIMALISM",
+        "GLASSMORPHISM",
+        "UI/UX DESIGN",
+        "3D SCENOGRAPHY",
+        "CREATIVE CODE",
+        "INTERACTIVE",
+        "DESIGN SYSTEMS",
+        "AESTHETICS",
+        "INTERFACE",
+        "MOTION ENGINE"
+    ];
+    const loopedFgItems = [...fgItems, ...fgItems, ...fgItems];
+
+    // Curated background keywords (different words or offset)
+    const bgItems = [
+        "PARALLAX",
+        "DEPTH",
+        "ATMOSPHERE",
+        "REFRACTION",
+        "TRANSLUCENCY",
+        "CHROME",
+        "ABERRATION",
+        "FROSTED",
+        "GLOW",
+        "PERSPECTIVE",
+        "SCROLL",
+        "KINETIC",
+        "DYNAMICS",
+        "LIGHTING",
+        "ORB"
+    ];
+    const loopedBgItems = [...bgItems, ...bgItems, ...bgItems];
 
     // Smoothed rotation values (using refs for animation frame)
     const target = useRef({ x: 0, y: 0, mx: 0, my: 0 });
@@ -83,6 +131,60 @@ const HeroTop = () => {
                     `radial-gradient(600px at ${c.mx}px ${c.my}px, rgba(255,255,255,0.07), transparent 80%)`;
             }
 
+            // Parallax — Foreground Glass Typography (moves slightly faster/closer)
+            if (textParallaxRef.current) {
+                textParallaxRef.current.style.transform =
+                    `translateZ(120px) translate(${c.y * 1.6}px, ${c.x * 1.6}px)`;
+            }
+
+            // Parallax — Mid Plane Primary vertical list (angled & distinct speed)
+            if (verticalWrapFgRef.current) {
+                verticalWrapFgRef.current.style.transform =
+                    `translateZ(40px) rotateY(-10deg) rotateX(1deg) translate(${c.y * 1.1}px, ${c.x * 1.1}px)`;
+            }
+
+            // Parallax — Background Plane Secondary vertical list (faded & slower)
+            if (verticalWrapBgRef.current) {
+                verticalWrapBgRef.current.style.transform =
+                    `translateZ(-60px) rotateY(-15deg) translate(${c.y * 0.6}px, ${c.x * 0.6}px)`;
+            }
+
+            // Recalculate dynamic scaling for vertical kinetic strip items on each frame
+            const vh = window.innerHeight;
+            const center = vh * 0.5;
+
+            fgItemRefs.current.forEach((el) => {
+                if (!el) return;
+                const rect = el.getBoundingClientRect();
+                const itemCenter = rect.top + rect.height * 0.5;
+                const distance = itemCenter - center;
+                const absDistance = Math.abs(distance);
+
+                const normalized = Math.min(absDistance / (vh * 0.45), 1);
+                const scale = 1.0 - (normalized * 0.35); // Grow to 1.0 at center, shrink to 0.65
+                const opacity = 0.28 - (normalized * 0.22); // Bright 0.28 at center, fades to 0.06
+
+                el.style.transform = `scale(${scale.toFixed(4)})`;
+                el.style.opacity = opacity.toFixed(3);
+                el.style.setProperty("--aberration", (normalized * 0.25).toFixed(3));
+            });
+
+            bgItemRefs.current.forEach((el) => {
+                if (!el) return;
+                const rect = el.getBoundingClientRect();
+                const itemCenter = rect.top + rect.height * 0.5;
+                const distance = itemCenter - center;
+                const absDistance = Math.abs(distance);
+
+                const normalized = Math.min(absDistance / (vh * 0.45), 1);
+                const scale = 0.85 - (normalized * 0.25); // Grow to 0.85 at center, shrink to 0.60
+                const opacity = 0.14 - (normalized * 0.11); // Bright 0.14 at center, fades to 0.03
+
+                el.style.transform = `scale(${scale.toFixed(4)})`;
+                el.style.opacity = opacity.toFixed(3);
+                el.style.setProperty("--aberration", (normalized * 0.15).toFixed(3));
+            });
+
             rafId.current = requestAnimationFrame(tick);
         };
 
@@ -117,6 +219,48 @@ const HeroTop = () => {
                     end: '80% top',
                 },
             });
+
+            // Kinetic left vertical strip scrolling animation (Foreground - Faster)
+            if (verticalListFgRef.current) {
+                gsap.fromTo(verticalListFgRef.current,
+                    { y: "15vh" },
+                    {
+                        y: () => {
+                            const listHeight = verticalListFgRef.current.scrollHeight;
+                            const viewportHeight = window.innerHeight;
+                            return -(listHeight - viewportHeight * 0.4);
+                        },
+                        ease: 'none',
+                        scrollTrigger: {
+                            trigger: sectionRef.current,
+                            scrub: 1.0, // Brisk foreground scrub
+                            start: 'top top',
+                            end: 'bottom top',
+                        }
+                    }
+                );
+            }
+
+            // Kinetic left vertical strip scrolling animation (Background - Slower)
+            if (verticalListBgRef.current) {
+                gsap.fromTo(verticalListBgRef.current,
+                    { y: "5vh" },
+                    {
+                        y: () => {
+                            const listHeight = verticalListBgRef.current.scrollHeight;
+                            const viewportHeight = window.innerHeight;
+                            return -(listHeight - viewportHeight * 0.6); // Slower travel
+                        },
+                        ease: 'none',
+                        scrollTrigger: {
+                            trigger: sectionRef.current,
+                            scrub: 1.8, // Slower background scrub
+                            start: 'top top',
+                            end: 'bottom top',
+                        }
+                    }
+                );
+            }
         }, sectionRef);
 
         return () => ctx.revert();
@@ -142,51 +286,88 @@ const HeroTop = () => {
                         <div className="hero-top-layer hero-top-noise" />
 
                         {/* LAYER 3: Ambient grid */}
-                        <div ref={gridRef} className="hero-top-layer hero-top-grid" />
+                        <div ref={gridRef} className="hero-top-layer hero-top-grid">
+                            <GridSignalCanvas />
+                        </div>
 
                         {/* LAYER 4: Atmospheric glow orb (behind text) */}
                         <div ref={glowOrbRef} className="hero-top-layer hero-top-orb" />
 
-                        {/* LAYER 5: Glass Typography (foreground) */}
-                        <div ref={textRef} className="hero-top-layer hero-top-title-wrap">
-                            {/* SVG defs for text clip path */}
-                            <svg className="hero-top-svg-defs" aria-hidden="true">
-                                <defs>
-                                    <clipPath id="glass-text-clip" clipPathUnits="objectBoundingBox">
-                                        <text
-                                            x="0.5" y="0.78"
-                                            textAnchor="middle"
-                                            fontFamily="'Inter', system-ui, sans-serif"
-                                            fontWeight="800"
-                                            fontSize="0.85"
-                                            letterSpacing="-0.03"
-                                        >PORTFOLIO</text>
-                                    </clipPath>
-                                </defs>
-                            </svg>
-
-                            {/* Layer A: Backdrop frost — clipped to text shape */}
-                            <div className="glass-text-frost" />
-
-                            {/* Layer B: Gradient highlight — reflection */}
-                            <h1
-                                className="glass-text-highlight"
-                                aria-hidden="true"
-                            >PORTFOLIO</h1>
-
-                            {/* Layer C: Frosted edge / light-catch */}
-                            <span
-                                className="glass-text-edge"
-                                data-text="PORTFOLIO"
-                                aria-hidden="true"
-                            />
-
-                            {/* Layer D: Dispersion glow */}
-                            <span className="glass-text-dispersion" aria-hidden="true">PORTFOLIO</span>
-
-                            {/* Accessible / SEO text (visually hidden) */}
-                            <h1 className="sr-only">PORTFOLIO</h1>
+                        {/* Kinetic Left Vertical Text Strip (Foreground depth 40px) */}
+                        <div ref={verticalWrapFgRef} className="hero-vertical-strip-wrap fg">
+                            <div ref={verticalListFgRef} className="hero-vertical-strip-list">
+                                {loopedFgItems.map((item, index) => (
+                                    <div 
+                                        key={index} 
+                                        ref={(el) => (fgItemRefs.current[index] = el)}
+                                        className="hero-vertical-strip-item"
+                                    >
+                                        <span className="hvs-text" data-text={item}>{item}</span>
+                                    </div>
+                                ))}
+                            </div>
                         </div>
+
+                        {/* Kinetic Left Vertical Text Strip (Background depth 10px + blur) */}
+                        <div ref={verticalWrapBgRef} className="hero-vertical-strip-wrap bg">
+                            <div ref={verticalListBgRef} className="hero-vertical-strip-list">
+                                {loopedBgItems.map((item, index) => (
+                                    <div 
+                                        key={index} 
+                                        ref={(el) => (bgItemRefs.current[index] = el)}
+                                        className="hero-vertical-strip-item"
+                                    >
+                                        <span className="hvs-text" data-text={item}>{item}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* LAYER 5: Glass Typography (foreground) */}
+                        <div ref={textParallaxRef} className="hero-top-layer hero-top-title-parallax">
+                            <div ref={textRef} className="hero-top-title-wrap">
+                            <div className="hero-top-title-scaler">
+                                {/* SVG defs for text clip path */}
+                                <svg className="hero-top-svg-defs" aria-hidden="true">
+                                    <defs>
+                                        <clipPath id="glass-text-clip" clipPathUnits="objectBoundingBox">
+                                            <text
+                                                x="0.5" y="0.78"
+                                                textAnchor="middle"
+                                                fontFamily="'Inter', system-ui, sans-serif"
+                                                fontWeight="800"
+                                                fontSize="0.85"
+                                                letterSpacing="-0.03"
+                                            >PORTFOLIO</text>
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+
+                                {/* Layer A: Backdrop frost — clipped to text shape */}
+                                <div className="glass-text-frost" />
+
+                                {/* Layer B: Gradient highlight — reflection */}
+                                <h1
+                                    className="glass-text-highlight"
+                                    aria-hidden="true"
+                                >PORTFOLIO</h1>
+
+                                {/* Layer C: Frosted edge / light-catch */}
+                                <span
+                                    className="glass-text-edge"
+                                    data-text="PORTFOLIO"
+                                    aria-hidden="true"
+                                />
+
+                                {/* Layer D: Dispersion glow */}
+                                <span className="glass-text-dispersion" aria-hidden="true">PORTFOLIO</span>
+
+                                {/* Accessible / SEO text (visually hidden) */}
+                                <h1 className="sr-only">PORTFOLIO</h1>
+                            </div>
+                        </div>
+                        </div>
+
 
                     </div>{/* end scene */}
 

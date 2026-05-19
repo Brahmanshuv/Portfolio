@@ -1,4 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import Lottie from 'lottie-react';
+import hamburgerAnimation from '../../assets/Hamburger Menu to X.json';
+
+const MenuToggle = React.memo(({ isMenuOpen, toggleMenu }) => {
+    return (
+        <button
+            className={`menu-toggle ${isMenuOpen ? 'active' : ''}`}
+            aria-label="Toggle navigation"
+            onClick={toggleMenu}
+        >
+            <div className="hamburger-icon">
+                <span className="hamburger-line hamburger-line-1"></span>
+                <span className="hamburger-line hamburger-line-2"></span>
+            </div>
+        </button>
+    );
+});
 
 const Navbar = () => {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -38,15 +55,34 @@ const Navbar = () => {
         return () => window.removeEventListener('scroll', handleScrollSpy);
     }, []);
 
-    const toggleMenu = () => {
-        setIsMenuOpen(!isMenuOpen);
-        document.body.style.overflow = !isMenuOpen ? 'hidden' : '';
-    };
+    // Close mobile menu on resize (e.g., orientation change)
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth > 768 && isMenuOpen) {
+                setIsMenuOpen(false);
+                document.body.style.overflow = '';
+            }
+        };
 
-    const closeMenu = () => {
+        window.addEventListener('resize', handleResize);
+        return () => {
+            window.removeEventListener('resize', handleResize);
+            document.body.style.overflow = ''; // Clean up on unmount
+        };
+    }, [isMenuOpen]);
+
+    const toggleMenu = React.useCallback(() => {
+        setIsMenuOpen(prev => {
+            const newState = !prev;
+            document.body.style.overflow = newState ? 'hidden' : '';
+            return newState;
+        });
+    }, []);
+
+    const closeMenu = React.useCallback(() => {
         setIsMenuOpen(false);
         document.body.style.overflow = '';
-    };
+    }, []);
 
     const navLinks = [
         { name: 'About', href: '#about' },
@@ -57,23 +93,43 @@ const Navbar = () => {
     ];
 
     return (
-        <header id="main-header" className={isScrolled ? 'scrolled' : ''}>
-            <div className="container header-content">
-                {/* Mobile Menu Button */}
-                <button
-                    className={`menu-toggle ${isMenuOpen ? 'active' : ''}`}
-                    aria-label="Toggle navigation"
-                    onClick={toggleMenu}
-                >
-                    <span className="bar"></span>
-                    <span className="bar"></span>
-                    <span className="bar"></span>
-                </button>
+        <>
+            <header id="main-header" className={isScrolled ? 'scrolled' : ''}>
+                <div className="container header-content">
+                    {/* Desktop nav — visible on large screens, hidden on mobile */}
+                    <nav className="nav-menu nav-desktop">
+                        <ul>
+                            {navLinks.map(link => (
+                                <li key={link.name}>
+                                    <a
+                                        href={link.href}
+                                        className={activeSection === link.href ? 'active' : ''}
+                                        onClick={closeMenu}
+                                    >
+                                        {link.name}
+                                    </a>
+                                </li>
+                            ))}
+                        </ul>
+                    </nav>
+                </div>
+            </header>
 
-                <nav className={`nav-menu ${isMenuOpen ? 'active' : ''}`}>
+            {/* Mobile Nav Overlay */}
+            <div
+                className={`mobile-overlay ${isMenuOpen ? 'active' : ''}`}
+                onClick={closeMenu}
+                aria-hidden="true"
+            ></div>
+
+            {/* Mobile Sidebar & Toggle Wrapper */}
+            <div className={`mobile-menu-wrapper ${isMenuOpen ? 'active' : ''}`}>
+                <MenuToggle isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
+
+                <nav className="nav-menu nav-mobile">
                     <ul>
                         {navLinks.map(link => (
-                            <li key={link.name}>
+                            <li key={link.name + '-mobile'}>
                                 <a
                                     href={link.href}
                                     className={activeSection === link.href ? 'active' : ''}
@@ -86,7 +142,7 @@ const Navbar = () => {
                     </ul>
                 </nav>
             </div>
-        </header>
+        </>
     );
 };
 
