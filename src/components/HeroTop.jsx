@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import GridSignalCanvas from './GridSignalCanvas';
+import profilePic from '../../assets/Profilepicture.jpeg';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -21,6 +22,13 @@ const HeroTop = () => {
     const verticalWrapBgRef = useRef(null);
     const fgItemRefs = useRef([]);
     const bgItemRefs = useRef([]);
+
+    const verticalListRightFgRef = useRef(null);
+    const verticalListRightBgRef = useRef(null);
+    const verticalWrapRightFgRef = useRef(null);
+    const verticalWrapRightBgRef = useRef(null);
+    const rightFgItemRefs = useRef([]);
+    const rightBgItemRefs = useRef([]);
 
     // Curated foreground keywords
     const fgItems = [
@@ -61,6 +69,46 @@ const HeroTop = () => {
         "ORB"
     ];
     const loopedBgItems = [...bgItems, ...bgItems, ...bgItems];
+
+    // Curated foreground business / product / stakeholder keywords
+    const rightFgItems = [
+        "BUSINESS STRATEGY",
+        "PRODUCT VISION",
+        "SCALABLE SYSTEMS",
+        "GROWTH FOCUSED",
+        "STRATEGIC DECISIONS",
+        "KPI DRIVEN",
+        "USER RETENTION",
+        "PLATFORM THINKING",
+        "STAKEHOLDER ALIGNMENT",
+        "DESIGN LEADERSHIP",
+        "SYSTEM THINKING",
+        "WORKFLOW OPTIMIZATION",
+        "EXPERIENCE STRATEGY",
+        "PROBLEM SOLVING",
+        "ENTERPRISE UX"
+    ];
+    const loopedRightFgItems = [...rightFgItems, ...rightFgItems, ...rightFgItems];
+
+    // Curated background business / product / stakeholder keywords
+    const rightBgItems = [
+        "PRODUCT ARCHITECTURE",
+        "ROADMAP THINKING",
+        "CONVERSION FOCUSED",
+        "PRODUCT ECOSYSTEMS",
+        "CROSS-FUNCTIONAL",
+        "TEAM COLLABORATION",
+        "DEVELOPER HANDOFF",
+        "USER ADVOCACY",
+        "RESEARCH INSIGHTS",
+        "DESIGN OPERATIONS",
+        "DECISION MAKING",
+        "HUMAN-CENTERED",
+        "SCALABLE UX",
+        "DESIGN CONSISTENCY",
+        "OPERATIONAL CLARITY"
+    ];
+    const loopedRightBgItems = [...rightBgItems, ...rightBgItems, ...rightBgItems];
 
     // Smoothed rotation values (using refs for animation frame)
     const target = useRef({ x: 0, y: 0, mx: 0, my: 0 });
@@ -149,6 +197,18 @@ const HeroTop = () => {
                     `translateZ(-60px) rotateY(-15deg) translate(${c.y * 0.6}px, ${c.x * 0.6}px)`;
             }
 
+            // Parallax — Mid Plane Primary vertical list (angled & distinct speed) (Right side)
+            if (verticalWrapRightFgRef.current) {
+                verticalWrapRightFgRef.current.style.transform =
+                    `translateZ(40px) rotateY(10deg) rotateX(-1deg) translate(${c.y * 1.1}px, ${c.x * 1.1}px)`;
+            }
+
+            // Parallax — Background Plane Secondary vertical list (faded & slower) (Right side)
+            if (verticalWrapRightBgRef.current) {
+                verticalWrapRightBgRef.current.style.transform =
+                    `translateZ(-60px) rotateY(15deg) translate(${c.y * 0.6}px, ${c.x * 0.6}px)`;
+            }
+
             // Recalculate dynamic scaling for vertical kinetic strip items on each frame
             const vh = window.innerHeight;
             const center = vh * 0.5;
@@ -170,6 +230,38 @@ const HeroTop = () => {
             });
 
             bgItemRefs.current.forEach((el) => {
+                if (!el) return;
+                const rect = el.getBoundingClientRect();
+                const itemCenter = rect.top + rect.height * 0.5;
+                const distance = itemCenter - center;
+                const absDistance = Math.abs(distance);
+
+                const normalized = Math.min(absDistance / (vh * 0.45), 1);
+                const scale = 0.85 - (normalized * 0.25); // Grow to 0.85 at center, shrink to 0.60
+                const opacity = 0.14 - (normalized * 0.11); // Bright 0.14 at center, fades to 0.03
+
+                el.style.transform = `scale(${scale.toFixed(4)})`;
+                el.style.opacity = opacity.toFixed(3);
+                el.style.setProperty("--aberration", (normalized * 0.15).toFixed(3));
+            });
+
+            rightFgItemRefs.current.forEach((el) => {
+                if (!el) return;
+                const rect = el.getBoundingClientRect();
+                const itemCenter = rect.top + rect.height * 0.5;
+                const distance = itemCenter - center;
+                const absDistance = Math.abs(distance);
+
+                const normalized = Math.min(absDistance / (vh * 0.45), 1);
+                const scale = 1.0 - (normalized * 0.35); // Grow to 1.0 at center, shrink to 0.65
+                const opacity = 0.28 - (normalized * 0.22); // Bright 0.28 at center, fades to 0.06
+
+                el.style.transform = `scale(${scale.toFixed(4)})`;
+                el.style.opacity = opacity.toFixed(3);
+                el.style.setProperty("--aberration", (normalized * 0.25).toFixed(3));
+            });
+
+            rightBgItemRefs.current.forEach((el) => {
                 if (!el) return;
                 const rect = el.getBoundingClientRect();
                 const itemCenter = rect.top + rect.height * 0.5;
@@ -261,6 +353,48 @@ const HeroTop = () => {
                     }
                 );
             }
+
+            // Kinetic right vertical strip scrolling animation (Foreground - Faster)
+            if (verticalListRightFgRef.current) {
+                gsap.fromTo(verticalListRightFgRef.current,
+                    { y: "15vh" },
+                    {
+                        y: () => {
+                            const listHeight = verticalListRightFgRef.current.scrollHeight;
+                            const viewportHeight = window.innerHeight;
+                            return -(listHeight - viewportHeight * 0.4);
+                        },
+                        ease: 'none',
+                        scrollTrigger: {
+                            trigger: sectionRef.current,
+                            scrub: 1.0, // Brisk foreground scrub
+                            start: 'top top',
+                            end: 'bottom top',
+                        }
+                    }
+                );
+            }
+
+            // Kinetic right vertical strip scrolling animation (Background - Slower)
+            if (verticalListRightBgRef.current) {
+                gsap.fromTo(verticalListRightBgRef.current,
+                    { y: "5vh" },
+                    {
+                        y: () => {
+                            const listHeight = verticalListRightBgRef.current.scrollHeight;
+                            const viewportHeight = window.innerHeight;
+                            return -(listHeight - viewportHeight * 0.6); // Slower travel
+                        },
+                        ease: 'none',
+                        scrollTrigger: {
+                            trigger: sectionRef.current,
+                            scrub: 1.8, // Slower background scrub
+                            start: 'top top',
+                            end: 'bottom top',
+                        }
+                    }
+                );
+            }
         }, sectionRef);
 
         return () => ctx.revert();
@@ -323,6 +457,36 @@ const HeroTop = () => {
                             </div>
                         </div>
 
+                        {/* Kinetic Right Vertical Text Strip (Foreground depth 40px) */}
+                        <div ref={verticalWrapRightFgRef} className="hero-vertical-strip-wrap right fg">
+                            <div ref={verticalListRightFgRef} className="hero-vertical-strip-list">
+                                {loopedRightFgItems.map((item, index) => (
+                                    <div 
+                                        key={index} 
+                                        ref={(el) => (rightFgItemRefs.current[index] = el)}
+                                        className="hero-vertical-strip-item"
+                                    >
+                                        <span className="hvs-text" data-text={item}>{item}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Kinetic Right Vertical Text Strip (Background depth -60px + blur) */}
+                        <div ref={verticalWrapRightBgRef} className="hero-vertical-strip-wrap right bg">
+                            <div ref={verticalListRightBgRef} className="hero-vertical-strip-list">
+                                {loopedRightBgItems.map((item, index) => (
+                                    <div 
+                                        key={index} 
+                                        ref={(el) => (rightBgItemRefs.current[index] = el)}
+                                        className="hero-vertical-strip-item"
+                                    >
+                                        <span className="hvs-text" data-text={item}>{item}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
                         {/* LAYER 5: Glass Typography (foreground) */}
                         <div ref={textParallaxRef} className="hero-top-layer hero-top-title-parallax">
                             <div ref={textRef} className="hero-top-title-wrap">
@@ -376,6 +540,10 @@ const HeroTop = () => {
 
                     {/* LAYER 7: Info card (outside scene) */}
                     <div ref={cardRef} className="hero-top-card">
+                        <div className="hero-top-profile-wrap">
+                            <img src={profilePic} alt="Brahmanshu Verma" className="hero-top-profile-img" />
+                            <div className="hero-top-profile-glow" />
+                        </div>
                         <span className="hero-top-card-label">Brahmanshu Verma</span>
                         <p className="hero-top-card-role">Product Designer · UI/UX · Systems · 3D</p>
                     </div>

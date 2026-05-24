@@ -13,6 +13,24 @@ const Experience = () => {
                     <div className="experience-item hidden-animate">
                         <div className="experience-header">
                             <span className="exp-number">/01</span>
+                            <h4 className="exp-title">Product Designer — Powertrace Technologies</h4>
+                            <span className="exp-date">Apr 2026 — Present</span>
+                        </div>
+                        <div className="exp-body">
+                            <p className="exp-desc">Working on dashboard experiences, design systems, and scalable product interfaces for enterprise and energy-focused platforms.</p>
+                            <ul className="exp-bullets">
+                                <li>Designing and maintaining scalable design systems</li>
+                                <li>Creating dashboard UX/UI for data-heavy workflows</li>
+                                <li>Improving product consistency and usability</li>
+                                <li>Collaborating with product and development teams</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    {/* Role 2 */}
+                    <div className="experience-item hidden-animate">
+                        <div className="experience-header">
+                            <span className="exp-number">/02</span>
                             <h4 className="exp-title">UI/UX Designer — Freelance</h4>
                             <span className="exp-date">2024 — Present</span>
                         </div>
@@ -25,26 +43,26 @@ const Experience = () => {
                         </div>
                     </div>
 
-                    {/* Role 2 */}
+                    {/* Role 3 */}
                     <div className="experience-item hidden-animate">
                         <div className="experience-header">
-                            <span className="exp-number">/02</span>
+                            <span className="exp-number">/03</span>
                             <h4 className="exp-title">3D Visualizer Intern — Inverted</h4>
                             <span className="exp-date">2024</span>
                         </div>
                         <div className="exp-body">
                             <p className="exp-desc">Created 20+ assets for a battery product launch, focusing on visual storytelling and brand alignment.</p>
-                            <ul class="exp-bullets">
+                            <ul className="exp-bullets">
                                 <li>Modeled and rendered product visuals</li>
                                 <li>Collaborated with marketing for launch assets</li>
                             </ul>
                         </div>
                     </div>
 
-                    {/* Role 3 */}
+                    {/* Role 4 */}
                     <div className="experience-item hidden-animate">
                         <div className="experience-header">
-                            <span className="exp-number">/03</span>
+                            <span className="exp-number">/04</span>
                             <h4 className="exp-title">UI/UX Design Intern — Redtape</h4>
                             <span className="exp-date">2023</span>
                         </div>
