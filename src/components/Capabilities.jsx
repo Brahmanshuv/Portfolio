@@ -4,10 +4,10 @@ import { capabilitiesData } from '../data/capabilities';
 
 const Capabilities = () => {
     return (
-        <section id="capabilities">
+        <section id="skills">
             <div className="container">
                 <div className="section-title">
-                    <h3>Capabilities</h3>
+                    <h3>Skills</h3>
                 </div>
 
                 <div className="bento-grid">

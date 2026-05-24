@@ -431,8 +431,8 @@ const HeroTop = () => {
                         <div ref={verticalWrapFgRef} className="hero-vertical-strip-wrap fg">
                             <div ref={verticalListFgRef} className="hero-vertical-strip-list">
                                 {loopedFgItems.map((item, index) => (
-                                    <div 
-                                        key={index} 
+                                    <div
+                                        key={index}
                                         ref={(el) => (fgItemRefs.current[index] = el)}
                                         className="hero-vertical-strip-item"
                                     >
@@ -446,8 +446,8 @@ const HeroTop = () => {
                         <div ref={verticalWrapBgRef} className="hero-vertical-strip-wrap bg">
                             <div ref={verticalListBgRef} className="hero-vertical-strip-list">
                                 {loopedBgItems.map((item, index) => (
-                                    <div 
-                                        key={index} 
+                                    <div
+                                        key={index}
                                         ref={(el) => (bgItemRefs.current[index] = el)}
                                         className="hero-vertical-strip-item"
                                     >
@@ -461,8 +461,8 @@ const HeroTop = () => {
                         <div ref={verticalWrapRightFgRef} className="hero-vertical-strip-wrap right fg">
                             <div ref={verticalListRightFgRef} className="hero-vertical-strip-list">
                                 {loopedRightFgItems.map((item, index) => (
-                                    <div 
-                                        key={index} 
+                                    <div
+                                        key={index}
                                         ref={(el) => (rightFgItemRefs.current[index] = el)}
                                         className="hero-vertical-strip-item"
                                     >
@@ -476,8 +476,8 @@ const HeroTop = () => {
                         <div ref={verticalWrapRightBgRef} className="hero-vertical-strip-wrap right bg">
                             <div ref={verticalListRightBgRef} className="hero-vertical-strip-list">
                                 {loopedRightBgItems.map((item, index) => (
-                                    <div 
-                                        key={index} 
+                                    <div
+                                        key={index}
                                         ref={(el) => (rightBgItemRefs.current[index] = el)}
                                         className="hero-vertical-strip-item"
                                     >
@@ -490,46 +490,46 @@ const HeroTop = () => {
                         {/* LAYER 5: Glass Typography (foreground) */}
                         <div ref={textParallaxRef} className="hero-top-layer hero-top-title-parallax">
                             <div ref={textRef} className="hero-top-title-wrap">
-                            <div className="hero-top-title-scaler">
-                                {/* SVG defs for text clip path */}
-                                <svg className="hero-top-svg-defs" aria-hidden="true">
-                                    <defs>
-                                        <clipPath id="glass-text-clip" clipPathUnits="objectBoundingBox">
-                                            <text
-                                                x="0.5" y="0.78"
-                                                textAnchor="middle"
-                                                fontFamily="'Inter', system-ui, sans-serif"
-                                                fontWeight="800"
-                                                fontSize="0.85"
-                                                letterSpacing="-0.03"
-                                            >PORTFOLIO</text>
-                                        </clipPath>
-                                    </defs>
-                                </svg>
+                                <div className="hero-top-title-scaler">
+                                    {/* SVG defs for text clip path */}
+                                    <svg className="hero-top-svg-defs" aria-hidden="true">
+                                        <defs>
+                                            <clipPath id="glass-text-clip" clipPathUnits="objectBoundingBox">
+                                                <text
+                                                    x="0.5" y="0.78"
+                                                    textAnchor="middle"
+                                                    fontFamily="'Inter', system-ui, sans-serif"
+                                                    fontWeight="800"
+                                                    fontSize="0.85"
+                                                    letterSpacing="-0.03"
+                                                >PORTFOLIO</text>
+                                            </clipPath>
+                                        </defs>
+                                    </svg>
 
-                                {/* Layer A: Backdrop frost — clipped to text shape */}
-                                <div className="glass-text-frost" />
+                                    {/* Layer A: Backdrop frost — clipped to text shape */}
+                                    <div className="glass-text-frost" />
 
-                                {/* Layer B: Gradient highlight — reflection */}
-                                <h1
-                                    className="glass-text-highlight"
-                                    aria-hidden="true"
-                                >PORTFOLIO</h1>
+                                    {/* Layer B: Gradient highlight — reflection */}
+                                    <h1
+                                        className="glass-text-highlight"
+                                        aria-hidden="true"
+                                    >PORTFOLIO</h1>
 
-                                {/* Layer C: Frosted edge / light-catch */}
-                                <span
-                                    className="glass-text-edge"
-                                    data-text="PORTFOLIO"
-                                    aria-hidden="true"
-                                />
+                                    {/* Layer C: Frosted edge / light-catch */}
+                                    <span
+                                        className="glass-text-edge"
+                                        data-text="PORTFOLIO"
+                                        aria-hidden="true"
+                                    />
 
-                                {/* Layer D: Dispersion glow */}
-                                <span className="glass-text-dispersion" aria-hidden="true">PORTFOLIO</span>
+                                    {/* Layer D: Dispersion glow */}
+                                    <span className="glass-text-dispersion" aria-hidden="true">PORTFOLIO</span>
 
-                                {/* Accessible / SEO text (visually hidden) */}
-                                <h1 className="sr-only">PORTFOLIO</h1>
+                                    {/* Accessible / SEO text (visually hidden) */}
+                                    <h1 className="sr-only">PORTFOLIO</h1>
+                                </div>
                             </div>
-                        </div>
                         </div>
 
 

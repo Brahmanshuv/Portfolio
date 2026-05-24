@@ -237,6 +237,16 @@ ul {
 section {
     padding-top: 140px;
     padding-bottom: 0;
+    scroll-margin-top: 88px;
+}
+
+#about,
+#experience,
+#skills,
+#projects,
+#resume,
+#contact {
+    scroll-margin-top: 88px;
 }
 
 .section-grid {
@@ -275,12 +285,10 @@ section {
 .loader-orb {
     position: absolute;
     inset: 0;
-    background: radial-gradient(
-        ellipse 60% 55% at 50% 50%,
-        rgba(180, 200, 255, 0.07) 0%,
-        rgba(100, 140, 255, 0.04) 40%,
-        transparent 70%
-    );
+    background: radial-gradient(ellipse 60% 55% at 50% 50%,
+            rgba(180, 200, 255, 0.07) 0%,
+            rgba(100, 140, 255, 0.04) 40%,
+            transparent 70%);
     pointer-events: none;
 }
 
@@ -894,7 +902,8 @@ section {
     grid-row: span 1;
     /* Vertically center the content block inside the short horizontal card */
     justify-content: center;
-    align-items: stretch; /* full-width so text stays left-aligned */
+    align-items: stretch;
+    /* full-width so text stays left-aligned */
 }
 
 .tile-small-statement {
@@ -1045,6 +1054,168 @@ section {
     height: 100%;
 }
 
+/* Projects Section — Cinematic Minimal Cards */
+.projects-grid-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    width: 100%;
+    margin-top: 8px;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.project-card {
+    background-color: #F8F8F8;
+    border-radius: 32px;
+    padding: 36px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 320px;
+    border: 0.5px solid rgba(0, 0, 0, 0.06);
+    overflow: hidden;
+    position: relative;
+    cursor: default;
+}
+
+/* Coming Soon Unified Overlay styling */
+.coming-soon-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    box-shadow:
+        0 15px 35px rgba(0, 0, 0, 0.02),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+    transition:
+        background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+        border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: default;
+    pointer-events: auto;
+    /* Disables all interactions on cards underneath */
+}
+
+.coming-soon-overlay:hover {
+    background-color: rgba(255, 255, 255, 0.52);
+    border-color: rgba(255, 255, 255, 0.6);
+    box-shadow:
+        0 20px 45px rgba(0, 122, 255, 0.03),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+}
+
+.coming-soon-text {
+    font-family: var(--font-primary);
+    font-size: 16px;
+    font-weight: 500;
+    color: rgba(28, 28, 30, 0.55);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+    transition: color 0.4s ease, opacity 0.4s ease, transform 0.4s ease;
+    opacity: 0.85;
+}
+
+.coming-soon-overlay:hover .coming-soon-text {
+    color: var(--accent-color);
+    opacity: 1;
+    transform: scale(1.02);
+}
+
+.project-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.project-category {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(28, 28, 30, 0.45);
+}
+
+.project-status-badge {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--accent-color);
+    background-color: rgba(0, 122, 255, 0.06);
+    padding: 4px 10px;
+    border-radius: 100px;
+    border: 0.5px solid rgba(0, 122, 255, 0.1);
+}
+
+.project-card-body {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.project-card-body h4 {
+    font-family: var(--font-primary);
+    font-size: 24px;
+    font-weight: var(--weight-semibold);
+    margin-bottom: 12px;
+    color: var(--text-headline);
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+}
+
+.project-desc {
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: rgba(28, 28, 30, 0.65);
+    margin-bottom: 24px;
+    max-width: 90%;
+}
+
+.project-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+    padding-top: 16px;
+    border-top: 0.5px solid rgba(0, 0, 0, 0.05);
+}
+
+.project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.project-tag {
+    font-size: 11px;
+    font-weight: 500;
+    color: rgba(28, 28, 30, 0.55);
+    background-color: var(--bg-secondary);
+    padding: 5px 10px;
+    border-radius: 100px;
+}
+
+.project-year {
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(28, 28, 30, 0.4);
+    font-variant-numeric: tabular-nums;
+}
+
 /* Contact Section */
 .contact-content {
     text-align: left;
@@ -1137,6 +1308,32 @@ footer {
 
     .tile-wide-3 {
         grid-column: span 2;
+    }
+
+    /* Projects Tablet Layout */
+    .projects-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .project-card {
+        padding: 28px;
+        min-height: auto;
+        border-radius: 24px;
+    }
+
+    .project-card-body h4 {
+        font-size: 20px;
+    }
+
+    .project-desc {
+        max-width: 100%;
+        margin-bottom: 16px;
+    }
+
+    .coming-soon-overlay {
+        inset: 0;
+        border-radius: 28px;
     }
 }
 
@@ -2514,6 +2711,41 @@ footer {
     .section-title h3 {
         font-size: 22px;
     }
+
+    /* Projects Mobile Layout */
+    .project-card {
+        padding: 24px 20px;
+        border-radius: 20px;
+    }
+
+    .project-card-body h4 {
+        font-size: 18px;
+    }
+
+    .project-desc {
+        font-size: 13.5px;
+    }
+
+    .project-card-footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .project-year {
+        align-self: flex-end;
+        margin-top: -8px;
+    }
+
+    .coming-soon-overlay {
+        inset: 0;
+        border-radius: 24px;
+    }
+
+    .coming-soon-text {
+        font-size: 14px;
+        letter-spacing: 0.15em;
+    }
 }
 
 
@@ -2695,5 +2927,505 @@ footer {
     .hero-vertical-strip-wrap {
         display: none;
         /* Hide on mobile to prevent clutter and maintain visual purity */
+    }
+}
+
+/* ═══════════════════════════════════════════════════
+   Get In Touch — Premium Split Socials Section
+   ═══════════════════════════════════════════════════ */
+.contact-card-section {
+    padding: 140px 0 60px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 10;
+}
+
+/* Upscaled Grid Layout — Seamless integration with 900px content width */
+.contact-social-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.45fr; /* Balanced asymmetrical ratio */
+    gap: 40px; /* Spacious separation between left and right column */
+    width: 100%;
+    max-width: 100%; /* Fully spans the parental container width */
+    margin: 0 auto;
+}
+
+/* LEFT MAIN PROFILE CARD */
+.socials-left-card {
+    background-color: #F5F5F7; /* Soft Apple off-white surface */
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    border-radius: 32px; /* Smooth luxury rounded corners */
+    padding: 46px 38px; /* Elegant and generous internal spacing */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: left;
+    height: 328px; /* Mathematically matched vertical scale: 96px * 3 + 20px * 2 = 328px */
+    position: relative;
+    overflow: hidden;
+    transform-style: preserve-3d;
+    box-shadow: 
+        0 4px 18px rgba(0, 0, 0, 0.02), 
+        0 12px 30px rgba(0, 0, 0, 0.015),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    animation: float-gentle 6s ease-in-out infinite; /* Organic floating motion when idle */
+    transition: 
+        transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+        background-color 0.5s ease,
+        border-color 0.5s ease,
+        box-shadow 0.5s ease;
+}
+
+/* Pause float animation during hover to let 3D tilt controls take over smoothly */
+.socials-left-card.hovered {
+    animation-play-state: paused;
+    background-color: #FFFFFF; /* Softly brightens on hover */
+    border-color: rgba(0, 0, 0, 0.08);
+    box-shadow: 
+        0 16px 36px rgba(0, 0, 0, 0.05), 
+        0 4px 12px rgba(0, 0, 0, 0.015),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+/* Mouse-coordinate radial glow sweep */
+.socials-left-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(0, 122, 255, 0.06), transparent 50%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.socials-left-card.hovered::after {
+    opacity: 1;
+}
+
+/* Ensure card children sit above the glow backdrop layer */
+.left-card-tag,
+.left-card-center,
+.left-card-location {
+    position: relative;
+    z-index: 2;
+}
+
+.left-card-tag {
+    font-family: var(--font-primary);
+    font-size: 13.5px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #86868B; /* Apple muted gray */
+}
+
+.left-card-center {
+    display: flex;
+    flex-direction: column;
+    gap: 8px; /* Balanced vertical rhythm */
+}
+
+.left-card-name {
+    font-family: var(--font-primary);
+    font-size: 28px; /* Decisive, premium name emphasis */
+    font-weight: 600;
+    color: #1D1D1F; /* Rich Apple black */
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    margin: 0;
+}
+
+.left-card-role {
+    font-family: var(--font-primary);
+    font-size: 14.5px;
+    color: #86868B;
+    margin: 0;
+}
+
+.left-card-location {
+    font-family: var(--font-primary);
+    font-size: 13.5px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: #86868B;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Animated status dot pulse */
+.location-dot-container {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 10px;
+    height: 10px;
+    margin-right: 2px;
+}
+
+.location-dot {
+    width: 6px;
+    height: 6px;
+    background-color: #30D158; /* iOS Active Green */
+    border-radius: 50%;
+    z-index: 2;
+}
+
+.location-dot-pulse {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background-color: #30D158;
+    border-radius: 50%;
+    animation: status-pulse 2s infinite cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 1;
+}
+
+@keyframes status-pulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+    100% {
+        transform: scale(3.2);
+        opacity: 0;
+    }
+}
+
+@keyframes float-gentle {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-4px); /* Calm vertical float idle loop */
+    }
+}
+
+/* RIGHT COLUMN & STACKED ROWS */
+.socials-right-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Spacious bento vertical gap */
+    justify-content: space-between;
+}
+
+.contact-social-row {
+    display: flex;
+    gap: 20px; /* Wide separation between icon block and content rectangle */
+    width: 100%;
+    height: 96px; /* Majestic row visual height */
+    text-decoration: none;
+    color: #1D1D1F;
+}
+
+/* Icon block */
+.social-icon-box {
+    width: 96px;
+    height: 96px;
+    flex-shrink: 0;
+    background-color: #F5F5F7;
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    border-radius: 24px; /* Sleek rounded bento corners */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 
+        0 4px 18px rgba(0, 0, 0, 0.02), 
+        0 12px 30px rgba(0, 0, 0, 0.015),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    transition: 
+        transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+        background-color 0.5s ease,
+        border-color 0.5s ease,
+        box-shadow 0.5s ease;
+}
+
+/* Content rectangle */
+.social-content-box {
+    flex: 1;
+    background-color: #F5F5F7;
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    border-radius: 24px;
+    padding: 0 32px; /* Roomy internal padding */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 
+        0 4px 18px rgba(0, 0, 0, 0.02), 
+        0 12px 30px rgba(0, 0, 0, 0.015),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    transition: 
+        transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+        background-color 0.5s ease,
+        border-color 0.5s ease,
+        box-shadow 0.5s ease;
+}
+
+/* Staggered unified hovers on row elements */
+.contact-social-row:hover .social-icon-box,
+.contact-social-row:hover .social-content-box {
+    background-color: #FFFFFF; /* Softly brightens on hover */
+    border-color: rgba(0, 0, 0, 0.08);
+    transform: translateY(-4px); /* Premium tactile elevation */
+    box-shadow: 
+        0 16px 36px rgba(0, 0, 0, 0.05), 
+        0 4px 12px rgba(0, 0, 0, 0.015),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+/* Subtle platform-specific border sweeps & glow overlays */
+.contact-social-row:hover .bento-behance {
+    border-color: rgba(0, 87, 255, 0.2);
+    box-shadow: 
+        0 16px 36px rgba(0, 0, 0, 0.05), 
+        0 0 25px rgba(0, 87, 255, 0.04);
+}
+
+.contact-social-row:hover .bento-gmail {
+    border-color: rgba(234, 67, 53, 0.2);
+    box-shadow: 
+        0 16px 36px rgba(0, 0, 0, 0.05), 
+        0 0 25px rgba(234, 67, 53, 0.03);
+}
+
+.contact-social-row:hover .bento-linkedin {
+    border-color: rgba(10, 102, 194, 0.2);
+    box-shadow: 
+        0 16px 36px rgba(0, 0, 0, 0.05), 
+        0 0 25px rgba(10, 102, 194, 0.04);
+}
+
+/* Text Content */
+.social-text-content {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    text-align: left;
+}
+
+.social-platform-title {
+    font-family: var(--font-primary);
+    font-size: 16.5px;
+    font-weight: 600;
+    color: #1D1D1F; /* Rich black text */
+    margin: 0;
+}
+
+.social-platform-sub {
+    font-family: var(--font-primary);
+    font-size: 13.5px;
+    color: #86868B; /* Muted address links */
+    transition: color 0.3s ease;
+}
+
+.contact-social-row:hover .social-platform-sub {
+    color: #1D1D1F; /* Highlights to full black on hover */
+}
+
+/* Arrow indicator */
+.social-row-arrow {
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease;
+}
+
+.contact-social-row:hover .social-row-arrow {
+    color: #1D1D1F; /* Turns black and slides on hover */
+    transform: translateX(6px);
+}
+
+/* Icon / Logo Styling & Gentle Rotate Zooms */
+.behance-logo-text {
+    font-family: "Inter", sans-serif;
+    font-weight: 700;
+    font-size: 32px;
+    color: #0057FF;
+    line-height: 1;
+    user-select: none;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.contact-social-row:hover .behance-logo-text {
+    transform: scale(1.06) rotate(3deg); /* Soft logo rotate sweep */
+}
+
+.gmail-logo-svg {
+    width: 32px;
+    height: 32px;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.contact-social-row:hover .gmail-logo-svg {
+    transform: scale(1.06) rotate(-3deg);
+}
+
+.gmail-fallback-path {
+    display: none;
+}
+
+.linkedin-logo-svg {
+    width: 30px;
+    height: 30px;
+    color: #86868B;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), color 0.4s ease;
+}
+
+.contact-social-row:hover .linkedin-logo-svg {
+    color: #0A66C2; /* Vibrant LinkedIn Blue on hover */
+    transform: scale(1.06) rotate(3deg);
+}
+
+/* Responsive Rules */
+
+/* Tablet specific styling: tighter spacing but SAME split structure */
+@media (max-width: 900px) and (min-width: 541px) {
+    .contact-social-grid {
+        gap: 24px;
+        grid-template-columns: 1fr 1.35fr;
+        padding: 0 24px;
+    }
+
+    .socials-left-card {
+        padding: 36px 30px;
+        height: 284px; /* Mathematically matched split height */
+        border-radius: 28px;
+    }
+
+    .left-card-name {
+        font-size: 24px;
+    }
+
+    .socials-right-column {
+        gap: 16px;
+    }
+
+    .contact-social-row {
+        height: 84px;
+        gap: 16px;
+    }
+
+    .social-icon-box {
+        width: 84px;
+        height: 84px;
+        border-radius: 20px;
+    }
+
+    .social-content-box {
+        border-radius: 20px;
+        padding: 0 24px;
+    }
+    
+    .behance-logo-text {
+        font-size: 28px;
+    }
+    
+    .gmail-logo-svg {
+        width: 28px;
+        height: 28px;
+    }
+    
+    .linkedin-logo-svg {
+        width: 26px;
+        height: 26px;
+    }
+}
+
+/* Mobile specific styling: stack vertically */
+@media (max-width: 540px) {
+    .contact-social-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        max-width: 100%;
+        padding: 0 16px;
+    }
+
+    .socials-left-card {
+        height: 210px;
+        padding: 32px 28px;
+        border-radius: 24px;
+    }
+
+    .left-card-name {
+        font-size: 24px;
+    }
+
+    .socials-right-column {
+        gap: 12px;
+    }
+
+    .contact-social-row {
+        height: 72px;
+        gap: 12px;
+    }
+
+    .social-icon-box {
+        width: 72px;
+        height: 72px;
+        border-radius: 18px;
+    }
+
+    .social-content-box {
+        border-radius: 18px;
+        padding: 0 20px;
+    }
+
+    .social-platform-title {
+        font-size: 14.5px;
+    }
+
+    .social-platform-sub {
+        font-size: 12px;
+    }
+
+    .behance-logo-text {
+        font-size: 24px;
+    }
+
+    .gmail-logo-svg {
+        width: 24px;
+        height: 24px;
+    }
+
+    .linkedin-logo-svg {
+        width: 22px;
+        height: 22px;
+    }
+}
+
+/* ═══════════════════════════════════════════════════
+   Socials Mini Footer Style
+   ═══════════════════════════════════════════════════ */
+.socials-mini-footer {
+    width: 100%;
+    text-align: center;
+    margin-top: 60px; /* Elegant gap beneath the bento grid */
+    font-family: var(--font-primary);
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    color: #86868B; /* Soft light gray tone */
+    opacity: 0.45; /* Low opacity */
+    transition: opacity 0.3s ease;
+    user-select: none;
+}
+
+.socials-mini-footer:hover {
+    opacity: 0.85; /* Subtle opacity increase on hover */
+}
+
+@media (max-width: 900px) {
+    .socials-mini-footer {
+        margin-top: 48px;
+    }
+}
+
+@media (max-width: 540px) {
+    .socials-mini-footer {
+        margin-top: 40px;
+        font-size: 10.5px;
     }
 }

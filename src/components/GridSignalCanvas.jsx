@@ -161,7 +161,7 @@ const GridSignalCanvas = () => {
             if (state.state === 'idle') {
                 const cols = Math.floor(canvas.width / gridSpacing);
                 const rows = Math.floor(canvas.height / gridSpacing);
-                
+
                 if (cols > 2 && rows > 2) {
                     const col = Math.max(1, Math.floor(Math.random() * (cols - 1)));
                     const row = Math.max(1, Math.floor(Math.random() * (rows - 1)));
@@ -193,7 +193,7 @@ const GridSignalCanvas = () => {
                         // Spawn random destination sufficiently far from origin
                         const cols = Math.floor(canvas.width / gridSpacing);
                         const rows = Math.floor(canvas.height / gridSpacing);
-                        
+
                         let destCol = Math.max(1, Math.floor(Math.random() * (cols - 1)));
                         let destRow = Math.max(1, Math.floor(Math.random() * (rows - 1)));
                         const startCol = Math.round(o.x / gridSpacing);
