@@ -8,7 +8,7 @@ const Capabilities = () => {
     const currentData = activeTab === 'skills' ? capabilitiesData : hobbiesData;
 
     return (
-        <section id="skills">
+        <section>
             <div className="container">
                 <div className="section-title-container">
                     <div className="section-title" style={{ display: 'flex', alignItems: 'center', height: '40px' }}>

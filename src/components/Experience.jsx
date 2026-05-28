@@ -2,7 +2,7 @@ import React from 'react';
 
 const Experience = () => {
     return (
-        <section id="experience">
+        <section>
             <div className="container section-grid">
                 <div className="section-title">
                     <h3>Experience</h3>

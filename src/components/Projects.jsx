@@ -4,7 +4,7 @@ import { projectsData } from '../data/projects';
 
 const Projects = () => {
     return (
-        <section id="projects">
+        <section>
             <div className="container section-grid">
                 <div className="section-title">
                     <h3>Projects</h3>
