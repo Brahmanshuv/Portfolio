@@ -6,6 +6,7 @@ import About from './components/About';
 import Experience from './components/Experience';
 import Projects from './components/Projects';
 import Capabilities from './components/Capabilities';
+import CaseStudies from './components/CaseStudies';
 import MusicWidget from './components/MusicWidget';
 import SectionWrapper from './components/SectionWrapper';
 import ContactCardSection from './components/ContactCardSection';
@@ -49,20 +50,15 @@ function App() {
                     <Projects />
                 </SectionWrapper>
 
+                <SectionWrapper id="casestudies">
+                    <CaseStudies />
+                </SectionWrapper>
+
                 <SectionWrapper id="skills">
                     <Capabilities />
                 </SectionWrapper>
 
-                <SectionWrapper id="resume">
-                    <div className="container">
-                        <div className="resume-card">
-                            <h3>Resume</h3>
-                            <p className="resume-summary">Download a PDF version of my resume for a detailed overview of my
-                                experience and skills.</p>
-                            <a href="#" className="btn btn-primary" download>Download Resume (PDF)</a>
-                        </div>
-                    </div>
-                </SectionWrapper>
+
 
                 <ContactCardSection />
 

@@ -132,6 +132,9 @@ export default function ContactCardSection() {
     return (
         <section className="contact-card-section" id="contact">
             <div className="container">
+                <div className="section-title">
+                    <h3>Contact</h3>
+                </div>
                 <motion.div 
                     className="contact-social-grid"
                     variants={containerVariants}
@@ -174,7 +177,7 @@ export default function ContactCardSection() {
                         {/* Behance Row */}
                         <motion.a 
                             variants={itemVariants}
-                            href="https://behance.net/brahmanshu-verma" 
+                            href="https://behance.net/brahmanshu" 
                             target="_blank" 
                             rel="noopener noreferrer"
                             className="contact-social-row"
@@ -185,7 +188,7 @@ export default function ContactCardSection() {
                             <div className="social-content-box">
                                 <div className="social-text-content">
                                     <h4 className="social-platform-title">Behance</h4>
-                                    <span className="social-platform-sub">behance.net/brahmanshu-verma</span>
+                                    <span className="social-platform-sub">behance.net/brahmanshu</span>
                                 </div>
                                 <span className="social-row-arrow">→</span>
                             </div>
@@ -194,7 +197,7 @@ export default function ContactCardSection() {
                         {/* Gmail Row */}
                         <motion.a 
                             variants={itemVariants}
-                            href="mailto:brahmanshu.verma@example.com" 
+                            href="mailto:bruhmanshu@gmail.com" 
                             className="contact-social-row"
                         >
                             <div className="social-icon-box bento-gmail">
@@ -214,7 +217,7 @@ export default function ContactCardSection() {
                             <div className="social-content-box">
                                 <div className="social-text-content">
                                     <h4 className="social-platform-title">Email</h4>
-                                    <span className="social-platform-sub">brahmanshu.verma@example.com</span>
+                                    <span className="social-platform-sub">bruhmanshu@gmail.com</span>
                                 </div>
                                 <span className="social-row-arrow">→</span>
                             </div>
@@ -223,7 +226,7 @@ export default function ContactCardSection() {
                         {/* LinkedIn Row */}
                         <motion.a 
                             variants={itemVariants}
-                            href="https://linkedin.com/in/brahmanshu-verma" 
+                            href="https://linkedin.com/in/brahmanshu" 
                             target="_blank" 
                             rel="noopener noreferrer"
                             className="contact-social-row"
@@ -236,7 +239,7 @@ export default function ContactCardSection() {
                             <div className="social-content-box">
                                 <div className="social-text-content">
                                     <h4 className="social-platform-title">LinkedIn</h4>
-                                    <span className="social-platform-sub">linkedin.com/in/brahmanshu-verma</span>
+                                    <span className="social-platform-sub">linkedin.com/in/brahmanshu</span>
                                 </div>
                                 <span className="social-row-arrow">→</span>
                             </div>
