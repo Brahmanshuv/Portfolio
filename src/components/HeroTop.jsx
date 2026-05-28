@@ -12,10 +12,6 @@ const HeroTop = () => {
     const textRef = useRef(null);
     const textParallaxRef = useRef(null);
     const cardRef = useRef(null);
-    const glowOrbRef = useRef(null);
-    const gridRef = useRef(null);
-    const bgRef = useRef(null);
-    const cursorGlowRef = useRef(null);
     const verticalListFgRef = useRef(null);
     const verticalListBgRef = useRef(null);
     const verticalWrapFgRef = useRef(null);
@@ -155,29 +151,7 @@ const HeroTop = () => {
                     `rotateX(${c.x}deg) rotateY(${c.y}deg)`;
             }
 
-            // Parallax — background layer (0.2x)
-            if (bgRef.current) {
-                bgRef.current.style.transform =
-                    `translateZ(-200px) scale(1.4) translate(${c.y * 0.2}px, ${c.x * 0.2}px)`;
-            }
 
-            // Parallax — grid layer (0.5x)
-            if (gridRef.current) {
-                gridRef.current.style.transform =
-                    `translateZ(-100px) scale(1.2) translate(${c.y * 0.5}px, ${c.x * 0.5}px)`;
-            }
-
-            // Parallax — atmospheric glow (0.8x)
-            if (glowOrbRef.current) {
-                glowOrbRef.current.style.transform =
-                    `translateZ(80px) translate(${c.y * 2}px, ${c.x * 2}px)`;
-            }
-
-            // Cursor light
-            if (cursorGlowRef.current) {
-                cursorGlowRef.current.style.background =
-                    `radial-gradient(600px at ${c.mx}px ${c.my}px, rgba(255,255,255,0.07), transparent 80%)`;
-            }
 
             // Parallax — Foreground Glass Typography (moves slightly faster/closer)
             if (textParallaxRef.current) {
@@ -411,22 +385,6 @@ const HeroTop = () => {
                     {/* 3D SCENE — rotates with cursor */}
                     <div ref={sceneRef} className="hero-top-scene">
 
-                        {/* LAYER 1: Background gradient (deepest, moves least) */}
-                        <div ref={bgRef} className="hero-top-layer hero-top-bg-layer">
-                            <div className="hero-top-gradient" />
-                        </div>
-
-                        {/* LAYER 2: Noise texture */}
-                        <div className="hero-top-layer hero-top-noise" />
-
-                        {/* LAYER 3: Ambient grid */}
-                        <div ref={gridRef} className="hero-top-layer hero-top-grid">
-                            <GridSignalCanvas />
-                        </div>
-
-                        {/* LAYER 4: Atmospheric glow orb (behind text) */}
-                        <div ref={glowOrbRef} className="hero-top-layer hero-top-orb" />
-
                         {/* Kinetic Left Vertical Text Strip (Foreground depth 40px) */}
                         <div ref={verticalWrapFgRef} className="hero-vertical-strip-wrap fg">
                             <div ref={verticalListFgRef} className="hero-vertical-strip-list">
@@ -534,9 +492,6 @@ const HeroTop = () => {
 
 
                     </div>{/* end scene */}
-
-                    {/* LAYER 6: Cursor light (outside scene so it doesn't rotate) */}
-                    <div ref={cursorGlowRef} className="hero-top-cursor-glow" />
 
                     {/* LAYER 7: Info card (outside scene) */}
                     <div ref={cardRef} className="hero-top-card">

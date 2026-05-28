@@ -25,7 +25,7 @@ const Navbar = () => {
     // Handle Scroll Effect for Header
     useEffect(() => {
         const handleScroll = () => {
-            if (window.scrollY > 24) {
+            if (window.scrollY > 60) {
                 setIsScrolled(true);
             } else {
                 setIsScrolled(false);

@@ -11,6 +11,7 @@ import SectionWrapper from './components/SectionWrapper';
 import ContactCardSection from './components/ContactCardSection';
 import PoweringTheFuture from './components/PoweringTheFuture';
 import LoadingScreen from './components/LoadingScreen';
+import GlobalBackground from './components/GlobalBackground';
 
 // Feature toggle to easily show/hide the scroll-driven typography section at the bottom
 const SHOW_POWERING_THE_FUTURE = false;
@@ -20,6 +21,8 @@ function App() {
 
     return (
         <>
+            <GlobalBackground />
+
             {/* Loading screen — AnimatePresence handles the smooth exit unmount */}
             <AnimatePresence mode="wait">
                 {isLoading && (

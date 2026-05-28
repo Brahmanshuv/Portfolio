@@ -205,10 +205,10 @@ export default function ContactCardSection() {
                                     {/* Google colors segmentation */}
                                     <path d="M4 20h3v-9.5L12 14l5-3.5V20h3V6c0-1.1-.9-2-2-2h-3v7.5L12 12 7 9.5V4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2z" fill="currentColor" className="gmail-fallback-path" />
                                     {/* Distinct segments for Google branding */}
-                                    <path d="M3 20V6c0-.55.45-1 1-1h3v9.5L3 20z" fill="#4285F4" />
-                                    <path d="M21 20V6c0-.55-.45-1-1-1h-3v9.5L21 20z" fill="#34A853" />
-                                    <path d="M7 14.5l5-3.5 5 3.5V20h-3v-5.5l-2-1.5-2 1.5V20H7v-5.5z" fill="#EA4335" />
-                                    <path d="M7 4h10v2.5H7z" fill="#FBBC05" />
+                                    <path d="M3 20V6c0-.55.45-1 1-1h3v9.5L3 20z" fill="#4285F4" className="gmail-path-blue" />
+                                    <path d="M21 20V6c0-.55-.45-1-1-1h-3v9.5L21 20z" fill="#34A853" className="gmail-path-green" />
+                                    <path d="M7 14.5l5-3.5 5 3.5V20h-3v-5.5l-2-1.5-2 1.5V20H7v-5.5z" fill="#EA4335" className="gmail-path-red" />
+                                    <path d="M7 4h10v2.5H7z" fill="#FBBC05" className="gmail-path-yellow" />
                                 </svg>
                             </div>
                             <div className="social-content-box">

@@ -26,12 +26,16 @@ const GridSignalCanvas = () => {
         // Sync canvas drawing resolution to its actual display container width/height
         const handleResize = () => {
             const parent = canvas.parentElement;
-            if (parent) {
-                canvas.width = parent.clientWidth;
-                canvas.height = parent.clientHeight;
+            const w = parent ? parent.clientWidth : 0;
+            const h = parent ? parent.clientHeight : 0;
+
+            if (w > 0 && h > 0) {
+                canvas.width = w;
+                canvas.height = h;
             } else {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
+                // Fallback to full viewport dimensions plus bleed to avoid mounting layout delay races
+                canvas.width = window.innerWidth + 120;
+                canvas.height = window.innerHeight + 120;
             }
         };
 
