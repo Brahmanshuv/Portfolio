@@ -953,9 +953,20 @@ section {
     border-color: rgba(255, 255, 255, 0.12);
 }
 
-/* === Grid Placement === */
+/* === Grid Placement — Unified Anchored System === */
+/*
+ * ARCHITECTURE:
+ * Each tile has a fixed DOM position (tile-1 through tile-8).
+ * Skills and Hobbies modes change ONLY the grid-column/grid-row spans.
+ * Tiles never reorder, never swap positions, never jump.
+ * They only expand/compress/stretch within the same grid cell anchor.
+ *
+ * CSS Grid handles the layout reflow automatically.
+ * The .bento-tile transition property (see below) smooths the resize.
+ */
 
-/* Row 1 & 2 Block */
+/* ── SKILLS MODE (Default) ── */
+
 .tile-2x2 {
     grid-column: span 2;
     grid-row: span 2;
@@ -966,13 +977,11 @@ section {
     grid-row: span 2;
 }
 
-/* Stacked Medium Tiles in Col 4 */
 .tile-manual {
     grid-column: span 1;
     grid-row: span 1;
 }
 
-/* Row 3 (Middle Visual Band) */
 .tile-micro {
     grid-column: span 1;
     grid-row: span 1;
@@ -981,18 +990,14 @@ section {
 
 .tile-3d {
     grid-column: span 3;
-    /* Span 3 cols for impact */
     grid-row: span 1;
 }
 
-/* Row 4 (Bottom Band) */
 .tile-wide-3 {
     grid-column: span 3;
     grid-row: span 1;
-    /* Vertically center the content block inside the short horizontal card */
     justify-content: center;
     align-items: stretch;
-    /* full-width so text stays left-aligned */
 }
 
 .tile-small-statement {
@@ -1002,8 +1007,206 @@ section {
     justify-content: center;
     align-items: center;
     text-align: center;
-    /* Frosted glass inherited from .bento-tile, just add subtle text shadow for extra legibility */
     text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* ── HOBBIES MODE — Anchored Resize Variants ── */
+/*
+ * These classes are applied to the SAME tiles (same DOM order).
+ * They only change how many columns/rows the tile spans.
+ * The tile stays in its natural grid flow position.
+ */
+
+/* Tile 1: was 2x2, becomes tall 1-col column */
+.tile-h-tall {
+    grid-column: span 1;
+    grid-row: span 2;
+}
+
+/* Tile 2: was tall 1-col, becomes 2x2 dominant */
+.tile-h-2x2 {
+    grid-column: span 2;
+    grid-row: span 2;
+}
+
+/* Tile 5: was 1x1 micro, becomes 2-col wide bar */
+.tile-h-wide {
+    grid-column: span 2;
+    grid-row: span 1;
+    justify-content: center;
+}
+
+/* Tile 6: was 3-col wide, compresses to 2-col */
+.tile-h-compact {
+    grid-column: span 2;
+    grid-row: span 1;
+}
+
+/* Tile 7: was 3-col bar, becomes 3-col (same width, just re-labeled) */
+.tile-h-bar {
+    grid-column: span 3;
+    grid-row: span 1;
+    justify-content: center;
+    align-items: stretch;
+}
+
+/* Tile 8: was 1-col statement, stays 1-col */
+.tile-h-statement {
+    grid-column: span 1;
+    grid-row: span 1;
+    color: rgba(255, 255, 255, 0.92);
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* ── Content Wrapper Fade/Blur Transitions ── */
+/*
+ * Default state = VISIBLE (prevents flash-of-hidden on page load).
+ * .hidden class fades content out during structural morph.
+ * Text NEVER animates during aggressive grid resizing.
+ */
+.tile-content-wrapper {
+    opacity: 1;
+    filter: blur(0px);
+    transform: scale(1);
+    transition:
+        opacity 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+        filter 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, filter, transform;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.tile-content-wrapper.hidden {
+    opacity: 0;
+    filter: blur(8px);
+    transform: scale(0.96);
+    transition-duration: 0.22s;
+    transition-delay: 0ms !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   STRUCTURAL MORPH — Glow & FX System
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Morph glow pulse — cascading blue-tinted energy during recalculation */
+@keyframes morphGlow {
+    0%, 100% {
+        border-color: rgba(255, 255, 255, 0.06);
+        box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.05),
+            0 10px 30px rgba(0, 0, 0, 0.25);
+    }
+    25% {
+        border-color: rgba(120, 180, 255, 0.20);
+        box-shadow:
+            inset 0 1px 0 rgba(120, 180, 255, 0.10),
+            0 14px 45px rgba(0, 0, 0, 0.35),
+            0 0 35px rgba(100, 170, 255, 0.08);
+    }
+    50% {
+        border-color: rgba(80, 160, 255, 0.14);
+        box-shadow:
+            inset 0 1px 0 rgba(80, 160, 255, 0.06),
+            0 12px 38px rgba(0, 0, 0, 0.30),
+            0 0 20px rgba(80, 160, 255, 0.05);
+    }
+    75% {
+        border-color: rgba(140, 200, 255, 0.18);
+        box-shadow:
+            inset 0 1px 0 rgba(140, 200, 255, 0.08),
+            0 16px 50px rgba(0, 0, 0, 0.38),
+            0 0 40px rgba(120, 190, 255, 0.07);
+    }
+}
+
+/* Applied per-tile during active morph phases */
+.bento-tile.morph-glow {
+    animation: morphGlow 2.0s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+    z-index: 1;
+}
+
+/* ── Disable interactive hover effects & transitions during structural morph ── */
+.bento-grid.morph-active .bento-tile {
+    pointer-events: none;
+    transition: none !important; /* Prevent CSS transitions from fighting Framer Motion WAAPI layout engine */
+}
+
+.bento-grid.morph-active:hover .bento-tile:not(:hover) {
+    opacity: 1 !important;
+    filter: none !important;
+    transform: none !important;
+}
+
+.bento-grid.morph-active .bento-tile:hover {
+    transform: none !important;
+    box-shadow: inherit !important;
+    border-radius: inherit !important;
+}
+
+/* ── Hobbies Mode: Volumetric slow-rotating atmospheric radial glow ── */
+.hobbies-radial-glow {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(
+        circle at 50% 50%,
+        rgba(0, 122, 255, 0.04) 0%,
+        rgba(100, 180, 255, 0.015) 30%,
+        rgba(255, 255, 255, 0.003) 60%,
+        transparent 80%
+    );
+    pointer-events: none;
+    z-index: 0;
+    will-change: transform;
+    animation: rotateGlow 16s linear infinite;
+    opacity: 0.85;
+}
+
+@keyframes rotateGlow {
+    0% {
+        transform: rotate(0deg) translate(0px, 0px) scale(1);
+    }
+    33% {
+        transform: rotate(120deg) translate(-8px, 12px) scale(1.06);
+    }
+    66% {
+        transform: rotate(240deg) translate(6px, -10px) scale(0.95);
+    }
+    100% {
+        transform: rotate(360deg) translate(0px, 0px) scale(1);
+    }
+}
+
+/* Sweeping premium glass reflection highlight across tile surface during morphing */
+.bento-tile-reflection {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.05) 35%,
+        rgba(255, 255, 255, 0.08) 45%,
+        rgba(255, 255, 255, 0.12) 50%,
+        rgba(255, 255, 255, 0.04) 55%,
+        rgba(255, 255, 255, 0.01) 65%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    pointer-events: none;
+    z-index: 1;
+    mix-blend-mode: overlay;
+    will-change: transform;
 }
 
 /* === Visual Tile Styles (CSS Art) === */
@@ -1016,7 +1219,8 @@ section {
     position: relative;
 }
 
-.tile-3d {
+.tile-3d,
+.tile-h-compact {
     background: linear-gradient(135deg,
             rgba(7, 9, 13, 0.4) 0%,
             rgba(17, 22, 29, 0.4) 100%);
@@ -1041,7 +1245,8 @@ section {
 }
 
 /* Large Tile Specifics */
-.tile-2x2 h4 {
+.tile-2x2 h4,
+.tile-h-2x2 h4 {
     font-size: 28px;
     /* Major heading */
     margin-bottom: 16px;
@@ -1412,25 +1617,36 @@ footer {
     .tile-micro,
     .tile-3d,
     .tile-wide-3,
-    .tile-small-statement {
+    .tile-small-statement,
+    .tile-h-tall,
+    .tile-h-2x2,
+    .tile-h-wide,
+    .tile-h-compact,
+    .tile-h-bar,
+    .tile-h-statement {
         grid-column: span 1;
         grid-row: span 1;
     }
 
     /* Tablet Specific Spans */
-    .tile-2x2 {
+    .tile-2x2,
+    .tile-h-2x2,
+    .tile-h-bar {
         grid-column: span 2;
     }
 
-    .tile-tall {
+    .tile-tall,
+    .tile-h-tall {
         grid-row: span 2;
     }
 
-    .tile-3d {
+    .tile-3d,
+    .tile-h-compact {
         grid-column: span 2;
     }
 
-    .tile-wide-3 {
+    .tile-wide-3,
+    .tile-h-wide {
         grid-column: span 2;
     }
 
@@ -1679,7 +1895,13 @@ footer {
     .tile-micro,
     .tile-3d,
     .tile-wide-3,
-    .tile-small-statement {
+    .tile-small-statement,
+    .tile-h-tall,
+    .tile-h-2x2,
+    .tile-h-wide,
+    .tile-h-compact,
+    .tile-h-bar,
+    .tile-h-statement {
         grid-column: span 1 !important;
         grid-row: auto !important;
         min-height: auto;
@@ -2069,7 +2291,8 @@ footer {
 
 /* Grid Container Focus State */
 /* When the grid is hovered, we want to know so we can dim non-hovered items */
-.bento-grid:hover .bento-tile:not(:hover) {
+/* Disabled during morph-active via higher-specificity rules above */
+.bento-grid:not(.morph-active):hover .bento-tile:not(:hover) {
     opacity: 0.45;
     /* Dim adjacent tiles */
     filter: blur(1px) grayscale(20%);
@@ -2151,12 +2374,14 @@ footer {
 }
 
 /* Adjustments for specific tiles to ensure visibility */
-.tile-small-statement .micro-description {
+.tile-small-statement .micro-description,
+.tile-h-statement .micro-description {
     display: none;
     /* Hide for the small statement tile as it's too cramped */
 }
 
-.tile-micro .micro-description {
+.tile-micro .micro-description,
+.tile-h-wide .micro-description {
     bottom: 12px;
     right: 12px;
     font-size: 10px;
@@ -2636,7 +2861,8 @@ footer {
         margin-bottom: 10px;
     }
 
-    .tile-2x2 h4 {
+    .tile-2x2 h4,
+    .tile-h-2x2 h4 {
         font-size: 22px;
         margin-bottom: 12px;
     }
@@ -2838,7 +3064,8 @@ footer {
         min-width: 32px;
     }
 
-    .tile-2x2 h4 {
+    .tile-2x2 h4,
+    .tile-h-2x2 h4 {
         font-size: 20px;
     }
 

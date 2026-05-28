@@ -1,163 +1,99 @@
 import React from 'react';
 
-export const capabilitiesData = [
-    {
-        id: 'system-thinking',
-        className: 'tile-2x2 tile-dominant',
-        type: 'content',
-        content: {
-            title: <>System-Level<br />Product Thinking</>,
-            desc: "Designing scalable, modular interfaces grounded in interaction logic and architectural clarity.",
-            tags: ["Component frameworks", "Pattern libraries", "UX scalability", "Structural decision-making"],
-            micro: "SCALABLE LOGIC"
-        }
-    },
-    {
-        id: 'interaction-arch',
-        className: 'tile-tall tile-visual-interact',
-        type: 'visual',
-        content: {
-            title: <>Interaction<br />Architecture</>,
-            caption: "Flows · States · Behaviors · Edge cases",
-            micro: "USER FLOW"
-        }
-    },
-    {
-        id: 'experience-design',
-        className: 'tile-manual',
-        type: 'list',
-        content: {
-            title: "Experience Design",
-            list: ["User journeys", "Information architecture", "High-fidelity prototyping", "Micro-interactions"],
-            micro: "JOURNEY MAP"
-        }
-    },
-    {
-        id: 'research-val',
-        className: 'tile-manual',
-        type: 'list',
-        content: {
-            title: "Research & Validation",
-            list: ["User interviews", "Usability testing", "Behavior analysis", "Iteration cycles"],
-            micro: "DATA DRIVEN"
-        }
-    },
-    {
-        id: 'pixel-perfect',
-        className: 'tile-micro',
-        type: 'simple-list',
-        content: {
-            list: ["Typography", "Spacing", "Rhythm", "Precision"],
-            micro: "PIXEL PERFECT"
-        }
-    },
-    {
-        id: '3d-spatial',
-        className: 'tile-3d',
-        type: 'visual',
-        content: {
-            title: <>3D & Spatial<br />Systems</>,
-            caption: "Motion · Depth · Product Visualization",
-            micro: "SPATIAL UI"
-        }
-    },
-    {
-        id: 'tech-stack',
-        className: 'tile-wide-3',
-        type: 'text',
-        content: {
-            title: "Design Environment",
-            text: "Figma · Blender · Adobe Suite · Miro · Unreal Engine",
-            micro: "TECH STACK"
-        }
-    },
-    {
-        id: 'clarity',
-        className: 'tile-small-statement',
-        type: 'statement',
-        content: {
-            text: "Clarity > Complexity"
-        }
-    }
-];
+/**
+ * Unified tile data — each tile has a stable `id` and fixed DOM index.
+ * Skills content is fully specified.
+ * Hobbies state is a PURE structural transformation — no content.
+ *
+ * Grid sizing per mode is driven entirely by inline gridColumn/gridRow
+ * styles in the Capabilities component, so no CSS class switching needed.
+ */
 
-export const hobbiesData = [
+export const tilesData = [
     {
-        id: 'system-thinking',
-        className: 'tile-2x2 tile-dominant',
-        type: 'content',
-        content: {
-            title: <>Photography &<br />Visual Storytelling</>,
-            desc: "Capturing details, light play, and visual compositions that influence digital hierarchy and interface design.",
-            tags: ["Atmospheric lighting", "Framing & focus", "Visual rhythm", "Composition grids"],
-            micro: "LIGHT & SHADOW"
-        }
+        id: 'tile-1',
+        skills: {
+            type: 'content',
+            content: {
+                title: <>System-Level<br />Product Thinking</>,
+                desc: "Designing scalable, modular interfaces grounded in interaction logic and architectural clarity.",
+                tags: ["Component frameworks", "Pattern libraries", "UX scalability", "Structural decision-making"],
+                micro: "SCALABLE LOGIC"
+            }
+        },
     },
     {
-        id: 'interaction-arch',
-        className: 'tile-tall tile-visual-interact',
-        type: 'visual',
-        content: {
-            title: <>Cinematic<br />Editing</>,
-            caption: "Timing · Color Grading · Pacing · Storyboarding",
-            micro: "MOTION DESIGN"
-        }
+        id: 'tile-2',
+        skills: {
+            type: 'visual',
+            content: {
+                title: <>Interaction<br />Architecture</>,
+                caption: "Flows · States · Behaviors · Edge cases",
+                micro: "USER FLOW"
+            }
+        },
     },
     {
-        id: 'experience-design',
-        className: 'tile-manual',
-        type: 'list',
-        content: {
-            title: "Gaming & Worlds",
-            list: ["Immersive worlds", "Interactive UX loops", "System mechanics", "HUD layouts"],
-            micro: "INTERACTION LOOPS"
-        }
+        id: 'tile-3',
+        skills: {
+            type: 'list',
+            content: {
+                title: "Experience Design",
+                list: ["User journeys", "Information architecture", "High-fidelity prototyping", "Micro-interactions"],
+                micro: "JOURNEY MAP"
+            }
+        },
     },
     {
-        id: 'research-val',
-        className: 'tile-manual',
-        type: 'list',
-        content: {
-            title: "Music Discovery",
-            list: ["Sound curation", "Rhythm analysis", "Acoustic vibes", "Ambient soundscapes"],
-            micro: "AMBIENT SOUND"
-        }
+        id: 'tile-4',
+        skills: {
+            type: 'list',
+            content: {
+                title: "Research & Validation",
+                list: ["User interviews", "Usability testing", "Behavior analysis", "Iteration cycles"],
+                micro: "DATA DRIVEN"
+            }
+        },
     },
     {
-        id: 'pixel-perfect',
-        className: 'tile-micro',
-        type: 'simple-list',
-        content: {
-            list: ["Discipline", "Consistency", "Endurance", "Metrics"],
-            micro: "PHYSICAL DRIVE"
-        }
+        id: 'tile-5',
+        skills: {
+            type: 'simple-list',
+            content: {
+                list: ["Typography", "Spacing", "Rhythm", "Precision"],
+                micro: "PIXEL PERFECT"
+            }
+        },
     },
     {
-        id: '3d-spatial',
-        className: 'tile-3d',
-        type: 'visual',
-        content: {
-            title: <>3D Experiments &<br />Virtual Art</>,
-            caption: "Shaders · Rigging · Realtime Rendering · Lighting",
-            micro: "BLENDER WORKFLOW"
-        }
+        id: 'tile-6',
+        skills: {
+            type: 'visual',
+            content: {
+                title: <>3D & Spatial<br />Systems</>,
+                caption: "Motion · Depth · Product Visualization",
+                micro: "SPATIAL UI"
+            }
+        },
     },
     {
-        id: 'tech-stack',
-        className: 'tile-wide-3',
-        type: 'text',
-        content: {
-            title: "Tech Exploration",
-            text: "Smart Home Automation · Hardware Mods · AI Tinkering · Open Source Systems",
-            micro: "FUTURE TECH"
-        }
+        id: 'tile-7',
+        skills: {
+            type: 'text',
+            content: {
+                title: "Design Environment",
+                text: "Figma · Blender · Adobe Suite · Miro · Unreal Engine",
+                micro: "TECH STACK"
+            }
+        },
     },
     {
-        id: 'clarity',
-        className: 'tile-small-statement',
-        type: 'statement',
-        content: {
-            text: "Code = Creative Outlet"
-        }
+        id: 'tile-8',
+        skills: {
+            type: 'statement',
+            content: {
+                text: "Clarity > Complexity"
+            }
+        },
     }
 ];

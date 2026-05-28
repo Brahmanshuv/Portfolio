@@ -8,10 +8,16 @@ import { motion } from 'framer-motion';
 const BentoTile = React.memo(({ className, children, ...props }) => {
     return (
         <motion.div
+            layout
             className={`bento-tile ${className || ''}`}
             whileHover={{
                 y: -5,
                 transition: { duration: 0.35, ease: [0.16, 1, 0.3, 1] },
+            }}
+            transition={{
+                type: "spring",
+                stiffness: 400,
+                damping: 38,
             }}
             {...props}
         >
