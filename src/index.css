@@ -4138,3 +4138,73 @@ footer {
     justify-content: space-between;
     flex-grow: 1;
 }
+/* Lenis Smooth Scroll base styles */
+html.lenis, html.lenis body {
+  height: auto;
+}
+.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis-stopped {
+  overflow: hidden;
+}
+.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   High-End Editorial Case Study System Responsive Styling
+   ========================================================================== */
+@media (max-width: 1024px) {
+    .journey-grid-responsive {
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 16px !important;
+    }
+    .principles-grid-responsive {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 20px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .journey-grid-responsive {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 12px !important;
+    }
+    .layout-2col-responsive {
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+    }
+    .principles-grid-responsive {
+        grid-template-columns: 1fr !important;
+        gap: 16px !important;
+    }
+    .layout-grid-responsive {
+        grid-template-columns: 1fr !important;
+        gap: 24px !important;
+    }
+    .solution-text-col, .solution-img-col {
+        grid-column: 1 / -1 !important;
+        grid-row: auto !important;
+    }
+    .highlight-panel-responsive {
+        padding: 30px !important;
+    }
+    .paradigm-diagram-responsive {
+        flex-direction: column !important;
+        gap: 20px !important;
+        text-align: center !important;
+    }
+    .paradigm-block {
+        text-align: center !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .journey-grid-responsive {
+        grid-template-columns: 1fr !important;
+    }
+}

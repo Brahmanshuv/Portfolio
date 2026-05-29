@@ -88,6 +88,51 @@ const TILE_CLASSES = [
     'tile-small-statement',
 ];
 
+// Entrance Animation Variants for Skills (Capabilities) Section
+const containerVariants = {
+    hidden: {},
+    visible: {
+        transition: {
+            staggerChildren: 0.15
+        }
+    }
+};
+
+const headerVariants = {
+    hidden: { opacity: 0, y: 15 },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: {
+            duration: 0.7,
+            ease: [0.22, 1, 0.36, 1] // Soft ease-in-out curve
+        }
+    }
+};
+
+const gridVariants = {
+    hidden: {},
+    visible: {
+        transition: {
+            staggerChildren: 0.08, // Premium bento stagger reveal
+            delayChildren: 0.15 // Let header start fading first
+        }
+    }
+};
+
+const tileVariants = {
+    hidden: { opacity: 0, y: 25, scale: 0.98 },
+    visible: {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        transition: {
+            duration: 0.9,
+            ease: [0.22, 1, 0.36, 1] // Cinematic soft ease-in-out curve
+        }
+    }
+};
+
 const Capabilities = () => {
     const [activeTab, setActiveTab] = useState('skills');
     const [gridPhase, setGridPhase] = useState('skills');
@@ -223,9 +268,14 @@ const Capabilities = () => {
     };
 
     return (
-        <section>
-            <div className="container">
-                <div className="section-title-container">
+        <motion.div 
+            className="container"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.15 }}
+        >
+                <motion.div className="section-title-container" variants={headerVariants}>
                     <div className="section-title" style={{ display: 'flex', alignItems: 'center', height: '40px' }}>
                         <AnimatePresence mode="wait">
                             <motion.h3
@@ -291,17 +341,21 @@ const Capabilities = () => {
                             />
                         </motion.div>
                     </button>
-                </div>
+                </motion.div>
 
                 {/* ═══ BENTO GRID — PREMIUM ADAPTIVE SPATIAL SOLVER ═══ */}
                 <LayoutGroup>
-                    <div className={`bento-grid ${morphActive ? 'morph-active' : ''}`}>
+                    <motion.div 
+                        className={`bento-grid ${morphActive ? 'morph-active' : ''}`}
+                        variants={gridVariants}
+                    >
                         {tilesData.map((tile, index) => {
                             const spring = TILE_SPRINGS[index];
 
                             return (
                                 <motion.div
                                     key={tile.id}
+                                    variants={tileVariants}
                                     layout
                                     layoutId={tile.id}
                                     transition={{
@@ -361,10 +415,9 @@ const Capabilities = () => {
                                 </motion.div>
                             );
                         })}
-                    </div>
+                    </motion.div>
                 </LayoutGroup>
-            </div>
-        </section>
+            </motion.div>
     );
 };
 

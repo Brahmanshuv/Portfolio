@@ -111,36 +111,52 @@ export default function ContactCardSection() {
         visible: {
             opacity: 1,
             transition: {
-                staggerChildren: 0.12,
-                delayChildren: 0.05
+                staggerChildren: 0.2, // slower stagger for premium final reveal
+                delayChildren: 0.1
             }
         }
     };
 
-    const itemVariants = {
-        hidden: { opacity: 0, y: 30 },
+    const titleVariants = {
+        hidden: { opacity: 0, y: 15 },
         visible: {
             opacity: 1,
             y: 0,
             transition: {
                 duration: 0.8,
-                ease: [0.16, 1, 0.3, 1] // Luxurious Apple ease-out curve
+                ease: [0.22, 1, 0.36, 1]
+            }
+        }
+    };
+
+    const itemVariants = {
+        hidden: { opacity: 0, y: 35, scale: 0.98 }, // 35px translateY within range + subtle scale-in
+        visible: {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            transition: {
+                duration: 1.4, // slowest and smoothest reveal
+                ease: [0.22, 1, 0.36, 1] // Cinematic case-study ease-in-out curve
             }
         }
     };
 
     return (
         <section className="contact-card-section" id="contact">
-            <div className="container">
-                <div className="section-title">
+            <motion.div 
+                className="container"
+                variants={containerVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.25 }}
+            >
+                <motion.div className="section-title" variants={titleVariants}>
                     <h3>Contact</h3>
-                </div>
+                </motion.div>
                 <motion.div 
                     className="contact-social-grid"
                     variants={containerVariants}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, margin: "-120px" }}
                 >
                     
                     {/* LEFT MAIN CARD */}
@@ -251,7 +267,7 @@ export default function ContactCardSection() {
                 <div className="socials-mini-footer">
                     © Brahmanshu Verma — Hobbies left the game.
                 </div>
-            </div>
+            </motion.div>
         </section>
     );
 }
