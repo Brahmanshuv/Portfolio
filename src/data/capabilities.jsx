@@ -16,8 +16,8 @@ export const tilesData = [
             type: 'content',
             content: {
                 title: <>System-Level<br />Product Thinking</>,
-                desc: "Designing scalable, modular interfaces grounded in interaction logic and architectural clarity.",
-                tags: ["Component frameworks", "Pattern libraries", "UX scalability", "Structural decision-making"],
+                desc: "", // Removed description completely as requested
+                tags: ["Design Systems", "User Flows", "Information Architecture", "Scalability", "Problem Solving", "Product Strategy"],
                 micro: "SCALABLE LOGIC"
             }
         },
@@ -25,10 +25,10 @@ export const tilesData = [
     {
         id: 'tile-2',
         skills: {
-            type: 'visual',
+            type: 'list',
             content: {
-                title: <>Interaction<br />Architecture</>,
-                caption: "Flows · States · Behaviors · Edge cases",
+                title: "Interaction Architecture",
+                list: ["User Flows", "Navigation", "States", "Edge Cases", "Interactions", "Prototyping"],
                 micro: "USER FLOW"
             }
         },
@@ -39,7 +39,7 @@ export const tilesData = [
             type: 'list',
             content: {
                 title: "Experience Design",
-                list: ["User journeys", "Information architecture", "High-fidelity prototyping", "Micro-interactions"],
+                list: ["User Journeys", "Information Architecture", "Wireframing", "Prototyping"],
                 micro: "JOURNEY MAP"
             }
         },
@@ -50,7 +50,7 @@ export const tilesData = [
             type: 'list',
             content: {
                 title: "Research & Validation",
-                list: ["User interviews", "Usability testing", "Behavior analysis", "Iteration cycles"],
+                list: ["User Research", "Usability Testing", "Analysis", "Iteration"],
                 micro: "DATA DRIVEN"
             }
         },
@@ -58,9 +58,10 @@ export const tilesData = [
     {
         id: 'tile-5',
         skills: {
-            type: 'simple-list',
+            type: 'list',
             content: {
-                list: ["Typography", "Spacing", "Rhythm", "Precision"],
+                title: "Typography",
+                list: ["Hierarchy", "Spacing", "Consistency", "Readability"],
                 micro: "PIXEL PERFECT"
             }
         },
@@ -68,10 +69,10 @@ export const tilesData = [
     {
         id: 'tile-6',
         skills: {
-            type: 'visual',
+            type: 'grid-list',
             content: {
                 title: <>3D & Spatial<br />Systems</>,
-                caption: "Motion · Depth · Product Visualization",
+                list: ["Blender", "Motion", "Product Visualization", "3D Design", "Rendering", "Animation"],
                 micro: "SPATIAL UI"
             }
         },
@@ -79,10 +80,10 @@ export const tilesData = [
     {
         id: 'tile-7',
         skills: {
-            type: 'text',
+            type: 'chips',
             content: {
                 title: "Design Environment",
-                text: "Figma · Blender · Adobe Suite · Miro · Unreal Engine",
+                list: ["Figma", "Blender", "Adobe", "Miro", "ChatGPT", "Antigravity"],
                 micro: "TECH STACK"
             }
         },

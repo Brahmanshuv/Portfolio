@@ -2,11 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import Navbar from './components/Navbar';
 import HeroTop from './components/HeroTop';
-import About from './components/About';
 import Experience from './components/Experience';
-import Projects from './components/Projects';
+import SelectedWork from './components/SelectedWork';
 import Capabilities from './components/Capabilities';
-import CaseStudies from './components/CaseStudies';
 import MusicWidget from './components/MusicWidget';
 import SectionWrapper from './components/SectionWrapper';
 import ContactCardSection from './components/ContactCardSection';
@@ -87,27 +85,23 @@ function App() {
             </AnimatePresence>
 
             {isProjectPage ? (
-                <ProjectDetail project={currentProject} />
+                RegisteredProjectComponent ? (
+                    <RegisteredProjectComponent />
+                ) : (
+                    <ProjectDetail project={currentProject} />
+                )
             ) : (
                 <>
                     <Navbar />
                     <main>
                         <HeroTop />
 
-                        <SectionWrapper id="about">
-                            <About />
-                        </SectionWrapper>
-
                         <SectionWrapper id="experience" animate={false}>
                             <Experience />
                         </SectionWrapper>
 
-                        <SectionWrapper id="projects" animate={false}>
-                            <Projects />
-                        </SectionWrapper>
-
-                        <SectionWrapper id="casestudies" animate={false}>
-                            <CaseStudies />
+                        <SectionWrapper id="work" animate={false}>
+                            <SelectedWork />
                         </SectionWrapper>
 
                         <SectionWrapper id="skills" animate={false}>

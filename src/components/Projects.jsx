@@ -80,7 +80,7 @@ const Projects = () => {
                             </div>
                             <div className="project-card-footer">
                                 <div className="project-tags">
-                                    {project.tags.map((tag, i) => (
+                                    {project.tags.slice(0, 4).map((tag, i) => (
                                         <span key={i} className="project-tag">{tag}</span>
                                     ))}
                                 </div>

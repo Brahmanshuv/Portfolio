@@ -205,16 +205,18 @@ const Capabilities = () => {
                 style={{ transitionDelay: contentVisible ? `${index * 45}ms` : '0ms' }}
             >
                 {data.type === 'content' && (
-                    <div className="tile-content">
-                        <h4>{data.content.title}</h4>
-                        <p className="tile-desc">{data.content.desc}</p>
-                        <div className="tile-tags">
-                            {data.content.tags.map((tag, i) => (
-                                <span key={i}>{tag}</span>
-                            ))}
+                    <>
+                        <div className="tile-content">
+                            <h4>{data.content.title}</h4>
+                            {data.content.desc && <p className="tile-desc">{data.content.desc}</p>}
+                            <div className="tile-tags">
+                                {data.content.tags.map((tag, i) => (
+                                    <span key={i}>{tag}</span>
+                                ))}
+                            </div>
                         </div>
                         <div className="micro-description">{data.content.micro}</div>
-                    </div>
+                    </>
                 )}
 
                 {data.type === 'visual' && (
@@ -228,34 +230,68 @@ const Capabilities = () => {
                 )}
 
                 {data.type === 'list' && (
-                    <div className="tile-content">
-                        <h4>{data.content.title}</h4>
-                        <ul className="tile-list">
-                            {data.content.list.map((item, i) => (
-                                <li key={i}>{item}</li>
-                            ))}
-                        </ul>
+                    <>
+                        <div className="tile-content">
+                            <h4>{data.content.title}</h4>
+                            <ul className="tile-list">
+                                {data.content.list.map((item, i) => (
+                                    <li key={i}>{item}</li>
+                                ))}
+                            </ul>
+                        </div>
                         <div className="micro-description">{data.content.micro}</div>
-                    </div>
+                    </>
+                )}
+
+                {data.type === 'grid-list' && (
+                    <>
+                        <div className="tile-content">
+                            <h4>{data.content.title}</h4>
+                            <div className="tile-grid-two-col">
+                                {data.content.list.map((item, i) => (
+                                    <span key={i} className="grid-list-item">{item}</span>
+                                ))}
+                            </div>
+                        </div>
+                        <div className="micro-description">{data.content.micro}</div>
+                    </>
+                )}
+
+                {data.type === 'chips' && (
+                    <>
+                        <div className="tile-content">
+                            <h4>{data.content.title}</h4>
+                            <div className="tile-chips-wrapper">
+                                {data.content.list.map((item, i) => (
+                                    <span key={i} className="tile-chip">{item}</span>
+                                ))}
+                            </div>
+                        </div>
+                        <div className="micro-description">{data.content.micro}</div>
+                    </>
                 )}
 
                 {data.type === 'simple-list' && (
-                    <div className="tile-content center-content">
-                        <ul className="micro-list">
-                            {data.content.list.map((item, i) => (
-                                <li key={i}>{item}</li>
-                            ))}
-                        </ul>
+                    <>
+                        <div className="tile-content center-content">
+                            <ul className="micro-list">
+                                {data.content.list.map((item, i) => (
+                                    <li key={i}>{item}</li>
+                                ))}
+                            </ul>
+                        </div>
                         <div className="micro-description">{data.content.micro}</div>
-                    </div>
+                    </>
                 )}
 
                 {data.type === 'text' && (
-                    <div className="tile-content">
-                        <h4>{data.content.title}</h4>
-                        <p className="tile-text">{data.content.text}</p>
+                    <>
+                        <div className="tile-content">
+                            <h4>{data.content.title}</h4>
+                            <p className="tile-text">{data.content.text}</p>
+                        </div>
                         <div className="micro-description">{data.content.micro}</div>
-                    </div>
+                    </>
                 )}
 
                 {data.type === 'statement' && (
@@ -268,156 +304,156 @@ const Capabilities = () => {
     };
 
     return (
-        <motion.div 
+        <motion.div
             className="container"
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.15 }}
         >
-                <motion.div className="section-title-container" variants={headerVariants}>
-                    <div className="section-title" style={{ display: 'flex', alignItems: 'center', height: '40px' }}>
-                        <AnimatePresence mode="wait">
-                            <motion.h3
-                                key={activeTab}
-                                initial={{ opacity: 0, filter: 'blur(4px)', y: 6 }}
-                                animate={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
-                                exit={{ opacity: 0, filter: 'blur(4px)', y: -6 }}
-                                transition={{ duration: 0.3, ease: "easeOut" }}
-                                style={{ margin: 0, display: 'inline-block' }}
-                            >
-                                {activeTab === 'skills' ? 'Skills' : 'Hobbies'}
-                            </motion.h3>
-                        </AnimatePresence>
-                    </div>
+            <motion.div className="section-title-container" variants={headerVariants}>
+                <div className="section-title" style={{ display: 'flex', alignItems: 'center', height: '40px' }}>
+                    <AnimatePresence mode="wait">
+                        <motion.h3
+                            key={activeTab}
+                            initial={{ opacity: 0, filter: 'blur(4px)', y: 6 }}
+                            animate={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
+                            exit={{ opacity: 0, filter: 'blur(4px)', y: -6 }}
+                            transition={{ duration: 0.3, ease: "easeOut" }}
+                            style={{ margin: 0, display: 'inline-block' }}
+                        >
+                            {activeTab === 'skills' ? 'Skills' : 'Hobbies'}
+                        </motion.h3>
+                    </AnimatePresence>
+                </div>
 
-                    {/* ── Premium Apple-style tactile toggle switch ── */}
-                    <button
-                        className={`premium-switch ${activeTab === 'hobbies' ? 'active' : ''}`}
-                        onClick={handleToggle}
-                        aria-label="Toggle Skills and Hobbies view"
-                        style={{ border: 'none', background: 'transparent', padding: 0, outline: 'none' }}
-                        disabled={animating.current}
+                {/* ── Premium Apple-style tactile toggle switch ── */}
+                <button
+                    className={`premium-switch ${activeTab === 'hobbies' ? 'active' : ''}`}
+                    onClick={handleToggle}
+                    aria-label="Toggle Skills and Hobbies view"
+                    style={{ border: 'none', background: 'transparent', padding: 0, outline: 'none' }}
+                    disabled={animating.current}
+                >
+                    <motion.div
+                        className="premium-switch-bg"
+                        animate={{
+                            backgroundColor: activeTab === 'skills' ? 'rgba(255, 255, 255, 0.03)' : 'rgba(0, 122, 255, 0.08)',
+                            borderColor: activeTab === 'skills' ? 'rgba(255, 255, 255, 0.06)' : 'rgba(0, 122, 255, 0.16)',
+                            boxShadow: activeTab === 'skills'
+                                ? 'inset 0 1px 0 rgba(255, 255, 255, 0.03), 0 4px 10px rgba(0, 0, 0, 0.1)'
+                                : 'inset 0 1px 0 rgba(255, 255, 255, 0.03), 0 4px 14px rgba(0, 122, 255, 0.12), 0 0 12px rgba(0, 122, 255, 0.04)'
+                        }}
+                        transition={{ duration: 0.4 }}
+                        style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            width: '52px',
+                            height: '28px',
+                            border: '1px solid',
+                            borderRadius: '100px',
+                            padding: '3px',
+                            cursor: animating.current ? 'not-allowed' : 'pointer',
+                            position: 'relative',
+                            backdropFilter: 'blur(8px)',
+                            WebkitBackdropFilter: 'blur(8px)',
+                            outline: 'none',
+                            justifyContent: activeTab === 'skills' ? 'flex-start' : 'flex-end'
+                        }}
                     >
                         <motion.div
-                            className="premium-switch-bg"
-                            animate={{
-                                backgroundColor: activeTab === 'skills' ? 'rgba(255, 255, 255, 0.03)' : 'rgba(0, 122, 255, 0.08)',
-                                borderColor: activeTab === 'skills' ? 'rgba(255, 255, 255, 0.06)' : 'rgba(0, 122, 255, 0.16)',
-                                boxShadow: activeTab === 'skills'
-                                    ? 'inset 0 1px 0 rgba(255, 255, 255, 0.03), 0 4px 10px rgba(0, 0, 0, 0.1)'
-                                    : 'inset 0 1px 0 rgba(255, 255, 255, 0.03), 0 4px 14px rgba(0, 122, 255, 0.12), 0 0 12px rgba(0, 122, 255, 0.04)'
-                            }}
-                            transition={{ duration: 0.4 }}
+                            className="premium-switch-handle"
+                            layout
+                            transition={{ type: "spring", stiffness: 450, damping: 26 }}
+                            animate={{ scaleX: [1, 1.22, 1], scaleY: [1, 0.88, 1] }}
+                            key={activeTab}
                             style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                width: '52px',
-                                height: '28px',
-                                border: '1px solid',
-                                borderRadius: '100px',
-                                padding: '3px',
-                                cursor: animating.current ? 'not-allowed' : 'pointer',
-                                position: 'relative',
-                                backdropFilter: 'blur(8px)',
-                                WebkitBackdropFilter: 'blur(8px)',
-                                outline: 'none',
-                                justifyContent: activeTab === 'skills' ? 'flex-start' : 'flex-end'
+                                width: '20px',
+                                height: '20px',
+                                background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.85) 100%)',
+                                borderRadius: '50%',
+                                boxShadow: '0 2px 6px rgba(0, 0, 0, 0.3)',
                             }}
-                        >
-                            <motion.div
-                                className="premium-switch-handle"
-                                layout
-                                transition={{ type: "spring", stiffness: 450, damping: 26 }}
-                                animate={{ scaleX: [1, 1.22, 1], scaleY: [1, 0.88, 1] }}
-                                key={activeTab}
-                                style={{
-                                    width: '20px',
-                                    height: '20px',
-                                    background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.85) 100%)',
-                                    borderRadius: '50%',
-                                    boxShadow: '0 2px 6px rgba(0, 0, 0, 0.3)',
-                                }}
-                            />
-                        </motion.div>
-                    </button>
-                </motion.div>
-
-                {/* ═══ BENTO GRID — PREMIUM ADAPTIVE SPATIAL SOLVER ═══ */}
-                <LayoutGroup>
-                    <motion.div 
-                        className={`bento-grid ${morphActive ? 'morph-active' : ''}`}
-                        variants={gridVariants}
-                    >
-                        {tilesData.map((tile, index) => {
-                            const spring = TILE_SPRINGS[index];
-
-                            return (
-                                <motion.div
-                                    key={tile.id}
-                                    variants={tileVariants}
-                                    layout
-                                    layoutId={tile.id}
-                                    transition={{
-                                        layout: {
-                                            type: 'spring',
-                                            ...spring,
-                                            delay: morphActive ? SPATIAL_DELAYS[index] / 1000 : 0,
-                                        },
-                                    }}
-                                    animate={{
-                                        scale: morphActive 
-                                            ? 0.975 
-                                            : toggleClicked 
-                                                ? (index === 2 || index === 3 || index === 1) ? 0.965 : 0.985 
-                                                : 1.0,
-                                        boxShadow: morphActive 
-                                            ? 'inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 30px 65px rgba(0, 0, 0, 0.55), 0 0 35px rgba(0, 122, 255, 0.10)'
-                                            : 'inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 10px 30px rgba(0, 0, 0, 0.25)',
-                                        borderColor: morphActive 
-                                            ? 'rgba(0, 122, 255, 0.20)' 
-                                            : 'rgba(255, 255, 255, 0.06)',
-                                    }}
-                                    className={`bento-tile ${TILE_CLASSES[index]} ${morphActive ? 'morph-glow' : ''}`}
-                                    style={{
-                                        ...getGridStyle(index),
-                                        animationDelay: morphActive ? `${SPATIAL_DELAYS[index]}ms` : undefined,
-                                    }}
-                                >
-                                    {/* Sweeping premium diagonal glass reflection highlight */}
-                                    <motion.div
-                                        className="bento-tile-reflection"
-                                        initial={{ transform: 'translateX(-100%) translateY(-100%)' }}
-                                        animate={{
-                                            transform: morphActive 
-                                                ? 'translateX(100%) translateY(100%)' 
-                                                : 'translateX(-100%) translateY(-100%)'
-                                        }}
-                                        transition={{
-                                            duration: 1.8,
-                                            ease: [0.25, 1, 0.5, 1],
-                                            delay: morphActive ? SPATIAL_DELAYS[index] / 1000 + 0.1 : 0
-                                        }}
-                                    />
-
-                                    <AnimatePresence>
-                                        {gridPhase !== 'skills' && (
-                                            <motion.div
-                                                className="hobbies-radial-glow"
-                                                initial={{ opacity: 0 }}
-                                                animate={{ opacity: 1 }}
-                                                exit={{ opacity: 0 }}
-                                                transition={{ duration: 1.0 }}
-                                            />
-                                        )}
-                                    </AnimatePresence>
-                                    {renderTileContent(tile, index)}
-                                </motion.div>
-                            );
-                        })}
+                        />
                     </motion.div>
-                </LayoutGroup>
+                </button>
             </motion.div>
+
+            {/* ═══ BENTO GRID — PREMIUM ADAPTIVE SPATIAL SOLVER ═══ */}
+            <LayoutGroup>
+                <motion.div
+                    className={`bento-grid ${morphActive ? 'morph-active' : ''}`}
+                    variants={gridVariants}
+                >
+                    {tilesData.map((tile, index) => {
+                        const spring = TILE_SPRINGS[index];
+
+                        return (
+                            <motion.div
+                                key={tile.id}
+                                variants={tileVariants}
+                                layout
+                                layoutId={tile.id}
+                                transition={{
+                                    layout: {
+                                        type: 'spring',
+                                        ...spring,
+                                        delay: morphActive ? SPATIAL_DELAYS[index] / 1000 : 0,
+                                    },
+                                }}
+                                animate={{
+                                    scale: morphActive
+                                        ? 0.975
+                                        : toggleClicked
+                                            ? (index === 2 || index === 3 || index === 1) ? 0.965 : 0.985
+                                            : 1.0,
+                                    boxShadow: morphActive
+                                        ? 'inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 30px 65px rgba(0, 0, 0, 0.55), 0 0 35px rgba(0, 122, 255, 0.10)'
+                                        : 'inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 10px 30px rgba(0, 0, 0, 0.25)',
+                                    borderColor: morphActive
+                                        ? 'rgba(0, 122, 255, 0.20)'
+                                        : 'rgba(255, 255, 255, 0.06)',
+                                }}
+                                className={`bento-tile ${TILE_CLASSES[index]} ${morphActive ? 'morph-glow' : ''}`}
+                                style={{
+                                    ...getGridStyle(index),
+                                    animationDelay: morphActive ? `${SPATIAL_DELAYS[index]}ms` : undefined,
+                                }}
+                            >
+                                {/* Sweeping premium diagonal glass reflection highlight */}
+                                <motion.div
+                                    className="bento-tile-reflection"
+                                    initial={{ transform: 'translateX(-100%) translateY(-100%)' }}
+                                    animate={{
+                                        transform: morphActive
+                                            ? 'translateX(100%) translateY(100%)'
+                                            : 'translateX(-100%) translateY(-100%)'
+                                    }}
+                                    transition={{
+                                        duration: 1.8,
+                                        ease: [0.25, 1, 0.5, 1],
+                                        delay: morphActive ? SPATIAL_DELAYS[index] / 1000 + 0.1 : 0
+                                    }}
+                                />
+
+                                <AnimatePresence>
+                                    {gridPhase !== 'skills' && (
+                                        <motion.div
+                                            className="hobbies-radial-glow"
+                                            initial={{ opacity: 0 }}
+                                            animate={{ opacity: 1 }}
+                                            exit={{ opacity: 0 }}
+                                            transition={{ duration: 1.0 }}
+                                        />
+                                    )}
+                                </AnimatePresence>
+                                {renderTileContent(tile, index)}
+                            </motion.div>
+                        );
+                    })}
+                </motion.div>
+            </LayoutGroup>
+        </motion.div>
     );
 };
 

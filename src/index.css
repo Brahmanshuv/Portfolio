@@ -292,11 +292,9 @@ section {
     scroll-margin-top: 88px;
 }
 
-#about,
 #experience,
 #skills,
-#projects,
-#casestudies,
+#work,
 #contact {
     scroll-margin-top: 88px;
 }
@@ -749,14 +747,7 @@ section {
     color: rgba(255, 255, 255, 0.75);
 }
 
-/* About Section */
-#about p {
-    font-size: 16px;
-    line-height: 1.6;
-    color: var(--text-body);
-    max-width: 520px;
-    margin-bottom: 0;
-}
+
 
 /* Experience Section - List Layout */
 .experience-list {
@@ -766,19 +757,39 @@ section {
 }
 
 .experience-item {
-    border-bottom: 1px solid var(--border-divider);
-    padding: 40px 0;
+    position: relative;
+    padding: 48px 0; /* Premium spacing structure */
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 20px;
+    cursor: pointer;
+    transition: transform 350ms cubic-bezier(0.25, 1, 0.5, 1); /* Entire row lifts */
 }
 
-.experience-item:first-child {
-    padding-top: 0;
+.experience-item:hover {
+    transform: translateY(-3px); /* Entire row lifts by 3px */
 }
 
-.experience-item:last-child {
-    border-bottom: none;
+/* Premium divider line extending slightly on hover */
+.experience-item::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: var(--border-divider);
+    transition: background-color 350ms cubic-bezier(0.25, 1, 0.5, 1), transform 350ms cubic-bezier(0.25, 1, 0.5, 1);
+    transform-origin: center;
+}
+
+.experience-item:last-child::after {
+    display: none;
+}
+
+.experience-item:hover::after {
+    background-color: rgba(255, 255, 255, 0.12); /* Brighter divider line */
+    transform: scaleX(1.02); /* Extends slightly */
 }
 
 /* Layout Helpers */
@@ -805,30 +816,63 @@ section {
     font-family: var(--font-primary);
     min-width: 60px;
     flex-shrink: 0;
+    transition: opacity 350ms cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.experience-item:hover .exp-number {
+    opacity: 0.65; /* Brighten slightly on hover */
 }
 
 .exp-title {
-    font-size: 28px;
-    font-weight: var(--weight-medium);
+    font-size: 26px;
     color: var(--text-headline);
     flex-grow: 1;
-    line-height: 1.2;
+    line-height: 1.25;
     margin-right: 16px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    display: flex;
+    align-items: baseline;
+}
+
+.role-title {
+    font-weight: 600; /* Highest emphasis for role title */
+    color: var(--text-headline);
+}
+
+.company-separator {
+    color: var(--text-muted);
+    font-weight: 300;
+    margin: 0 6px;
+}
+
+.company-name {
+    font-weight: 400; /* Secondary emphasis for company */
+    color: var(--text-secondary);
+    font-size: 23px;
 }
 
 .exp-date {
     font-size: 13px;
     font-weight: var(--weight-medium);
-    color: rgba(255, 255, 255, 0.7);
+    color: rgba(255, 255, 255, 0.65);
     background-color: rgba(255, 255, 255, 0.045);
+    border: 1px solid rgba(255, 255, 255, 0.03);
     padding: 6px 16px;
     border-radius: 100px;
     white-space: nowrap;
     display: inline-block;
     flex-shrink: 0;
+    transition: background-color 350ms cubic-bezier(0.25, 1, 0.5, 1),
+                color 350ms cubic-bezier(0.25, 1, 0.5, 1),
+                box-shadow 350ms cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.experience-item:hover .exp-date {
+    background-color: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.03), 0 0 8px rgba(255, 255, 255, 0.015); /* Year pill subtly glows */
 }
 
 /* Prevent date from shrinking */
@@ -839,32 +883,26 @@ section {
 
 .exp-desc {
     font-size: 16px;
-    line-height: 1.6;
+    line-height: 1.65; /* Medium emphasis summary */
     color: var(--text-body);
-    margin-bottom: 16px;
-    max-width: 500px;
+    margin-bottom: 0;
+    max-width: 520px;
 }
 
-.exp-bullets {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+.exp-expertise {
+    font-size: 12.5px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-muted); /* Lowest emphasis */
+    opacity: 0.6; /* Slightly reduced opacity */
+    margin-top: 10px;
+    display: inline-block;
+    transition: opacity 350ms cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-.exp-bullets li {
-    font-size: 14px;
-    line-height: 1.6;
-    color: rgba(255, 255, 255, 0.55);
-    margin-bottom: 4px;
-    position: relative;
-    padding-left: 12px;
-}
-
-.exp-bullets li::before {
-    content: "•";
-    position: absolute;
-    left: 0;
-    color: rgba(255, 255, 255, 0.34);
+.experience-item:hover .exp-expertise {
+    opacity: 0.85; /* Subtle brightening on hover */
 }
 
 /* Mobile Responsive */
@@ -996,8 +1034,6 @@ section {
 .tile-wide-3 {
     grid-column: span 3;
     grid-row: span 1;
-    justify-content: center;
-    align-items: stretch;
 }
 
 .tile-small-statement {
@@ -1046,8 +1082,6 @@ section {
 .tile-h-bar {
     grid-column: span 3;
     grid-row: span 1;
-    justify-content: center;
-    align-items: stretch;
 }
 
 /* Tile 8: was 1-col statement, stays 1-col */
@@ -1297,7 +1331,7 @@ section {
     font-weight: 600;
 }
 
-/* Lists */
+/* Lists & Spacing composition */
 .tile-list {
     list-style: none;
     padding: 0;
@@ -1309,6 +1343,115 @@ section {
     line-height: 1.6;
     color: rgba(255, 255, 255, 0.65);
     margin-bottom: 6px;
+}
+
+/* Extra generous spacing to fill vertical volume in tall Interaction Architecture card */
+.tile-tall .tile-list {
+    margin-top: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.tile-tall .tile-list li {
+    margin-bottom: 0;
+    font-size: 14.5px;
+}
+
+/* breathing space inside 1x1 Experience Design & Research/Validation cards */
+.tile-manual .tile-list {
+    margin-top: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.tile-manual .tile-list li {
+    margin-bottom: 0;
+}
+
+/* Center vertically inside the Typography bento card */
+.tile-micro .tile-content-wrapper,
+.tile-h-wide .tile-content-wrapper {
+    justify-content: center;
+}
+.tile-micro .tile-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 6px;
+}
+.tile-micro .tile-list {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.tile-micro .tile-list li {
+    margin-bottom: 0;
+}
+
+/* Two-column spatial grid layout for 3D card */
+.tile-grid-two-col {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px 28px;
+    margin-top: 18px;
+    margin-bottom: 2px;
+}
+.grid-list-item {
+    font-size: 14px;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.65);
+    position: relative;
+    padding-left: 14px;
+}
+.grid-list-item::before {
+    content: "—";
+    position: absolute;
+    left: 0;
+    color: rgba(255, 255, 255, 0.22);
+    font-weight: 300;
+}
+
+/* Environment chips layout */
+.tile-chips-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 18px;
+    margin-bottom: 2px;
+    width: 100%;
+}
+.tile-chip {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-body);
+    background-color: rgba(255, 255, 255, 0.035);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    padding: 6px 14px;
+    border-radius: 100px;
+    transition: background-color 200ms ease, border-color 200ms ease, color 200ms ease;
+}
+.tile-chip:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.12);
+    color: var(--text-headline);
+}
+
+/* Cohesive hover states for bento tag chips */
+.tile-tags span {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-body);
+    background: rgba(255, 255, 255, 0.03);
+    padding: 6px 12px;
+    border-radius: 100px;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    transition: background-color 200ms ease, border-color 200ms ease, color 200ms ease;
+}
+.tile-tags span:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.12);
+    color: var(--text-headline);
 }
 
 .micro-list {
@@ -1361,10 +1504,11 @@ section {
 }
 
 /* Projects Section — Cinematic Minimal Cards */
+/* Projects Section — Cinematic Minimal Cards */
 .projects-grid-wrapper {
     position: relative;
     width: 100%;
-    overflow: hidden;
+    overflow: visible; /* Allows expanding side drawers to float outwards on desktop */
     border-radius: 32px;
     isolation: isolate;
     /* Contain backdrop-filter stacking context */
@@ -1381,6 +1525,11 @@ section {
     -webkit-user-select: none;
 }
 
+.project-card-wrapper {
+    position: relative;
+    transition: z-index 350ms ease;
+}
+
 .project-card {
     background: linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.015) 100%);
     border-radius: 32px;
@@ -1388,85 +1537,173 @@ section {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    min-height: 320px;
+    height: 410px;
     border: 1px solid rgba(255, 255, 255, 0.06);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    box-shadow: 
+        0 10px 30px rgba(0, 0, 0, 0.35),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.02);
     overflow: hidden;
     position: relative;
     cursor: default;
-    transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.32s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: transform 350ms cubic-bezier(0.25, 1, 0.5, 1), 
+                box-shadow 350ms cubic-bezier(0.25, 1, 0.5, 1), 
+                border-color 350ms cubic-bezier(0.25, 1, 0.5, 1);
 }
 
+/* Hover lift and glow effects */
+.project-card.card-hovered,
 .project-card:hover {
-    transform: translateY(-2px);
-    border-color: rgba(255, 255, 255, 0.12);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.45);
+    transform: translateY(-4px); /* Subtle lift */
+    border-color: rgba(255, 255, 255, 0.18); /* Stronger border */
+    /* Glow increase by 10-15% */
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.45),
+        0 0 28px rgba(255, 255, 255, 0.05), /* Slightly brighter glow */
+        inset 0 0 0 1px rgba(255, 255, 255, 0.07);
 }
 
-/* Coming Soon Unified Overlay styling */
-.coming-soon-overlay {
+/* Selected Work Project Preview Drawer (Desktop Side drawer) */
+.project-preview-drawer {
     position: absolute;
     top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    height: 100%;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 32px;
+    background: rgba(8, 10, 15, 0.65); /* Same glass material and shading */
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08); /* Same stroke */
+    box-shadow: 
+        0 20px 45px rgba(0, 0, 0, 0.45),
+        0 0 28px rgba(255, 255, 255, 0.045), /* Same glow system */
+        inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+    overflow: hidden;
+    pointer-events: none; /* Let cursor click the card seamlessly */
+    will-change: width, opacity, transform;
+}
+
+/* Connect drawer to the right of left column cards */
+.drawer-right {
+    left: calc(100% + 20px); /* 20px gap from card edge */
+}
+
+/* Connect drawer to the left of right column cards */
+.drawer-left {
+    right: calc(100% + 20px); /* 20px gap from card edge */
+}
+
+.drawer-image-wrap {
     width: 100%;
     height: 100%;
-    background: rgba(5, 7, 10, 0.82);
-    /* Darker, calmer layering */
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.04);
-    /* Soft border */
-    border-radius: 32px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 10;
+    padding: 12px;
     box-sizing: border-box;
-    box-shadow:
-        0 15px 35px rgba(0, 0, 0, 0.35),
-        inset 0 0 0 1px rgba(255, 255, 255, 0.03);
-    transition:
-        background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-        border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-        box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    cursor: default;
-    pointer-events: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
 }
 
-.coming-soon-overlay:hover {
-    background-color: rgba(5, 7, 10, 0.86);
-    border-color: rgba(255, 255, 255, 0.08);
-    box-shadow:
-        0 20px 45px rgba(0, 0, 0, 0.45),
-        inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+.drawer-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+    image-rendering: -webkit-optimize-contrast;
+    will-change: transform, filter, opacity;
 }
 
-.coming-soon-text {
-    font-family: var(--font-primary);
-    font-size: 16px;
+/* Mobile responsive inline project image reveal */
+.mobile-project-image-reveal {
+    width: 100%;
+    margin-top: 18px;
+    border-radius: 18px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    background-color: rgba(0, 0, 0, 0.25);
+    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.4);
+}
+
+.mobile-project-image-reveal img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Color-coded status badge system with custom hover responses */
+.project-status-badge {
+    font-size: 11px;
     font-weight: 500;
-    color: var(--text-body);
-    /* Softer white text */
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
-    transition: color 0.4s ease, opacity 0.4s ease, transform 0.4s ease;
-    opacity: 0.85;
+    padding: 4px 12px;
+    border-radius: 100px;
+    white-space: nowrap;
+    transition: background-color 350ms ease-out, border-color 350ms ease-out, color 350ms ease-out;
 }
 
-.coming-soon-overlay:hover .coming-soon-text {
-    color: var(--text-headline);
-    /* Soft primary white on hover */
+/* Case Study: iOS Blue */
+.status-case-study {
+    color: #007AFF;
+    background-color: rgba(0, 122, 255, 0.08);
+    border: 0.5px solid rgba(0, 122, 255, 0.2);
+}
+.project-card:hover .status-case-study {
+    color: #3399FF;
+    background-color: rgba(0, 122, 255, 0.15);
+    border-color: rgba(0, 122, 255, 0.35);
+}
+
+/* Concept / Concept Project: Purple */
+.status-concept {
+    color: #BF5AF2;
+    background-color: rgba(191, 90, 242, 0.08);
+    border: 0.5px solid rgba(191, 90, 242, 0.2);
+}
+.project-card:hover .status-concept {
+    color: #D68FFF;
+    background-color: rgba(191, 90, 242, 0.15);
+    border-color: rgba(191, 90, 242, 0.35);
+}
+
+/* Active: Emerald Green */
+.status-active {
+    color: #30D158;
+    background-color: rgba(48, 209, 88, 0.08);
+    border: 0.5px solid rgba(48, 209, 88, 0.2);
+}
+.project-card:hover .status-active {
+    color: #58E080;
+    background-color: rgba(48, 209, 88, 0.15);
+    border-color: rgba(48, 209, 88, 0.35);
+}
+
+/* Coming Soon: Amber/Orange */
+.status-coming-soon {
+    color: #FF9F0A;
+    background-color: rgba(255, 159, 10, 0.08);
+    border: 0.5px solid rgba(255, 159, 10, 0.2);
+}
+.project-card:hover .status-coming-soon {
+    color: #FFB340;
+    background-color: rgba(255, 159, 10, 0.15);
+    border-color: rgba(255, 159, 10, 0.35);
+}
+
+/* Coming soon future work card adjustment */
+.coming-soon-card {
+    opacity: 0.85;
+    transition: opacity 350ms cubic-bezier(0.25, 1, 0.5, 1);
+}
+.coming-soon-card:hover {
     opacity: 1;
-    transform: scale(1.02);
 }
 
 .project-card-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height: 24px;
     margin-bottom: 24px;
 }
 
@@ -1503,6 +1740,11 @@ section {
     color: var(--text-secondary);
     letter-spacing: -0.02em;
     line-height: 1.25;
+    height: 60px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .project-desc {
@@ -1511,12 +1753,17 @@ section {
     color: rgba(255, 255, 255, 0.58);
     margin-bottom: 24px;
     max-width: 90%;
+    height: 72px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .project-card-footer {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-end;
     margin-top: auto;
     padding-top: 16px;
     border-top: 0.5px solid rgba(255, 255, 255, 0.06);
@@ -1526,6 +1773,9 @@ section {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
+    height: 64px;
+    align-content: flex-start;
+    overflow: hidden;
 }
 
 .project-tag {
@@ -1659,25 +1909,34 @@ footer {
     .project-card {
         padding: 28px;
         min-height: auto;
+        height: auto;
         border-radius: 24px;
     }
 
     .project-card-body h4 {
         font-size: 20px;
+        height: auto;
+        display: block;
+        -webkit-line-clamp: unset;
     }
 
     .project-desc {
         max-width: 100%;
         margin-bottom: 16px;
+        height: auto;
+        display: block;
+        -webkit-line-clamp: unset;
     }
 
-    .coming-soon-overlay {
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        border-radius: 24px;
+    .project-tags {
+        height: auto;
     }
+
+    .project-card-footer {
+        align-items: center;
+    }
+
+
 
     .projects-grid-wrapper {
         border-radius: 24px;
@@ -2789,13 +3048,6 @@ footer {
     }
 
 
-
-    /* ── About ── */
-    #about p {
-        font-size: 15px;
-        max-width: 100%;
-    }
-
     /* ── Experience ── */
     .experience-item {
         padding: 28px 0;
@@ -2817,6 +3069,22 @@ footer {
         white-space: normal;
         flex-basis: calc(100% - 50px);
         margin-right: 0;
+        display: block;
+    }
+
+    .role-title {
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    .company-name {
+        font-size: 16px;
+        font-weight: 400;
+    }
+
+    .company-separator {
+        font-size: 16px;
+        margin: 0 2px;
     }
 
     .exp-date {
@@ -2836,8 +3104,9 @@ footer {
         margin-bottom: 12px;
     }
 
-    .exp-bullets li {
-        font-size: 13px;
+    .exp-expertise {
+        font-size: 11.5px;
+        margin-top: 8px;
     }
 
     /* ── Bento Grid ── */
@@ -3077,14 +3346,25 @@ footer {
     .project-card {
         padding: 24px 20px;
         border-radius: 20px;
+        height: auto;
     }
 
     .project-card-body h4 {
         font-size: 18px;
+        height: auto;
+        display: block;
+        -webkit-line-clamp: unset;
     }
 
     .project-desc {
         font-size: 13.5px;
+        height: auto;
+        display: block;
+        -webkit-line-clamp: unset;
+    }
+
+    .project-tags {
+        height: auto;
     }
 
     .project-card-footer {
@@ -3098,13 +3378,7 @@ footer {
         margin-top: -8px;
     }
 
-    .coming-soon-overlay {
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        border-radius: 20px;
-    }
+
 
     .projects-grid-wrapper {
         border-radius: 20px;
@@ -4207,4 +4481,79 @@ html.lenis, html.lenis body {
     .journey-grid-responsive {
         grid-template-columns: 1fr !important;
     }
+}
+
+/* ==========================================================================
+   Project Detail / Case Study Layout
+   ========================================================================== */
+
+/* Overrides the default 640px/900px container for project case studies */
+.project-detail-layout .container {
+    max-width: 1200px !important;
+}
+
+/* Metadata column styles */
+.project-meta-col {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+    padding-right: 20px;
+}
+
+/* Hide navigation and adjust layout on mobile/tablet viewports */
+@media (max-width: 900px) {
+    .project-detail-layout .container {
+        max-width: 100% !important;
+        padding: 0 20px;
+    }
+    
+    .project-main-grid {
+        grid-template-columns: 1fr !important;
+        gap: 40px !important;
+    }
+    
+    .project-left-col, 
+    .project-right-col {
+        grid-column: span 12 !important;
+    }
+    
+    .project-meta-col {
+        border-right: none !important;
+        padding-right: 0 !important;
+    }
+    
+    .project-nav-wrapper {
+        display: none !important;
+    }
+}
+
+/* Project Navigation Hover & Active States */
+.project-nav-item {
+    transition: color 250ms cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.project-nav-item:hover {
+    color: rgba(255, 255, 255, 0.88) !important;
+}
+
+.project-nav-item.active {
+    color: rgba(255, 255, 255, 0.95) !important;
+}
+
+/* Inactive nav item hover background brightening */
+.project-nav-item:not(.active)::before {
+    content: '';
+    position: absolute;
+    inset: 2px 4px;
+    background-color: rgba(255, 255, 255, 0);
+    border: 1px solid rgba(255, 255, 255, 0);
+    border-radius: 16px;
+    transition: background-color 250ms ease, border-color 250ms ease;
+    z-index: 0;
+}
+
+.project-nav-item:not(.active):hover::before {
+    background-color: rgba(255, 255, 255, 0.02);
+    border-color: rgba(255, 255, 255, 0.03);
 }
