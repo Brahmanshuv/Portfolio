@@ -14,13 +14,13 @@ export default function CaseStudyTemplate({ metadata, content }) {
             const sections = [
                 { id: 'overview', el: document.getElementById('overview-section') },
                 { id: 'flow', el: document.getElementById('flow-section') },
+                { id: 'approach', el: document.getElementById('approach-section') },
                 { id: 'prototype', el: document.getElementById('prototype-section') },
-                { id: 'structure', el: document.getElementById('structure-section') },
                 { id: 'result', el: document.getElementById('result-section') }
             ];
 
             let current = 'overview';
-            
+
             // Check if we are near the bottom of the page
             if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 150) {
                 current = 'result';
@@ -405,52 +405,50 @@ export default function CaseStudyTemplate({ metadata, content }) {
                         {/* EDITORIAL SECTIONS LIST */}
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '100px' }}>
 
-                            {/* SECTION 1: Context */}
+                            {/* SECTION 1: Overview */}
                             <motion.div id="overview-section" variants={elementVariants} style={{ maxWidth: '800px', margin: '0 auto', width: '100%' }}>
-                                <span style={{ fontFamily: 'Fira Code, monospace', fontSize: '11px', color: 'rgba(255, 255, 255, 0.4)', textTransform: 'uppercase', letterSpacing: '0.08em', display: 'block', marginBottom: '16px' }}>01 / {c.context.title}</span>
-                                <h2 style={{ fontSize: '2.2rem', fontWeight: 400, marginBottom: '24px', letterSpacing: '-0.02em' }}>{c.context.heading}</h2>
-                                {c.context.paragraphs.map((p, i) => (
-                                    <p key={i} style={{ fontSize: '1.05rem', lineHeight: 1.6, color: 'rgba(255, 255, 255, 0.65)', marginBottom: '20px' }}>{p}</p>
+                                <span style={{ fontFamily: 'Fira Code, monospace', fontSize: '11px', color: 'rgba(255, 255, 255, 0.4)', textTransform: 'uppercase', letterSpacing: '0.08em', display: 'block', marginBottom: '16px' }}>01 / {c.overview.title}</span>
+                                <h2 style={{ fontSize: '2.2rem', fontWeight: 400, marginBottom: '32px', letterSpacing: '-0.02em' }}>{c.overview.heading}</h2>
+                                {c.overview.keyTakeaway && (
+                                    <div className="cs-takeaway" style={{ marginBottom: '32px' }}>
+                                        <span className="cs-takeaway-label">Key Takeaway</span>
+                                        <p className="cs-takeaway-text">{c.overview.keyTakeaway}</p>
+                                    </div>
+                                )}
+                                {c.overview.paragraphs.map((p, i) => (
+                                    <p key={i} style={{ fontSize: '1.05rem', lineHeight: 1.6, color: 'rgba(255, 255, 255, 0.65)', marginBottom: '16px' }}>{p}</p>
                                 ))}
                             </motion.div>
 
-                            {/* SECTION 2: Why This Project? */}
+                            {/* SECTION 2: The Problem */}
                             <motion.div variants={elementVariants} style={{ maxWidth: '800px', margin: '0 auto', width: '100%' }}>
-                                <span style={{ fontFamily: 'Fira Code, monospace', fontSize: '11px', color: 'rgba(255, 255, 255, 0.4)', textTransform: 'uppercase', letterSpacing: '0.08em', display: 'block', marginBottom: '16px' }}>02 / {c.whyThisProject.title}</span>
-                                <h2 style={{ fontSize: '2.2rem', fontWeight: 400, marginBottom: '24px', letterSpacing: '-0.02em' }}>{c.whyThisProject.heading}</h2>
-                                {c.whyThisProject.paragraphs.map((p, i) => (
-                                    <p key={i} style={{ fontSize: '1.05rem', lineHeight: 1.6, color: 'rgba(255, 255, 255, 0.65)', marginBottom: '20px' }}>{p}</p>
+                                <span style={{ fontFamily: 'Fira Code, monospace', fontSize: '11px', color: 'rgba(255, 255, 255, 0.4)', textTransform: 'uppercase', letterSpacing: '0.08em', display: 'block', marginBottom: '16px' }}>02 / {c.problem.title}</span>
+                                <h2 style={{ fontSize: '2.2rem', fontWeight: 400, marginBottom: '32px', letterSpacing: '-0.02em' }}>{c.problem.heading}</h2>
+                                {c.problem.keyTakeaway && (
+                                    <div className="cs-takeaway" style={{ marginBottom: '32px' }}>
+                                        <span className="cs-takeaway-label">Key Takeaway</span>
+                                        <p className="cs-takeaway-text">{c.problem.keyTakeaway}</p>
+                                    </div>
+                                )}
+                                {c.problem.paragraphs && c.problem.paragraphs.map((p, i) => (
+                                    <p key={i} style={{ fontSize: '1.05rem', lineHeight: 1.6, color: 'rgba(255, 255, 255, 0.65)', marginBottom: '16px' }}>{p}</p>
+                                ))}
+                                {c.problem.bullets && (
+                                    <ul className="cs-bullet-list" style={{ marginBottom: '24px', marginTop: '8px' }}>
+                                        {c.problem.bullets.map((b, i) => (
+                                            <li key={i}>{b}</li>
+                                        ))}
+                                    </ul>
+                                )}
+                                {c.problem.paragraphsAfter && c.problem.paragraphsAfter.map((p, i) => (
+                                    <p key={i} style={{ fontSize: '1.05rem', lineHeight: 1.6, color: 'rgba(255, 255, 255, 0.65)', marginBottom: '16px' }}>{p}</p>
                                 ))}
                             </motion.div>
 
-                            {/* SECTION 3: Problem Statement */}
-                            <motion.div
-                                variants={elementVariants}
-                                style={{
-                                    maxWidth: '800px',
-                                    margin: '0 auto',
-                                    width: '100%',
-                                    padding: '40px',
-                                    background: 'rgba(255, 255, 255, 0.01)',
-                                    border: '1px solid rgba(255, 255, 255, 0.05)',
-                                    borderRadius: '24px',
-                                    backdropFilter: 'blur(10px)',
-                                    textAlign: 'center',
-                                    position: 'relative',
-                                    overflow: 'hidden'
-                                }}
-                            >
-                                <span style={{ fontFamily: 'Fira Code, monospace', fontSize: '11px', color: 'rgba(255, 255, 255, 0.4)', textTransform: 'uppercase', letterSpacing: '0.08em', display: 'block', marginBottom: '16px' }}>03 / {c.problemStatement.title}</span>
-                                <h3 style={{ fontSize: '1.4rem', fontWeight: 400, color: 'rgba(255, 255, 255, 0.4)', marginBottom: '24px' }}>{c.problemStatement.heading}</h3>
-                                <p style={{ fontSize: 'clamp(1.4rem, 2.5vw, 1.8rem)', lineHeight: 1.4, fontWeight: 300, color: '#fff', margin: 0 }}>
-                                    "{c.problemStatement.highlight}"
-                                </p>
-                            </motion.div>
-
-                            {/* SECTION 4: Understanding The Existing Journey */}
+                            {/* SECTION 3: Existing Journey */}
                             <motion.div id="flow-section" variants={elementVariants} style={{ width: '100%' }}>
                                 <div style={{ maxWidth: '800px', margin: '0 auto 40px auto' }}>
-                                    <span style={{ fontFamily: 'Fira Code, monospace', fontSize: '11px', color: 'rgba(255, 255, 255, 0.4)', textTransform: 'uppercase', letterSpacing: '0.08em', display: 'block', marginBottom: '16px' }}>04 / {c.existingJourney.title}</span>
+                                    <span style={{ fontFamily: 'Fira Code, monospace', fontSize: '11px', color: 'rgba(255, 255, 255, 0.4)', textTransform: 'uppercase', letterSpacing: '0.08em', display: 'block', marginBottom: '16px' }}>03 / {c.existingJourney.title}</span>
                                     <h2 style={{ fontSize: '2.2rem', fontWeight: 400, marginBottom: '16px', letterSpacing: '-0.02em' }}>{c.existingJourney.heading}</h2>
                                     <span style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.45)', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 500 }}>{c.existingJourney.subtitle}</span>
                                 </div>
@@ -508,85 +506,42 @@ export default function CaseStudyTemplate({ metadata, content }) {
                                 </div>
                             </motion.div>
 
-                            {/* SECTION 5: Design Principles */}
-                            <motion.div variants={elementVariants} style={{ width: '100%' }}>
-                                <div style={{ maxWidth: '800px', margin: '0 auto 40px auto' }}>
-                                    <span style={{ fontFamily: 'Fira Code, monospace', fontSize: '11px', color: 'rgba(255, 255, 255, 0.4)', textTransform: 'uppercase', letterSpacing: '0.08em', display: 'block', marginBottom: '16px' }}>05 / {c.designPrinciples.title}</span>
-                                    <h2 style={{ fontSize: '2.2rem', fontWeight: 400, marginBottom: '24px', letterSpacing: '-0.02em' }}>{c.designPrinciples.heading}</h2>
-                                </div>
-
-                                <div
-                                    style={{
-                                        display: 'grid',
-                                        gridTemplateColumns: 'repeat(2, 1fr)',
-                                        gap: '24px'
-                                    }}
-                                    className="layout-2col-responsive"
-                                >
-                                    {c.designPrinciples.cards.map((card, idx) => (
-                                        <div
-                                            key={idx}
-                                            style={{
-                                                padding: '30px',
-                                                background: 'rgba(255, 255, 255, 0.01)',
-                                                border: '1px solid rgba(255, 255, 255, 0.05)',
-                                                borderRadius: '20px',
-                                                backdropFilter: 'blur(5px)'
-                                            }}
-                                        >
-                                            <span style={{ fontFamily: 'Fira Code, monospace', fontSize: '11px', color: 'rgba(255, 255, 255, 0.3)', display: 'block', marginBottom: '12px' }}>PRINCIPLE 0{idx + 1}</span>
-                                            <h4 style={{ fontSize: '1.25rem', fontWeight: 500, color: '#fff', marginBottom: '12px' }}>{card.title}</h4>
-                                            <p style={{ fontSize: '0.95rem', lineHeight: 1.5, color: 'rgba(255, 255, 255, 0.6)' }}>{card.description}</p>
-                                        </div>
-                                    ))}
-                                </div>
+                            {/* SECTION 4: Approach */}
+                            <motion.div id="approach-section" variants={elementVariants} style={{ maxWidth: '800px', margin: '0 auto', width: '100%' }}>
+                                <span style={{ fontFamily: 'Fira Code, monospace', fontSize: '11px', color: 'rgba(255, 255, 255, 0.4)', textTransform: 'uppercase', letterSpacing: '0.08em', display: 'block', marginBottom: '16px' }}>04 / {c.approach.title}</span>
+                                <h2 style={{ fontSize: '2.2rem', fontWeight: 400, marginBottom: '32px', letterSpacing: '-0.02em' }}>{c.approach.heading}</h2>
+                                {c.approach.keyTakeaway && (
+                                    <div className="cs-takeaway" style={{ marginBottom: '32px' }}>
+                                        <span className="cs-takeaway-label">Key Takeaway</span>
+                                        <p className="cs-takeaway-text">{c.approach.keyTakeaway}</p>
+                                    </div>
+                                )}
+                                {c.approach.paragraphs && c.approach.paragraphs.map((p, i) => (
+                                    <p key={i} style={{ fontSize: '1.05rem', lineHeight: 1.6, color: 'rgba(255, 255, 255, 0.65)', marginBottom: '16px' }}>{p}</p>
+                                ))}
+                                {c.approach.bullets && (
+                                    <ul className="cs-bullet-list" style={{ marginBottom: '24px', marginTop: '8px' }}>
+                                        {c.approach.bullets.map((b, i) => (
+                                            <li key={i}>{b}</li>
+                                        ))}
+                                    </ul>
+                                )}
+                                {c.approach.paragraphsAfter && c.approach.paragraphsAfter.map((p, i) => (
+                                    <p key={i} style={{ fontSize: '1.05rem', lineHeight: 1.6, color: 'rgba(255, 255, 255, 0.65)', marginBottom: '16px' }}>{p}</p>
+                                ))}
                             </motion.div>
 
-                            {/* SECTION 6: Product Strategy */}
-                            <motion.div variants={elementVariants} style={{ width: '100%' }}>
-                                <div style={{ maxWidth: '800px', margin: '0 auto 40px auto' }}>
-                                    <span style={{ fontFamily: 'Fira Code, monospace', fontSize: '11px', color: 'rgba(255, 255, 255, 0.4)', textTransform: 'uppercase', letterSpacing: '0.08em', display: 'block', marginBottom: '16px' }}>06 / {c.productStrategy.title}</span>
-                                    <h2 style={{ fontSize: '2.2rem', fontWeight: 400, marginBottom: '24px', letterSpacing: '-0.02em' }}>{c.productStrategy.heading}</h2>
-                                </div>
-
-                                {/* Paradigm Diagram Panel */}
-                                <div
-                                    style={{
-                                        padding: '40px',
-                                        background: 'rgba(255, 255, 255, 0.01)',
-                                        border: '1px solid rgba(255, 255, 255, 0.05)',
-                                        borderRadius: '24px',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        gap: '40px',
-                                        marginBottom: '40px'
-                                    }}
-                                    className="paradigm-diagram-responsive"
-                                >
-                                    <div style={{ flex: 1, textAlign: 'right' }} className="paradigm-block">
-                                        <h4 style={{ fontSize: '1.3rem', fontWeight: 500, color: 'rgba(255, 255, 255, 0.5)', marginBottom: '8px' }}>{c.productStrategy.diagram.from}</h4>
-                                        <p style={{ fontSize: '11px', color: 'rgba(255, 255, 255, 0.35)', margin: 0 }}>{c.productStrategy.diagram.fromDesc}</p>
-                                    </div>
-                                    <div style={{ color: 'rgba(255, 255, 255, 0.25)', fontSize: '24px' }}>➔</div>
-                                    <div style={{ flex: 1, textAlign: 'left' }} className="paradigm-block">
-                                        <h4 style={{ fontSize: '1.3rem', fontWeight: 500, color: '#fff', marginBottom: '8px' }}>{c.productStrategy.diagram.to}</h4>
-                                        <p style={{ fontSize: '11px', color: 'rgba(255, 255, 255, 0.5)', margin: 0 }}>{c.productStrategy.diagram.toDesc}</p>
-                                    </div>
-                                </div>
-
-                                <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-                                    {c.productStrategy.paragraphs.map((p, i) => (
-                                        <p key={i} style={{ fontSize: '1.05rem', lineHeight: 1.6, color: 'rgba(255, 255, 255, 0.65)', marginBottom: '20px' }}>{p}</p>
-                                    ))}
-                                </div>
-                            </motion.div>
-
-                            {/* SECTION 7: Solution */}
+                            {/* SECTION 5: Solution */}
                             <motion.div id="prototype-section" variants={elementVariants} style={{ width: '100%' }}>
-                                <div style={{ maxWidth: '800px', margin: '0 auto 60px auto' }}>
-                                    <span style={{ fontFamily: 'Fira Code, monospace', fontSize: '11px', color: 'rgba(255, 255, 255, 0.4)', textTransform: 'uppercase', letterSpacing: '0.08em', display: 'block', marginBottom: '16px' }}>07 / {c.solution.title}</span>
+                                <div style={{ maxWidth: '800px', margin: '0 auto 40px auto' }}>
+                                    <span style={{ fontFamily: 'Fira Code, monospace', fontSize: '11px', color: 'rgba(255, 255, 255, 0.4)', textTransform: 'uppercase', letterSpacing: '0.08em', display: 'block', marginBottom: '16px' }}>05 / {c.solution.title}</span>
                                     <h2 style={{ fontSize: '2.2rem', fontWeight: 400, marginBottom: '24px', letterSpacing: '-0.02em' }}>{c.solution.heading}</h2>
+                                    {c.solution.keyTakeaway && (
+                                        <div className="cs-takeaway">
+                                            <span className="cs-takeaway-label">Key Takeaway</span>
+                                            <p className="cs-takeaway-text">{c.solution.keyTakeaway}</p>
+                                        </div>
+                                    )}
                                 </div>
 
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: '80px' }}>
@@ -654,8 +609,8 @@ export default function CaseStudyTemplate({ metadata, content }) {
                                 </div>
                             </motion.div>
 
-                            {/* SECTION 8: Systems Thinking (HIGHLIGHT PANEL) */}
-                            <motion.div id="structure-section" variants={elementVariants} style={{ width: '100%' }}>
+                            {/* SECTION 6: Outcome (HIGHLIGHT PANEL) */}
+                            <motion.div id="result-section" variants={elementVariants} style={{ width: '100%' }}>
                                 <div
                                     style={{
                                         width: '100%',
@@ -681,20 +636,30 @@ export default function CaseStudyTemplate({ metadata, content }) {
                                     }} />
 
                                     <div style={{ position: 'relative', zIndex: 2 }}>
-                                        <span style={{ fontFamily: 'Fira Code, monospace', fontSize: '11px', color: 'rgba(255, 255, 255, 0.4)', textTransform: 'uppercase', letterSpacing: '0.08em', display: 'block', marginBottom: '16px' }}>08 / {c.systemsThinking.title}</span>
-                                        <h2 style={{ fontSize: '2.2rem', fontWeight: 400, marginBottom: '40px', letterSpacing: '-0.02em' }}>{c.systemsThinking.heading}</h2>
+                                        <span style={{ fontFamily: 'Fira Code, monospace', fontSize: '11px', color: 'rgba(255, 255, 255, 0.4)', textTransform: 'uppercase', letterSpacing: '0.08em', display: 'block', marginBottom: '16px' }}>06 / {c.outcome.title}</span>
+                                        <h2 style={{ fontSize: '2.2rem', fontWeight: 400, marginBottom: '32px', letterSpacing: '-0.02em' }}>{c.outcome.heading}</h2>
 
-                                        <div style={{ display: 'flex', flexDirection: 'column', gap: '30px' }}>
-                                            {c.systemsThinking.questions.map((item, idx) => (
+                                        {c.outcome.keyTakeaway && (
+                                            <div className="cs-takeaway" style={{ marginBottom: '40px' }}>
+                                                <span className="cs-takeaway-label">Key Takeaway</span>
+                                                <p className="cs-takeaway-text">{c.outcome.keyTakeaway}</p>
+                                            </div>
+                                        )}
+
+                                        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                                            {c.outcome.items.map((item, idx) => (
                                                 <div
                                                     key={idx}
                                                     style={{
-                                                        borderBottom: idx !== c.systemsThinking.questions.length - 1 ? '1px solid rgba(255, 255, 255, 0.05)' : 'none',
-                                                        paddingBottom: '24px'
+                                                        display: 'flex',
+                                                        alignItems: 'flex-start',
+                                                        gap: '16px',
+                                                        borderBottom: idx !== c.outcome.items.length - 1 ? '1px solid rgba(255, 255, 255, 0.05)' : 'none',
+                                                        paddingBottom: '20px'
                                                     }}
                                                 >
-                                                    <h4 style={{ fontSize: '1.1rem', fontWeight: 500, color: '#fff', marginBottom: '8px' }}>{item.q}</h4>
-                                                    <p style={{ fontSize: '0.98rem', lineHeight: 1.5, color: 'rgba(255, 255, 255, 0.65)', margin: 0 }}>{item.a}</p>
+                                                    <span style={{ fontFamily: 'Fira Code, monospace', fontSize: '10px', color: 'rgba(255, 255, 255, 0.3)', paddingTop: '3px', flexShrink: 0 }}>0{idx + 1}</span>
+                                                    <p style={{ fontSize: '1.05rem', lineHeight: 1.55, color: 'rgba(255, 255, 255, 0.7)', margin: 0 }}>{item}</p>
                                                 </div>
                                             ))}
                                         </div>
@@ -702,105 +667,22 @@ export default function CaseStudyTemplate({ metadata, content }) {
                                 </div>
                             </motion.div>
 
-                            {/* SECTION 9: Visual Direction */}
-                            <motion.div variants={elementVariants} style={{ width: '100%' }}>
-                                <div style={{ maxWidth: '800px', margin: '0 auto 40px auto' }}>
-                                    <span style={{ fontFamily: 'Fira Code, monospace', fontSize: '11px', color: 'rgba(255, 255, 255, 0.4)', textTransform: 'uppercase', letterSpacing: '0.08em', display: 'block', marginBottom: '16px' }}>09 / {c.visualDirection.title}</span>
-                                    <h2 style={{ fontSize: '2.2rem', fontWeight: 400, marginBottom: '24px', letterSpacing: '-0.02em' }}>{c.visualDirection.heading}</h2>
-                                </div>
-
-                                <div
-                                    style={{
-                                        display: 'grid',
-                                        gridTemplateColumns: 'repeat(4, 1fr)',
-                                        gap: '20px',
-                                        marginBottom: '40px'
-                                    }}
-                                    className="principles-grid-responsive"
-                                >
-                                    {c.visualDirection.points.map((pt, idx) => (
-                                        <div
-                                            key={idx}
-                                            style={{
-                                                background: 'rgba(255, 255, 255, 0.01)',
-                                                border: '1px solid rgba(255, 255, 255, 0.05)',
-                                                borderRadius: '16px',
-                                                padding: '24px 20px',
-                                                display: 'flex',
-                                                flexDirection: 'column',
-                                                gap: '8px'
-                                            }}
-                                        >
-                                            <span style={{ fontFamily: 'Fira Code, monospace', fontSize: '10px', color: 'rgba(255, 255, 255, 0.3)' }}>0{idx + 1}</span>
-                                            <h5 style={{ fontSize: '1rem', fontWeight: 500, color: '#fff', margin: '4px 0 0 0' }}>{pt.title}</h5>
-                                            <p style={{ fontSize: '0.88rem', lineHeight: 1.45, color: 'rgba(255, 255, 255, 0.5)', margin: 0 }}>{pt.description}</p>
-                                        </div>
-                                    ))}
-                                </div>
-
-                                {/* Visual direction placeholders */}
-                                <div
-                                    style={{
-                                        display: 'grid',
-                                        gridTemplateColumns: 'repeat(2, 1fr)',
-                                        gap: '20px'
-                                    }}
-                                    className="layout-2col-responsive"
-                                >
-                                    <div style={{ height: '180px', border: '1px solid rgba(255,255,255,0.05)', background: 'rgba(255,255,255,0.01)', borderRadius: '12px', display: 'flex', alignItems: 'center', justifycontent: 'center', flexWrap: 'wrap', alignContent: 'center', justifyContent: 'center' }}>
-                                        <span style={{ fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.15em', color: 'rgba(255, 255, 255, 0.3)', fontWeight: 600 }}>Mood Asset 01</span>
-                                    </div>
-                                    <div style={{ height: '180px', border: '1px solid rgba(255,255,255,0.05)', background: 'rgba(255,255,255,0.01)', borderRadius: '12px', display: 'flex', alignItems: 'center', justifycontent: 'center', flexWrap: 'wrap', alignContent: 'center', justifyContent: 'center' }}>
-                                        <span style={{ fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.15em', color: 'rgba(255, 255, 255, 0.3)', fontWeight: 600 }}>Mood Asset 02</span>
-                                    </div>
-                                </div>
-                            </motion.div>
-
-                            {/* SECTION 10: What Success Would Look Like */}
-                            <motion.div id="result-section" variants={elementVariants} style={{ width: '100%' }}>
-                                <div style={{ maxWidth: '800px', margin: '0 auto 40px auto' }}>
-                                    <span style={{ fontFamily: 'Fira Code, monospace', fontSize: '11px', color: 'rgba(255, 255, 255, 0.4)', textTransform: 'uppercase', letterSpacing: '0.08em', display: 'block', marginBottom: '16px' }}>10 / {c.successHypotheses.title}</span>
-                                    <h2 style={{ fontSize: '2.2rem', fontWeight: 400, marginBottom: '24px', letterSpacing: '-0.02em' }}>{c.successHypotheses.heading}</h2>
-                                </div>
-
-                                <div
-                                    style={{
-                                        display: 'grid',
-                                        gridTemplateColumns: 'repeat(5, 1fr)',
-                                        gap: '16px'
-                                    }}
-                                    className="journey-grid-responsive"
-                                >
-                                    {c.successHypotheses.cards.map((card, idx) => (
-                                        <div
-                                            key={idx}
-                                            style={{
-                                                background: 'rgba(255, 255, 255, 0.01)',
-                                                border: '1px solid rgba(255, 255, 255, 0.05)',
-                                                borderRadius: '16px',
-                                                padding: '24px 16px',
-                                                display: 'flex',
-                                                flexDirection: 'column',
-                                                gap: '12px'
-                                            }}
-                                        >
-                                            <span style={{ fontFamily: 'Fira Code, monospace', fontSize: '10px', color: 'rgba(255, 255, 255, 0.3)' }}>HYPOTHESIS 0{idx + 1}</span>
-                                            <h5 style={{ fontSize: '1rem', fontWeight: 500, color: '#fff', margin: 0, lineHeight: 1.3 }}>{card.title}</h5>
-                                            <p style={{ fontSize: '0.85rem', lineHeight: 1.45, color: 'rgba(255, 255, 255, 0.5)', margin: 0 }}>{card.description}</p>
-                                        </div>
-                                    ))}
-                                </div>
-                            </motion.div>
-
-                            {/* SECTION 11: Key Learnings */}
+                            {/* SECTION 7: Reflection */}
                             <motion.div variants={elementVariants} style={{ maxWidth: '800px', margin: '0 auto', width: '100%' }}>
-                                <span style={{ fontFamily: 'Fira Code, monospace', fontSize: '11px', color: 'rgba(255, 255, 255, 0.4)', textTransform: 'uppercase', letterSpacing: '0.08em', display: 'block', marginBottom: '16px' }}>11 / {c.learnings.title}</span>
-                                <h2 style={{ fontSize: '2.2rem', fontWeight: 400, marginBottom: '24px', letterSpacing: '-0.02em' }}>{c.learnings.heading}</h2>
-                                {c.learnings.paragraphs.map((p, i) => (
-                                    <p key={i} style={{ fontSize: '1.05rem', lineHeight: 1.6, color: 'rgba(255, 255, 255, 0.65)', marginBottom: '20px' }}>{p}</p>
+                                <span style={{ fontFamily: 'Fira Code, monospace', fontSize: '11px', color: 'rgba(255, 255, 255, 0.4)', textTransform: 'uppercase', letterSpacing: '0.08em', display: 'block', marginBottom: '16px' }}>07 / {c.reflection.title}</span>
+                                <h2 style={{ fontSize: '2.2rem', fontWeight: 400, marginBottom: '32px', letterSpacing: '-0.02em' }}>{c.reflection.heading}</h2>
+                                {c.reflection.keyTakeaway && (
+                                    <div className="cs-takeaway" style={{ marginBottom: '32px' }}>
+                                        <span className="cs-takeaway-label">Key Takeaway</span>
+                                        <p className="cs-takeaway-text">{c.reflection.keyTakeaway}</p>
+                                    </div>
+                                )}
+                                {c.reflection.paragraphs.map((p, i) => (
+                                    <p key={i} style={{ fontSize: '1.05rem', lineHeight: 1.6, color: 'rgba(255, 255, 255, 0.65)', marginBottom: '16px' }}>{p}</p>
                                 ))}
                             </motion.div>
                         </div>
+
                     </div>
                 </div>
             </div>

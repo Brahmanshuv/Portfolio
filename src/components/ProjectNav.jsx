@@ -3,10 +3,10 @@ import { motion } from 'framer-motion';
 
 const NAV_ITEMS = [
     { id: 'overview', label: 'Overview', targetId: 'overview-section' },
-    { id: 'flow', label: 'Flow', targetId: 'flow-section' },
-    { id: 'prototype', label: 'Prototype', targetId: 'prototype-section' },
-    { id: 'structure', label: 'Structure', targetId: 'structure-section' },
-    { id: 'result', label: 'Result', targetId: 'result-section' }
+    { id: 'flow', label: 'Journey', targetId: 'flow-section' },
+    { id: 'approach', label: 'Approach', targetId: 'approach-section' },
+    { id: 'prototype', label: 'Solution', targetId: 'prototype-section' },
+    { id: 'result', label: 'Outcome', targetId: 'result-section' }
 ];
 
 export default function ProjectNav({ activeSection, onSectionClick }) {

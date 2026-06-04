@@ -1,191 +1,120 @@
 export const content = {
     hero: {
         title: "Dream Holidays",
-        subtitle: "Transforming a Traditional Travel Agency into a Digital-First Travel Experience",
+        subtitle: "Bringing a 25-year travel agency online without losing what made it trusted.",
         coverImage: "hero-cover.webp"
     },
     sections: {
-        context: {
-            title: "Context",
-            heading: "The Legacy of Offline Trust",
+        overview: {
+            title: "Overview",
+            heading: "The Project",
+            keyTakeaway: "Dream Holidays had 25 years of trust built offline. The challenge was bringing that online without losing it.",
             paragraphs: [
-                "For over 25 years, Dream Holidays operated as a highly successful brick-and-mortar travel agency, building its reputation on high-touch curation, customized itineraries, and trusted human relationships. Every booking was an editorial advisory process: understanding a client's aspirational desires, planning bespoke logistics, and providing round-the-clock telephone assistance during their journey.",
-                "However, as digital-native travel engines commoditized the industry into automated flight grids, the agency faced an existential hurdle. New customer acquisition stagnated, and operational hours were dominated by repetitive inquiries from callers seeking basic pricing—leaving agents with less time to plan high-value, bespoke vacations. The goal was to bridge this gap: establishing a scalable online presence without stripping away the trust and personalization that defined their brand legacy."
+                "Dream Holidays is a travel agency that has been running for over 25 years. They built their reputation on personal relationships — understanding what a family actually wants from a holiday and building something tailored, not off-the-shelf.",
+                "The problem was simple: they had no website. Every inquiry came through a phone call or WhatsApp message. Agents spent most of their day answering the same basic questions instead of doing the planning work they were good at.",
+                "The goal was to give them a digital presence where customers could explore and get informed before reaching out — without replacing the human element that made the agency worth calling in the first place."
             ]
         },
-        whyThisProject: {
-            title: "Why This Project?",
-            heading: "Travel Planning as a Companion, Not a Commodity",
+        problem: {
+            title: "The Problem",
+            heading: "Why People Had to Call",
+            keyTakeaway: "Every conversation started from zero. Customers had no context. Agents had no time.",
             paragraphs: [
-                "Most modern travel platforms are transactional engines built for quick, low-touch conversions. While highly efficient for simple business flights, they fail completely for complex, aspirational family holidays, which require deep destination context, logistical reassurance, and structured planning.",
-                "Designing the digital experience for Dream Holidays was a unique challenge in UX strategy. It was an opportunity to translate high-touch offline advisory workflows into a digital-first companion platform. By introducing guided exploration and self-service discoveries, we could alleviate repetitive agent workload, educate modern travelers, and elevate the agency's trusted advisory model to a global, scalable audience."
+                "Without a website, customers had no way to understand what the agency offered before picking up the phone. The first call was always the same:"
+            ],
+            bullets: [
+                "What destinations do you cover?",
+                "What's roughly included in a package?",
+                "How does pricing work?",
+                "Can you send me an itinerary?"
+            ],
+            paragraphsAfter: [
+                "Agents answered these questions dozens of times a week. WhatsApp became the default channel — packages shared as images, itineraries sent as PDFs, questions scattered across multiple threads. It worked at small scale, but it didn't hold up as volume grew.",
+                "The bigger cost was invisible. Customers who might have converted had nowhere to explore before committing to a call. People who weren't ready to book had no way to stay engaged."
             ]
-        },
-        problemStatement: {
-            title: "Problem Statement",
-            heading: "The Design Challenge",
-            highlight: "How might we help a traditional travel agency transition online while preserving the trust and personalized guidance that customers value?"
         },
         existingJourney: {
-            title: "Understanding The Existing Journey",
-            heading: "Mapping the Offline Workflow",
-            subtitle: "Offline Journey Diagram",
+            title: "Existing Journey",
+            heading: "How It Worked",
+            subtitle: "Customer flow before the website",
             image: "journey-diagram.webp",
             steps: [
-                "Customer wants vacation",
-                "Calls agency",
+                "Customer wants a trip",
+                "Calls the agency",
                 "Agent shares options",
-                "Customer requests details",
-                "Agent shares itinerary",
-                "Questions & Answers",
+                "Customer asks questions",
+                "Agent sends itinerary",
+                "Back-and-forth",
                 "Booking discussion"
             ]
         },
-        designPrinciples: {
-            title: "Design Principles",
-            heading: "Guiding the Digital Experience",
-            cards: [
-                {
-                    title: "Discovery Before Booking",
-                    description: "Let customers fall in love with destinations through spacious, storytelling imagery and curated options before discussing pricing or bookings."
-                },
-                {
-                    title: "Information Builds Trust",
-                    description: "Avoid hidden terms. Provide rich, highly structured destination details, curated timelines, and upfront expectations to establish credibility."
-                },
-                {
-                    title: "Reduce Agent Dependency",
-                    description: "Enable self-service exploration of climate, packing guides, and day-by-day itineraries to deflect repetitive, low-value phone inquiries."
-                },
-                {
-                    title: "Preserve Human Assistance",
-                    description: "Maintain the human element. Embed intuitive, contextual 'Discuss with an Advisor' triggers throughout the exploration journey rather than forcing hard automated checkouts."
-                }
-            ]
-        },
-        productStrategy: {
-            title: "Product Strategy",
-            heading: "Shifting the Paradigm",
-            diagram: {
-                from: "Transaction Platform",
-                to: "Travel Planning Companion",
-                fromDesc: "Expedia-style grid, commodity search, automated booking, transactional focus",
-                toDesc: "Story-driven exploration, curated packages, contextual guidance, trusted human handoff"
-            },
+        approach: {
+            title: "Approach",
+            heading: "What We Decided Not to Build",
+            keyTakeaway: "The goal was not to replace travel advisors. It was to help customers arrive at the conversation better informed.",
             paragraphs: [
-                "The core strategy pivots from a purely transactional e-commerce checkout model to a comprehensive travel exploration companion. By guiding users through rich regional visual essays, sample itineraries, and custom planners, the digital platform educates and filters prospects, elevating inquiry quality."
+                "The obvious answer would have been a booking platform — search, filter, checkout. But that's not how this agency works. Their value is curation and guided planning. A self-serve checkout would have stripped that out completely.",
+                "Instead, the decision was to build something closer to an editorial travel companion. A place where customers could:"
+            ],
+            bullets: [
+                "Browse destinations and understand what each place actually involves",
+                "See what a package looks like before asking about price",
+                "Read day-by-day itineraries and eliminate their own basic questions",
+                "Submit a meaningful inquiry instead of a cold first call"
+            ],
+            paragraphsAfter: [
+                "The human advisor stays in the loop — they just get contacted at the right moment, not the first one. This meant designing for exploration rather than conversion."
             ]
         },
         solution: {
-            title: "The Solution",
-            heading: "Reimagining Travel Discovery",
+            title: "Solution",
+            heading: "What Was Built",
+            keyTakeaway: "Four areas of design — each targeting a specific point in the journey where customers previously had to call.",
             subsections: [
                 {
-                    id: "destination-exploration",
-                    title: "Destination Exploration",
-                    description: "Immersive, photo-forward layouts showcasing the sensory highlights, culture, and logistics of curated regions.",
+                    id: "destination-discovery",
+                    title: "Destination Discovery",
+                    description: "Destination pages led with photography and atmosphere — the kind of thing that makes someone stop scrolling. Climate, best time to visit, what the experience actually feels like. Enough context for someone to decide whether this place is right for them before making contact.",
                     image: "hero-cover.webp"
                 },
                 {
-                    id: "package-discovery",
-                    title: "Package Discovery",
-                    description: "Dynamic filters categorizing travel packages by intent (e.g. 'Heritage & Slow Living', 'Cinematic Coastlines') rather than plain pricing grids.",
+                    id: "package-exploration",
+                    title: "Package Exploration",
+                    description: "Packages were grouped by trip type, not just price. A family looking for beaches and a couple looking for culture need to see different options. Filters reflected intent — what kind of trip are you after — rather than just logistics.",
                     image: "package-discovery.webp"
                 },
                 {
-                    id: "information-hierarchy",
-                    title: "Guided Information Hierarchy",
-                    description: "Day-by-day itinerary summaries featuring clear visual icons, packing guidelines, and climate charts.",
+                    id: "itinerary-pages",
+                    title: "Itinerary Pages",
+                    description: "Day-by-day breakdowns with clear structure: what's included, what's not, what to pack, what to expect at each stage. The detail that eliminates the most common pre-booking questions without requiring a call.",
                     image: "information-hierarchy.webp"
                 },
                 {
-                    id: "inquiry-driven",
-                    title: "Inquiry-Driven Conversion",
-                    description: "Transitioning from a cold checkout button to a highly personalized inquiry forms that ask rich, conceptual questions, seamlessly handing the high-value lead over to the agency's human advisors.",
+                    id: "inquiry-flow",
+                    title: "Inquiry Flow",
+                    description: "Rather than a generic contact form, the inquiry flow asked real questions: how many people, what kind of experience, any specific requirements. By the time an agent received a lead, they already had enough context to start a useful conversation.",
                     image: "final-ui.webp"
                 }
             ]
         },
-        systemsThinking: {
-            title: "Systems Thinking",
-            heading: "The Service Blueprint",
-            questions: [
-                {
-                    q: "What information can be self-served?",
-                    a: "Day-by-day schedules, packing guides, travel alerts, and lodging classifications."
-                },
-                {
-                    q: "What information still requires human guidance?",
-                    a: "Visa intricacies, niche customization requests, real-time booking availability, and personalized local guides."
-                },
-                {
-                    q: "How can the platform reduce repetitive inquiries?",
-                    a: "By publishing robust FAQs, interactive itinerary planners, and highly detailed destination blueprints."
-                },
-                {
-                    q: "Where does trust need reinforcement?",
-                    a: "Transparency in lodging reviews, agent profile cards showing travel experience, and customer case histories."
-                },
-                {
-                    q: "What happens before and after an inquiry?",
-                    a: "Instant confirmation SMS with a calendar booking slot for a phone consultation, followed by a personalized digital dashboard matching their profile."
-                }
+        outcome: {
+            title: "Outcome",
+            heading: "What Changed",
+            keyTakeaway: "The shift wasn't just operational. It changed the quality of every customer conversation.",
+            items: [
+                "Customers can explore destinations and packages before reaching out — the agency's most common questions are now answered on the site.",
+                "Agents receive inquiries with context. Instead of starting from scratch, they can move directly to planning.",
+                "The inquiry form filters out vague leads. People who submit it have already thought about what they want.",
+                "The agency has a presence they can point to. Word-of-mouth referrals now have somewhere useful to land."
             ]
         },
-        visualDirection: {
-            title: "Visual Direction",
-            heading: "High-End Editorial Aesthetic",
-            points: [
-                {
-                    title: "Large Destination Imagery",
-                    description: "Cinematic, atmospheric imagery capturing raw emotions rather than sterile stock graphics."
-                },
-                {
-                    title: "Spacious Layouts",
-                    description: "Generous whitespace to make complex itineraries feel simple and relaxing."
-                },
-                {
-                    title: "Mobile-First Experience",
-                    description: "Fluid layouts designed specifically for touchpoints, allowing travelers to reference their companions on-the-go."
-                },
-                {
-                    title: "Strong Hierarchy",
-                    description: "Utilizing elegant serif titles paired with dense, readable monospace sans-serif metadata details to enforce visual structure."
-                }
-            ]
-        },
-        successHypotheses: {
-            title: "What Success Would Look Like",
-            heading: "Hypothesis for Success",
-            cards: [
-                {
-                    title: "Improve Destination Discoverability",
-                    description: "Users spend 3x more time browsing curated regions compared to industry averages."
-                },
-                {
-                    title: "Reduce Repetitive Inquiries",
-                    description: "Deflecting 40% of standard phone inquiries by presenting structured climate, packing, and lodging details online."
-                },
-                {
-                    title: "Increase Lead Quality",
-                    description: "Context-rich inquiry forms elevate final telephone call-to-booking conversions by 25%."
-                },
-                {
-                    title: "Create Scalable Acquisition",
-                    description: "Attract a younger demographic of self-served, premium travelers seeking personalized design curation."
-                },
-                {
-                    title: "Strengthen Brand Credibility",
-                    description: "Establish the agency as modern digital thought-leaders while respecting their 25-year offline history."
-                }
-            ]
-        },
-        learnings: {
-            title: "Key Learnings",
-            heading: "Product Design Takeaways",
+        reflection: {
+            title: "Reflection",
+            heading: "What I Took Away",
+            keyTakeaway: "The hardest design problems here weren't visual. They were about figuring out what the product actually needed to do.",
             paragraphs: [
-                "Designing the digital core of Dream Holidays proved that digital transformation is not simply about writing code or styling pixels; it is about service blueprinting. A product designer must thoroughly understand human operations, deflecting low-value friction while scaling the high-value touchpoints that customers cherish.",
-                "Trust is a complex design token. It cannot be bought with cheap badges or flashy visuals. Trust is built through structural clarity, elegant spacing, information transparency, and respecting the user's intelligence at every single stage of their digital journey."
+                "A lot of early conversations were about features — booking engines, comparison tools, live availability. Working through why those weren't right for this specific agency taught me more about product thinking than any framework.",
+                "There's also something worth noting about designing for trust. Every decision had to feel considered, not templated. The content, the structure, the pacing — all of it needed to reflect an agency that genuinely knows what it's doing. That's harder to design for than a conversion funnel."
             ]
         }
     }
