@@ -4706,7 +4706,8 @@ html.lenis body {
 .timeline-scroll-wrapper {
     position: relative;
     width: 100%;
-    height: 240vh; /* scroll height budget for 4 milestones */
+    height: 240vh;
+    /* scroll height budget for 4 milestones */
 }
 
 .timeline-sticky-viewport {
@@ -4723,8 +4724,10 @@ html.lenis body {
 .timeline-floating-container {
     position: relative;
     width: 100%;
-    max-width: 1300px; /* Scaled up from 900px */
-    height: 680px;     /* Scaled up from 480px */
+    max-width: 1300px;
+    /* Scaled up from 900px */
+    height: 680px;
+    /* Scaled up from 480px */
     margin: 0 auto;
 }
 
@@ -4734,7 +4737,8 @@ html.lenis body {
     top: 50%;
     left: 10%;
     right: 10%;
-    height: 3px;       /* Scaled up from 2px */
+    height: 3px;
+    /* Scaled up from 2px */
     background: rgba(255, 255, 255, 0.05);
     z-index: 1;
     transform: translateY(-50%);
@@ -4745,7 +4749,8 @@ html.lenis body {
     top: 50%;
     left: 10%;
     width: 80%;
-    height: 3px;       /* Scaled up from 2px */
+    height: 3px;
+    /* Scaled up from 2px */
     background: linear-gradient(90deg, rgba(0, 122, 255, 0.3) 0%, rgba(0, 122, 255, 1) 100%);
     box-shadow: 0 0 12px rgba(0, 122, 255, 0.5);
     z-index: 2;
@@ -4757,7 +4762,8 @@ html.lenis body {
 .timeline-progress-dot-glowing {
     position: absolute;
     top: 50%;
-    width: 24px;       /* Scaled up from 16px */
+    width: 24px;
+    /* Scaled up from 16px */
     height: 24px;
     border-radius: 50%;
     background: #007aff;
@@ -4769,14 +4775,15 @@ html.lenis body {
 
 /* Milestone Dots */
 .timeline-milestone-dot {
-    width: 18px;       /* Scaled up from 12px */
+    width: 18px;
+    /* Scaled up from 12px */
     height: 18px;
     border-radius: 50%;
     background: #07090d;
     border: 2px solid rgba(255, 255, 255, 0.3);
-    transition: 
-        background-color 0.8s cubic-bezier(0.22, 1, 0.36, 1), 
-        border-color 0.8s cubic-bezier(0.22, 1, 0.36, 1), 
+    transition:
+        background-color 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+        border-color 0.8s cubic-bezier(0.22, 1, 0.36, 1),
         box-shadow 0.8s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -4793,56 +4800,67 @@ html.lenis body {
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     border-radius: 16px;
-    padding: 24px 30px; /* Scaled up from 20px 24px */
-    width: 350px;       /* Scaled up from 260px */
+    padding: 24px 30px;
+    /* Scaled up from 20px 24px */
+    width: 350px;
+    /* Scaled up from 260px */
     display: flex;
     flex-direction: column;
-    gap: 16px;          /* Scaled up from 12px */
+    gap: 16px;
+    /* Scaled up from 12px */
     text-align: left;
-    opacity: 0.4;       /* Inactive card opacity */
-    transition: 
-        border-color 0.8s cubic-bezier(0.22, 1, 0.36, 1), 
-        background-color 0.8s cubic-bezier(0.22, 1, 0.36, 1), 
-        box-shadow 0.8s cubic-bezier(0.22, 1, 0.36, 1), 
+    opacity: 0.4;
+    /* Inactive card opacity */
+    transition:
+        border-color 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+        background-color 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow 0.8s cubic-bezier(0.22, 1, 0.36, 1),
         opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* Card Size Hierarchy - Current Role (6S Marketers) is 10-15% larger */
 .timeline-floating-card.current-role {
-    width: 395px;       /* ~13% larger than 350px */
+    width: 395px;
+    /* ~13% larger than 350px */
     padding: 28px 34px;
 }
 
 .card-logo-row {
     display: flex;
     align-items: center;
-    height: 36px;       /* Scaled up from 24px */
+    height: 36px;
+    /* Scaled up from 24px */
 }
 
 .card-logo {
-    height: 28px;       /* Scaled up from 20px */
+    height: 28px;
+    /* Scaled up from 20px */
     width: auto;
     max-width: 150px;
     object-fit: contain;
-    filter: grayscale(100%); /* Monochromatic/grayscale by default */
+    filter: grayscale(100%);
+    /* Monochromatic/grayscale by default */
     opacity: 0.45;
-    transition: 
-        filter 0.6s cubic-bezier(0.22, 1, 0.36, 1), 
+    transition:
+        filter 0.6s cubic-bezier(0.22, 1, 0.36, 1),
         opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .timeline-floating-card.current-role .card-logo {
-    height: 34px;       /* Scaled up logo for primary card */
+    height: 34px;
+    /* Scaled up logo for primary card */
 }
 
 .card-info {
     display: flex;
     flex-direction: column;
-    gap: 6px;           /* Scaled up from 4px */
+    gap: 6px;
+    /* Scaled up from 4px */
 }
 
 .card-company {
-    font-size: 16px;    /* Scaled up from 14px */
+    font-size: 16px;
+    /* Scaled up from 14px */
     font-weight: 500;
     color: rgba(255, 255, 255, 0.45);
     transition: color 0.8s cubic-bezier(0.22, 1, 0.36, 1);
@@ -4853,7 +4871,8 @@ html.lenis body {
 }
 
 .card-role {
-    font-size: 20px;    /* Scaled up from 16px */
+    font-size: 20px;
+    /* Scaled up from 16px */
     font-weight: 600;
     color: rgba(255, 255, 255, 0.6);
     transition: color 0.8s cubic-bezier(0.22, 1, 0.36, 1);
@@ -4865,7 +4884,8 @@ html.lenis body {
 
 .card-year {
     font-family: 'Fira Code', monospace;
-    font-size: 12px;    /* Scaled up from 11px */
+    font-size: 12px;
+    /* Scaled up from 11px */
     color: rgba(255, 255, 255, 0.4);
     letter-spacing: 0.04em;
     margin-top: 4px;
@@ -4884,16 +4904,19 @@ html.lenis body {
 }
 
 .timeline-floating-card.active .card-logo {
-    filter: grayscale(0%); /* Original brand colors fade in */
+    filter: grayscale(0%);
+    /* Original brand colors fade in */
     opacity: 1;
 }
 
 .timeline-floating-card.active .card-company {
-    color: rgba(255, 255, 255, 0.88); /* Brighter company name */
+    color: rgba(255, 255, 255, 0.88);
+    /* Brighter company name */
 }
 
 .timeline-floating-card.active .card-role {
-    color: #ffffff; /* Crisp white role title */
+    color: #ffffff;
+    /* Crisp white role title */
 }
 
 /* Shared View transition & display classes for Desktop */
@@ -4903,7 +4926,7 @@ html.lenis body {
         filter: blur(0px);
         transform: scale(1);
         visibility: visible;
-        transition: 
+        transition:
             opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1),
             filter 0.4s cubic-bezier(0.22, 1, 0.36, 1),
             transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
@@ -4925,16 +4948,15 @@ html.lenis body {
 
 /* Mobile display constraints & hide toggles */
 @media (max-width: 767px) {
-    .experience-toggle,
-    .work-toggle {
+    .experience-toggle {
         display: none !important;
     }
-    .timeline-scroll-wrapper,
-    .work-alternative-wrapper {
+
+    .timeline-scroll-wrapper {
         display: none !important;
     }
-    .experience-vertical-wrapper,
-    .projects-grid-wrapper {
+
+    .experience-vertical-wrapper {
         display: block !important;
         opacity: 1 !important;
         filter: none !important;
@@ -4944,7 +4966,7 @@ html.lenis body {
     }
 }
 
-/* Work Section Header Row & Placeholder styling */
+/* Work Section Header Row styling */
 .work-header-row {
     display: flex;
     justify-content: space-between;
@@ -4953,27 +4975,97 @@ html.lenis body {
     margin-bottom: 40px;
 }
 
-.work-placeholder-container {
-    background: rgba(255, 255, 255, 0.015);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-radius: 16px;
-    padding: 80px 40px;
-    text-align: center;
+.work-header-container {
+    max-width: 900px;
+    margin: 0 auto;
     width: 100%;
-    max-width: 640px;
-    margin: 40px auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+    box-sizing: border-box;
+    margin-bottom: 40px;
+    padding: 0;
 }
 
-.work-placeholder-text {
-    font-family: 'Fira Code', monospace;
-    font-size: 13px;
-    color: rgba(255, 255, 255, 0.35);
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-}
+@media (min-width: 901px) {
+    .work-header-container {
+        padding: 0 24px;
+    }
+}
+
+/* ═══════════════════════════════════════════════════
+   Interactive Project Archive Styles
+   ═══════════════════════════════════════════════════ */
+
+/* Closed Dossier list items styling and hover state */
+.dossier-list-btn {
+    transition: all 0.45s cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+
+.dossier-list-btn:hover:not(.active) {
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.15) !important;
+    background: rgba(255, 255, 255, 0.03) !important;
+    box-shadow: 0 4px 14px rgba(255, 255, 255, 0.02), inset 0 1px 0 rgba(255, 255, 255, 0.04) !important;
+}
+
+.dossier-list-btn.active {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Dossier Page Card Hover Effects */
+.dossier-page-card {
+    transition: border-color 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+        background-color 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.dossier-image-container img {
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+        filter 0.6s cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+
+.dossier-page-card:hover .dossier-image-container img {
+    transform: scale(1.05);
+}
+
+/* Responsive adjustments for Project Archive grid */
+@media (max-width: 1024px) and (min-width: 768px) {
+    .archive-panel-grid {
+        grid-template-columns: 210px 1fr !important;
+        gap: 20px !important;
+    }
+}
+
+/* Call to Action button styles in Dossier */
+.cta-dossier-btn {
+    transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+
+.cta-dossier-btn:hover {
+    background: rgba(255, 255, 255, 0.08) !important;
+    border-color: rgba(255, 255, 255, 0.16) !important;
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.03) !important;
+}
+
+.cta-dossier-btn:hover .cta-arrow {
+    transform: translateX(4px);
+}
+
+/* Wide Showcase Container Scaling */
+.selected-work-container {
+    transition: max-width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.selected-work-container.alternative-active {
+    max-width: 1440px !important;
+}
+
+/* Premium CTA hover states */
+.cta-dossier-btn:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.15);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3) !important;
+}
+
+.cta-dossier-btn:hover .cta-arrow {
+    transform: translateX(4px);
+}
