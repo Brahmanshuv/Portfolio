@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import GridSignalCanvas from './GridSignalCanvas';
 import profilePic from '../../assets/Profilepicture.jpeg';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -12,99 +11,62 @@ const HeroTop = () => {
     const textRef = useRef(null);
     const textParallaxRef = useRef(null);
     const cardRef = useRef(null);
-    const verticalListFgRef = useRef(null);
-    const verticalListBgRef = useRef(null);
-    const verticalWrapFgRef = useRef(null);
-    const verticalWrapBgRef = useRef(null);
-    const fgItemRefs = useRef([]);
-    const bgItemRefs = useRef([]);
 
-    const verticalListRightFgRef = useRef(null);
-    const verticalListRightBgRef = useRef(null);
-    const verticalWrapRightFgRef = useRef(null);
-    const verticalWrapRightBgRef = useRef(null);
-    const rightFgItemRefs = useRef([]);
-    const rightBgItemRefs = useRef([]);
+    // State hook to toggle project reveal card stack
+    const [isProjectStackOpen, setIsProjectStackOpen] = useState(false);
+    const [isScrolled, setIsScrolled] = useState(false);
 
-    // Curated foreground keywords
-    const fgItems = [
-        "IMMEDIACY",
-        "SPATIAL UI",
-        "IMMERSIVE",
-        "CINEMATIC",
-        "FUTURISTIC",
-        "MINIMALISM",
-        "GLASSMORPHISM",
-        "UI/UX DESIGN",
-        "3D SCENOGRAPHY",
-        "CREATIVE CODE",
-        "INTERACTIVE",
-        "DESIGN SYSTEMS",
-        "AESTHETICS",
-        "INTERFACE",
-        "MOTION ENGINE"
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.scrollY > 40) {
+                setIsScrolled(true);
+            } else {
+                setIsScrolled(false);
+            }
+        };
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        handleScroll();
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    // Project Peek Cards list
+    const projectPeekCards = [
+        {
+            id: 'dream-holidays',
+            badge: 'Case Study',
+            title: 'Dream Holidays',
+            category: 'Travel Product Design',
+            link: '/projects/dream-holidays'
+        },
+        {
+            id: '6s-marketers',
+            badge: 'Dashboard',
+            title: '6S Marketers',
+            category: 'Client Dashboard',
+            link: '#work' // TODO: Update to exact project page URL when available
+        },
+        {
+            id: 'powertrace',
+            badge: 'Product',
+            title: 'Powertrace',
+            category: 'Enterprise Dashboard System',
+            link: '/projects/enterprise-dashboard'
+        },
+        {
+            id: 'inverted-energy',
+            badge: '3D',
+            title: 'Inverted Energy',
+            category: '3D Product Experience',
+            link: '/projects/spatial-3d'
+        },
+        {
+            id: 'redtape',
+            badge: 'UX',
+            title: 'Redtape',
+            category: 'UX Research & Interface Design',
+            link: '#work' // TODO: Update to exact project page URL when available
+        }
     ];
-    const loopedFgItems = [...fgItems, ...fgItems, ...fgItems];
-
-    // Curated background keywords (different words or offset)
-    const bgItems = [
-        "PARALLAX",
-        "DEPTH",
-        "ATMOSPHERE",
-        "REFRACTION",
-        "TRANSLUCENCY",
-        "CHROME",
-        "ABERRATION",
-        "FROSTED",
-        "GLOW",
-        "PERSPECTIVE",
-        "SCROLL",
-        "KINETIC",
-        "DYNAMICS",
-        "LIGHTING",
-        "ORB"
-    ];
-    const loopedBgItems = [...bgItems, ...bgItems, ...bgItems];
-
-    // Curated foreground business / product / stakeholder keywords
-    const rightFgItems = [
-        "BUSINESS STRATEGY",
-        "PRODUCT VISION",
-        "SCALABLE SYSTEMS",
-        "GROWTH FOCUSED",
-        "STRATEGIC DECISIONS",
-        "KPI DRIVEN",
-        "USER RETENTION",
-        "PLATFORM THINKING",
-        "STAKEHOLDER ALIGNMENT",
-        "DESIGN LEADERSHIP",
-        "SYSTEM THINKING",
-        "WORKFLOW OPTIMIZATION",
-        "EXPERIENCE STRATEGY",
-        "PROBLEM SOLVING",
-        "ENTERPRISE UX"
-    ];
-    const loopedRightFgItems = [...rightFgItems, ...rightFgItems, ...rightFgItems];
-
-    // Curated background business / product / stakeholder keywords
-    const rightBgItems = [
-        "PRODUCT ARCHITECTURE",
-        "ROADMAP THINKING",
-        "CONVERSION FOCUSED",
-        "PRODUCT ECOSYSTEMS",
-        "CROSS-FUNCTIONAL",
-        "TEAM COLLABORATION",
-        "DEVELOPER HANDOFF",
-        "USER ADVOCACY",
-        "RESEARCH INSIGHTS",
-        "DESIGN OPERATIONS",
-        "DECISION MAKING",
-        "HUMAN-CENTERED",
-        "SCALABLE UX",
-        "DESIGN CONSISTENCY",
-        "OPERATIONAL CLARITY"
-    ];
-    const loopedRightBgItems = [...rightBgItems, ...rightBgItems, ...rightBgItems];
 
     // Smoothed rotation values (using refs for animation frame)
     const target = useRef({ x: 0, y: 0, mx: 0, my: 0 });
@@ -151,105 +113,11 @@ const HeroTop = () => {
                     `rotateX(${c.x}deg) rotateY(${c.y}deg)`;
             }
 
-
-
-            // Parallax — Foreground Glass Typography (moves slightly faster/closer)
+            // Parallax — Foreground Glass Typography / Panel (moves slightly faster/closer)
             if (textParallaxRef.current) {
                 textParallaxRef.current.style.transform =
                     `translateZ(120px) translate(${c.y * 1.6}px, ${c.x * 1.6}px)`;
             }
-
-            // Parallax — Mid Plane Primary vertical list (angled & distinct speed)
-            if (verticalWrapFgRef.current) {
-                verticalWrapFgRef.current.style.transform =
-                    `translateZ(40px) rotateY(-10deg) rotateX(1deg) translate(${c.y * 1.1}px, ${c.x * 1.1}px)`;
-            }
-
-            // Parallax — Background Plane Secondary vertical list (faded & slower)
-            if (verticalWrapBgRef.current) {
-                verticalWrapBgRef.current.style.transform =
-                    `translateZ(-60px) rotateY(-15deg) translate(${c.y * 0.6}px, ${c.x * 0.6}px)`;
-            }
-
-            // Parallax — Mid Plane Primary vertical list (angled & distinct speed) (Right side)
-            if (verticalWrapRightFgRef.current) {
-                verticalWrapRightFgRef.current.style.transform =
-                    `translateZ(40px) rotateY(10deg) rotateX(-1deg) translate(${c.y * 1.1}px, ${c.x * 1.1}px)`;
-            }
-
-            // Parallax — Background Plane Secondary vertical list (faded & slower) (Right side)
-            if (verticalWrapRightBgRef.current) {
-                verticalWrapRightBgRef.current.style.transform =
-                    `translateZ(-60px) rotateY(15deg) translate(${c.y * 0.6}px, ${c.x * 0.6}px)`;
-            }
-
-            // Recalculate dynamic scaling for vertical kinetic strip items on each frame
-            const vh = window.innerHeight;
-            const center = vh * 0.5;
-
-            fgItemRefs.current.forEach((el) => {
-                if (!el) return;
-                const rect = el.getBoundingClientRect();
-                const itemCenter = rect.top + rect.height * 0.5;
-                const distance = itemCenter - center;
-                const absDistance = Math.abs(distance);
-
-                const normalized = Math.min(absDistance / (vh * 0.45), 1);
-                const scale = 1.0 - (normalized * 0.35); // Grow to 1.0 at center, shrink to 0.65
-                const opacity = 0.28 - (normalized * 0.22); // Bright 0.28 at center, fades to 0.06
-
-                el.style.transform = `scale(${scale.toFixed(4)})`;
-                el.style.opacity = opacity.toFixed(3);
-                el.style.setProperty("--aberration", (normalized * 0.25).toFixed(3));
-            });
-
-            bgItemRefs.current.forEach((el) => {
-                if (!el) return;
-                const rect = el.getBoundingClientRect();
-                const itemCenter = rect.top + rect.height * 0.5;
-                const distance = itemCenter - center;
-                const absDistance = Math.abs(distance);
-
-                const normalized = Math.min(absDistance / (vh * 0.45), 1);
-                const scale = 0.85 - (normalized * 0.25); // Grow to 0.85 at center, shrink to 0.60
-                const opacity = 0.14 - (normalized * 0.11); // Bright 0.14 at center, fades to 0.03
-
-                el.style.transform = `scale(${scale.toFixed(4)})`;
-                el.style.opacity = opacity.toFixed(3);
-                el.style.setProperty("--aberration", (normalized * 0.15).toFixed(3));
-            });
-
-            rightFgItemRefs.current.forEach((el) => {
-                if (!el) return;
-                const rect = el.getBoundingClientRect();
-                const itemCenter = rect.top + rect.height * 0.5;
-                const distance = itemCenter - center;
-                const absDistance = Math.abs(distance);
-
-                const normalized = Math.min(absDistance / (vh * 0.45), 1);
-                const scale = 1.0 - (normalized * 0.35); // Grow to 1.0 at center, shrink to 0.65
-                const opacity = 0.28 - (normalized * 0.22); // Bright 0.28 at center, fades to 0.06
-
-                el.style.transform = `scale(${scale.toFixed(4)})`;
-                el.style.opacity = opacity.toFixed(3);
-                el.style.setProperty("--aberration", (normalized * 0.25).toFixed(3));
-            });
-
-            rightBgItemRefs.current.forEach((el) => {
-                if (!el) return;
-                const rect = el.getBoundingClientRect();
-                const itemCenter = rect.top + rect.height * 0.5;
-                const distance = itemCenter - center;
-                const absDistance = Math.abs(distance);
-
-                const normalized = Math.min(absDistance / (vh * 0.45), 1);
-                const scale = 0.85 - (normalized * 0.25); // Grow to 0.85 at center, shrink to 0.60
-                const opacity = 0.14 - (normalized * 0.11); // Bright 0.14 at center, fades to 0.03
-
-                el.style.transform = `scale(${scale.toFixed(4)})`;
-                el.style.opacity = opacity.toFixed(3);
-                el.style.setProperty("--aberration", (normalized * 0.15).toFixed(3));
-            });
 
             rafId.current = requestAnimationFrame(tick);
         };
@@ -278,6 +146,7 @@ const HeroTop = () => {
             gsap.to(cardRef.current, {
                 opacity: 1,
                 y: -50,
+                pointerEvents: 'auto',
                 scrollTrigger: {
                     trigger: sectionRef.current,
                     scrub: true,
@@ -285,90 +154,6 @@ const HeroTop = () => {
                     end: '80% top',
                 },
             });
-
-            // Kinetic left vertical strip scrolling animation (Foreground - Faster)
-            if (verticalListFgRef.current) {
-                gsap.fromTo(verticalListFgRef.current,
-                    { y: "15vh" },
-                    {
-                        y: () => {
-                            const listHeight = verticalListFgRef.current.scrollHeight;
-                            const viewportHeight = window.innerHeight;
-                            return -(listHeight - viewportHeight * 0.4);
-                        },
-                        ease: 'none',
-                        scrollTrigger: {
-                            trigger: sectionRef.current,
-                            scrub: 1.0, // Brisk foreground scrub
-                            start: 'top top',
-                            end: 'bottom top',
-                        }
-                    }
-                );
-            }
-
-            // Kinetic left vertical strip scrolling animation (Background - Slower)
-            if (verticalListBgRef.current) {
-                gsap.fromTo(verticalListBgRef.current,
-                    { y: "5vh" },
-                    {
-                        y: () => {
-                            const listHeight = verticalListBgRef.current.scrollHeight;
-                            const viewportHeight = window.innerHeight;
-                            return -(listHeight - viewportHeight * 0.6); // Slower travel
-                        },
-                        ease: 'none',
-                        scrollTrigger: {
-                            trigger: sectionRef.current,
-                            scrub: 1.8, // Slower background scrub
-                            start: 'top top',
-                            end: 'bottom top',
-                        }
-                    }
-                );
-            }
-
-            // Kinetic right vertical strip scrolling animation (Foreground - Faster)
-            if (verticalListRightFgRef.current) {
-                gsap.fromTo(verticalListRightFgRef.current,
-                    { y: "15vh" },
-                    {
-                        y: () => {
-                            const listHeight = verticalListRightFgRef.current.scrollHeight;
-                            const viewportHeight = window.innerHeight;
-                            return -(listHeight - viewportHeight * 0.4);
-                        },
-                        ease: 'none',
-                        scrollTrigger: {
-                            trigger: sectionRef.current,
-                            scrub: 1.0, // Brisk foreground scrub
-                            start: 'top top',
-                            end: 'bottom top',
-                        }
-                    }
-                );
-            }
-
-            // Kinetic right vertical strip scrolling animation (Background - Slower)
-            if (verticalListRightBgRef.current) {
-                gsap.fromTo(verticalListRightBgRef.current,
-                    { y: "5vh" },
-                    {
-                        y: () => {
-                            const listHeight = verticalListRightBgRef.current.scrollHeight;
-                            const viewportHeight = window.innerHeight;
-                            return -(listHeight - viewportHeight * 0.6); // Slower travel
-                        },
-                        ease: 'none',
-                        scrollTrigger: {
-                            trigger: sectionRef.current,
-                            scrub: 1.8, // Slower background scrub
-                            start: 'top top',
-                            end: 'bottom top',
-                        }
-                    }
-                );
-            }
         }, sectionRef);
 
         return () => ctx.revert();
@@ -385,111 +170,180 @@ const HeroTop = () => {
                     {/* 3D SCENE — rotates with cursor */}
                     <div ref={sceneRef} className="hero-top-scene">
 
-                        {/* Kinetic Left Vertical Text Strip (Foreground depth 40px) */}
-                        <div ref={verticalWrapFgRef} className="hero-vertical-strip-wrap fg">
-                            <div ref={verticalListFgRef} className="hero-vertical-strip-list">
-                                {loopedFgItems.map((item, index) => (
-                                    <div
-                                        key={index}
-                                        ref={(el) => (fgItemRefs.current[index] = el)}
-                                        className="hero-vertical-strip-item"
-                                    >
-                                        <span className="hvs-text" data-text={item}>{item}</span>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-
-                        {/* Kinetic Left Vertical Text Strip (Background depth 10px + blur) */}
-                        <div ref={verticalWrapBgRef} className="hero-vertical-strip-wrap bg">
-                            <div ref={verticalListBgRef} className="hero-vertical-strip-list">
-                                {loopedBgItems.map((item, index) => (
-                                    <div
-                                        key={index}
-                                        ref={(el) => (bgItemRefs.current[index] = el)}
-                                        className="hero-vertical-strip-item"
-                                    >
-                                        <span className="hvs-text" data-text={item}>{item}</span>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-
-                        {/* Kinetic Right Vertical Text Strip (Foreground depth 40px) */}
-                        <div ref={verticalWrapRightFgRef} className="hero-vertical-strip-wrap right fg">
-                            <div ref={verticalListRightFgRef} className="hero-vertical-strip-list">
-                                {loopedRightFgItems.map((item, index) => (
-                                    <div
-                                        key={index}
-                                        ref={(el) => (rightFgItemRefs.current[index] = el)}
-                                        className="hero-vertical-strip-item"
-                                    >
-                                        <span className="hvs-text" data-text={item}>{item}</span>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-
-                        {/* Kinetic Right Vertical Text Strip (Background depth -60px + blur) */}
-                        <div ref={verticalWrapRightBgRef} className="hero-vertical-strip-wrap right bg">
-                            <div ref={verticalListRightBgRef} className="hero-vertical-strip-list">
-                                {loopedRightBgItems.map((item, index) => (
-                                    <div
-                                        key={index}
-                                        ref={(el) => (rightBgItemRefs.current[index] = el)}
-                                        className="hero-vertical-strip-item"
-                                    >
-                                        <span className="hvs-text" data-text={item}>{item}</span>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-
-                        {/* LAYER 5: Glass Typography (foreground) */}
+                        {/* Centered Glass Typography & Panel */}
                         <div ref={textParallaxRef} className="hero-top-layer hero-top-title-parallax">
                             <div ref={textRef} className="hero-top-title-wrap">
-                                <div className="hero-top-title-scaler">
-                                    {/* SVG defs for text clip path */}
-                                    <svg className="hero-top-svg-defs" aria-hidden="true">
-                                        <defs>
-                                            <clipPath id="glass-text-clip" clipPathUnits="objectBoundingBox">
-                                                <text
-                                                    x="0.5" y="0.78"
-                                                    textAnchor="middle"
-                                                    fontFamily="'Inter', system-ui, sans-serif"
-                                                    fontWeight="800"
-                                                    fontSize="0.85"
-                                                    letterSpacing="-0.03"
-                                                >PORTFOLIO</text>
-                                            </clipPath>
-                                        </defs>
-                                    </svg>
 
-                                    {/* Layer A: Backdrop frost — clipped to text shape */}
-                                    <div className="glass-text-frost" />
+                                {/* Hero Project Dock - Layered behind central glass panel */}
+                                <div className={`hero-project-dock ${isProjectStackOpen ? 'is-open' : ''}`}>
+                                    {/* 1. Left Outer Panel */}
+                                    <div className="project-panel project-panel--left-outer">
+                                        <div className="project-panel-inner">
+                                            <span className="project-panel-label">Work Preview</span>
+                                            <div className="project-panel-slab-detail">
+                                                <span className="detail-line" />
+                                                <span className="detail-line" />
+                                            </div>
+                                        </div>
+                                    </div>
 
-                                    {/* Layer B: Gradient highlight — reflection */}
-                                    <h1
-                                        className="glass-text-highlight"
-                                        aria-hidden="true"
-                                    >PORTFOLIO</h1>
+                                    {/* 2. Left Inner Panel */}
+                                    <div className="project-panel project-panel--left-inner">
+                                        <div className="project-panel-inner">
+                                            {/* Content Zone for Project 1: Dream Holidays */}
+                                            <a href="/projects/dream-holidays" className="project-zone zone-1">
+                                                <div className="project-zone-header">
+                                                    <span className="project-zone-badge">Case Study</span>
+                                                    <span className="project-zone-number">[01]</span>
+                                                </div>
+                                                <h3 className="project-zone-title">Dream Holidays</h3>
+                                                <p className="project-zone-desc">Travel Product Design</p>
+                                                <div className="project-zone-cta">
+                                                    <span>View Project →</span>
+                                                </div>
+                                            </a>
 
-                                    {/* Layer C: Frosted edge / light-catch */}
-                                    <span
-                                        className="glass-text-edge"
-                                        data-text="PORTFOLIO"
-                                        aria-hidden="true"
-                                    />
+                                            <div className="project-zone-divider" />
 
-                                    {/* Layer D: Dispersion glow */}
-                                    <span className="glass-text-dispersion" aria-hidden="true">PORTFOLIO</span>
+                                            {/* Content Zone for Project 2: 6S Marketers */}
+                                            <a href="#work" className="project-zone zone-2">
+                                                <div className="project-zone-header">
+                                                    <span className="project-zone-badge">Dashboard</span>
+                                                    <span className="project-zone-number">[02]</span>
+                                                </div>
+                                                <h3 className="project-zone-title">6S Marketers</h3>
+                                                <p className="project-zone-desc">Client Dashboard</p>
+                                                <div className="project-zone-cta">
+                                                    <span>View Project →</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
 
-                                    {/* Accessible / SEO text (visually hidden) */}
-                                    <h1 className="sr-only">PORTFOLIO</h1>
+                                    {/* 3. Right Inner Panel */}
+                                    <div className="project-panel project-panel--right-inner">
+                                        <div className="project-panel-inner">
+                                            {/* Content Zone for Project 5: Redtape */}
+                                            <a href="#work" className="project-zone zone-5">
+                                                <div className="project-zone-header">
+                                                    <span className="project-zone-badge">UX</span>
+                                                    <span className="project-zone-number">[05]</span>
+                                                </div>
+                                                <h3 className="project-zone-title">Redtape</h3>
+                                                <p className="project-zone-desc">UX Research & Interface Design</p>
+                                                <div className="project-zone-cta">
+                                                    <span>View Project →</span>
+                                                </div>
+                                            </a>
+
+                                            <div className="project-zone-divider" />
+
+                                            {/* Content Zone for Project 4: Inverted Energy */}
+                                            <a href="/projects/spatial-3d" className="project-zone zone-4">
+                                                <div className="project-zone-header">
+                                                    <span className="project-zone-badge">3D</span>
+                                                    <span className="project-zone-number">[04]</span>
+                                                </div>
+                                                <h3 className="project-zone-title">Inverted Energy</h3>
+                                                <p className="project-zone-desc">3D Product Experience</p>
+                                                <div className="project-zone-cta">
+                                                    <span>View Project →</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    {/* 4. Right Outer Panel */}
+                                    <div className="project-panel project-panel--right-outer">
+                                        <div className="project-panel-inner">
+                                            <span className="project-panel-label">Archive Stack</span>
+                                            <div className="project-panel-slab-detail">
+                                                <span className="detail-line" />
+                                                <span className="detail-line" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* 5. Bottom Horizontal Panel */}
+                                    <div className="project-panel project-panel--bottom">
+                                        <div className="project-panel-inner">
+                                            <a href="/projects/enterprise-dashboard" className="project-zone project-zone--horizontal">
+                                                <div className="horizontal-left">
+                                                    <span className="project-zone-badge">Product</span>
+                                                    <span className="project-zone-number">[03]</span>
+                                                    <h3 className="project-zone-title">Powertrace</h3>
+                                                    <span className="project-zone-separator">—</span>
+                                                    <p className="project-zone-desc">Enterprise Dashboard System</p>
+                                                </div>
+                                                <div className="project-zone-cta">
+                                                    <span>View Project →</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
+
+                                {/* Central Glass Panel */}
+                                <div className="hero-glass-panel">
+                                    {/* Ambient inner glow behind headline */}
+                                    <div className="hero-glass-glow" />
+
+                                    <div className="hero-glass-content">
+                                        {/* Eyebrow */}
+                                        <span className="hero-eyebrow">PRODUCT DESIGNER · SYSTEMS THINKER</span>
+
+                                        {/* Main Headline */}
+                                        <h1 className={`hero-headline ${isScrolled ? 'is-scrolled' : ''}`}>
+                                            <span className="hero-headline-sans">
+                                                Everything's{" "}
+                                                <span className="hero-word-swap-container slot-1">
+                                                    <span className="hero-word-swap-item item-default">Intentional</span>
+                                                    <span className="hero-word-swap-item item-scrolled font-serif-override">Silent</span>
+                                                </span>
+                                                .
+                                            </span>
+                                            <span className="hero-headline-serif">
+                                                Even the{" "}
+                                                <span className="hero-word-swap-container slot-2">
+                                                    <span className="hero-word-swap-item item-default">Silence</span>
+                                                    <span className="hero-word-swap-item item-scrolled font-sans-override">Intent</span>
+                                                </span>
+                                                .
+                                            </span>
+                                        </h1>
+
+                                        {/* Spark/Axis Divider */}
+                                        <div className="hero-spark-divider">
+                                            <div className="hero-spark-line" />
+                                            <svg className="hero-spark-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M6 0V12" stroke="currentColor" strokeWidth="0.5" />
+                                                <path d="M0 6H12" stroke="currentColor" strokeWidth="0.5" />
+                                                <circle cx="6" cy="6" r="1.5" fill="currentColor" />
+                                            </svg>
+                                            <div className="hero-spark-line" />
+                                        </div>
+
+                                        {/* Supporting line */}
+                                        <p className="hero-subtext">
+                                            I design digital experiences, products, and systems with clarity, depth, and intention.
+                                        </p>
+
+                                        {/* Clickable reveal toggle button (scroll indicator shape) */}
+                                        <button
+                                            onClick={() => setIsProjectStackOpen(prev => !prev)}
+                                            className={`hero-scroll-indicator ${isProjectStackOpen ? 'is-open' : ''}`}
+                                            aria-expanded={isProjectStackOpen}
+                                            aria-label="Toggle project preview cards"
+                                        >
+                                            <div className="hero-scroll-circle">
+                                                <div className="hero-scroll-line" />
+                                            </div>
+                                        </button>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
-
 
                     </div>{/* end scene */}
 

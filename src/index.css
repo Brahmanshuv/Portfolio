@@ -484,9 +484,8 @@ section {
 }
 
 
-/* ── LAYER 5: Glass Typography — Refractive Material Stack ── */
+/* ── LAYER 5: Centered Glass Panel Composition ── */
 
-/* ── Wrapper — shared sizing & z-depth ── */
 .hero-top-title-parallax {
     position: absolute;
     inset: 0;
@@ -510,110 +509,283 @@ section {
     will-change: transform, opacity, filter;
 }
 
-/* ── Scaler wrapper to safely reduce font size without breaking SVG Clip Path ── */
-.hero-top-title-scaler {
+/* Glass panel base */
+.hero-glass-panel {
+    position: relative;
+    z-index: 6;
+    pointer-events: auto;
+    width: 600px;
+    height: 640px;
+    border-radius: 48px;
+    background: rgba(7, 9, 13, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    border-left: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
+    box-shadow:
+        inset 0 1px 0px rgba(255, 255, 255, 0.05),
+        inset 0 12px 24px rgba(0, 0, 0, 0.15),
+        0 40px 80px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 50px 30px;
+}
+
+.hero-glass-panel::before {
+    content: '';
     position: absolute;
     inset: 0;
+    background: rgba(4, 5, 7, 0.45);
+    z-index: -1;
+    border-radius: 48px;
+    pointer-events: none;
+}
+
+/* Ambient glow inside the panel */
+.hero-glass-glow {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 480px;
+    height: 320px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.04) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+    filter: blur(30px);
+}
+
+.hero-glass-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
     width: 100%;
     height: 100%;
-    transform-origin: center center;
+    justify-content: space-between;
 }
 
-@media (max-width: 768px) {
-    .hero-top-title-scaler {
-        transform: scale(0.65);
-    }
-}
-
-@media (max-width: 480px) {
-    .hero-top-title-scaler {
-        transform: scale(0.5);
-    }
-}
-
-/* Hidden SVG for clip-path definition */
-.hero-top-svg-defs {
-    position: absolute;
-    width: 0;
-    height: 0;
-    overflow: hidden;
-}
-
-/* ── Shared text metrics ── */
-.glass-text-highlight,
-.glass-text-edge,
-.glass-text-edge::after,
-.glass-text-dispersion {
-    font-size: 12vw;
-    font-weight: 800;
-    letter-spacing: -0.03em;
+/* Eyebrow styling */
+.hero-eyebrow {
+    font-family: var(--font-primary);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.35em;
+    color: rgba(255, 255, 255, 0.45);
+    text-transform: uppercase;
+    margin-top: 15px;
     line-height: 1;
-    margin: 0;
-    text-align: center;
+}
+
+/* Headline layout and typography */
+.hero-headline {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 30px 0;
+    width: 100%;
+}
+
+.hero-headline-sans {
+    font-family: var(--font-primary);
+    font-size: 48px;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    color: #ffffff;
+    line-height: 1.1;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
     white-space: nowrap;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-    user-select: none;
 }
 
-/* ── Layer A: Backdrop frost — clipped to text shape ── */
-.glass-text-frost {
-    position: absolute;
-    inset: 0;
-    backdrop-filter: blur(16px) saturate(1.6) brightness(1.15);
-    -webkit-backdrop-filter: blur(16px) saturate(1.6) brightness(1.15);
-    clip-path: url(#glass-text-clip);
-    -webkit-clip-path: url(#glass-text-clip);
-    z-index: 1;
+.hero-headline-serif {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 48px;
+    font-weight: 400;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    white-space: nowrap;
 }
 
-/* ── Layer B: Gradient highlight — reflection & translucency ── */
-.glass-text-highlight {
-    z-index: 2;
-    color: rgba(255, 255, 255, 0.06);
-    background: linear-gradient(175deg,
-            rgba(255, 255, 255, 0.50) 0%,
-            rgba(255, 255, 255, 0.15) 30%,
-            rgba(255, 255, 255, 0.05) 55%,
-            rgba(255, 255, 255, 0.08) 75%,
-            rgba(255, 255, 255, 0.25) 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    filter: drop-shadow(0 1px 3px rgba(255, 255, 255, 0.08));
+/* ── Scroll-Based Word Swap Animation ── */
+
+
+.hero-word-swap-container {
+    display: inline-grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    vertical-align: baseline;
+    overflow: hidden;
+    position: relative;
+    text-align: left;
 }
 
-/* ── Layer C: Frosted edge — light-catching stroke ── */
-.glass-text-edge {
-    z-index: 3;
-    color: transparent;
+.hero-word-swap-item {
+    grid-column: 1;
+    grid-row: 1;
+    transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform, opacity;
+    white-space: nowrap;
 }
 
-.glass-text-edge::after {
-    content: attr(data-text);
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: transparent;
-    -webkit-text-stroke: 1.2px rgba(255, 255, 255, 0.14);
-    filter: blur(0.4px);
+/* Default state layout */
+.hero-word-swap-container .item-default {
+    transform: translateY(0);
+    opacity: 1;
 }
 
-/* ── Layer D: Dispersion glow — chromatic optical richness ── */
-.glass-text-dispersion {
-    z-index: 0;
-    color: transparent;
-    text-shadow:
-        0 0 40px rgba(255, 255, 255, 0.06),
-        0 0 80px rgba(200, 220, 255, 0.04),
-        0 0 120px rgba(180, 200, 255, 0.025),
-        4px 0 60px rgba(100, 160, 255, 0.02),
-        -4px 0 60px rgba(255, 140, 100, 0.02),
-        0 4px 80px rgba(140, 100, 255, 0.015);
+.hero-word-swap-container .item-scrolled {
+    transform: translateY(100%);
+    opacity: 0;
+}
+
+/* Scrolled state layout */
+.is-scrolled .hero-word-swap-container .item-default {
+    transform: translateY(-100%);
+    opacity: 0;
+}
+
+.is-scrolled .hero-word-swap-container .item-scrolled {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* Font Overrides */
+.font-serif-override {
+    font-family: 'EB Garamond', Georgia, serif !important;
+    font-weight: 400 !important;
+    font-style: italic !important;
+    color: rgba(255, 255, 255, 0.7) !important;
+    letter-spacing: -0.01em !important;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3) !important;
+    line-height: 1.15 !important;
+}
+
+.font-sans-override {
+    font-family: var(--font-primary) !important;
+    font-weight: 700 !important;
+    font-style: normal !important;
+    color: #ffffff !important;
+    letter-spacing: -0.025em !important;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4) !important;
+    line-height: 1.1 !important;
+}
+
+
+/* Spark/Divider axis line */
+.hero-spark-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    width: 100%;
+    margin-bottom: 12px;
+}
+
+.hero-spark-line {
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+}
+
+.hero-spark-icon {
+    color: rgba(255, 255, 255, 0.25);
+    flex-shrink: 0;
+}
+
+/* Subtext */
+.hero-subtext {
+    font-family: var(--font-primary);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.55);
+    max-width: 420px;
+    margin-bottom: 40px;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Scroll indicator as clickable trigger button */
+.hero-scroll-indicator {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 0;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-scroll-indicator:hover {
+    transform: scale(1.08);
+}
+
+.hero-scroll-indicator.is-open {
+    transform: rotate(180deg);
+}
+
+.hero-scroll-circle {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.005);
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05);
+    transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.hero-scroll-indicator.is-open .hero-scroll-circle {
+    border-color: rgba(41, 151, 255, 0.4);
+    box-shadow:
+        inset 0 1px 1px rgba(255, 255, 255, 0.05),
+        0 0 15px rgba(41, 151, 255, 0.2);
+}
+
+.hero-scroll-line {
+    width: 1px;
+    height: 10px;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 0.5px;
+    animation: scrollIndicatorTick 2s ease-in-out infinite;
+    transition: background 0.4s ease, height 0.4s ease;
+}
+
+.hero-scroll-indicator.is-open .hero-scroll-line {
+    background: #2997ff;
+    animation: none;
+    /* stop pulsing when active */
+    height: 12px;
+}
+
+@keyframes scrollIndicatorTick {
+    0% {
+        transform: translateY(-4px);
+        opacity: 0.3;
+    }
+
+    50% {
+        transform: translateY(4px);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(-4px);
+        opacity: 0.3;
+    }
 }
 
 /* ── Screen-reader only helper ── */
@@ -654,7 +826,7 @@ section {
     align-items: center;
     width: 100%;
     max-width: 480px;
-    pointer-events: auto;
+    pointer-events: none;
 }
 
 /* Circular profile picture container */
@@ -747,7 +919,385 @@ section {
     color: rgba(255, 255, 255, 0.75);
 }
 
+/* ── Hero Project Dock (Surrounding Panels Stack) ── */
 
+.hero-project-dock {
+    position: absolute;
+    width: 600px;
+    height: 640px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 1;
+    /* Rendered behind the central glass panel (z-index: 6) */
+}
+
+.hero-project-dock.is-open {
+    pointer-events: auto;
+}
+
+/* Base Panel Styling */
+.project-panel {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background: rgba(6, 7, 10, 0.88);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.05),
+        inset 0 0 20px rgba(0, 0, 0, 0.5),
+        0 10px 30px rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    pointer-events: none;
+    z-index: var(--z-index);
+    visibility: hidden;
+    transform: translate(-50%, -50%) translate3d(var(--closed-x), var(--closed-y), 0) scale(0.92);
+    transition:
+        transform 0.68s cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 0.68s cubic-bezier(0.22, 1, 0.36, 1),
+        border-color 0.3s ease,
+        background 0.3s ease,
+        box-shadow 0.3s ease,
+        visibility 0.68s;
+    will-change: transform, opacity;
+}
+
+.hero-project-dock.is-open .project-panel {
+    opacity: 1;
+    pointer-events: auto;
+    visibility: visible;
+    transform: translate(-50%, -50%) translate3d(var(--open-x), var(--open-y), 0) scale(1);
+}
+
+.project-panel-inner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    border-radius: inherit;
+    box-sizing: border-box;
+}
+
+/* ── Panel Dimensions, Positioning Coordinates, and Delays ── */
+
+/* Left Outer Panel */
+.project-panel--left-outer {
+    width: 180px;
+    height: 520px;
+    border-radius: 40px;
+    --open-x: -580px;
+    --open-y: 30px;
+    --closed-x: -120px;
+    --closed-y: 30px;
+    --z-index: 2;
+}
+
+.hero-project-dock.is-open .project-panel--left-outer {
+    transition-delay: 0ms;
+}
+
+/* Left Inner Panel */
+.project-panel--left-inner {
+    width: 240px;
+    height: 480px;
+    border-radius: 36px;
+    --open-x: -360px;
+    --open-y: 10px;
+    --closed-x: -80px;
+    --closed-y: 10px;
+    --z-index: 3;
+}
+
+.hero-project-dock.is-open .project-panel--left-inner {
+    transition-delay: 60ms;
+}
+
+/* Right Inner Panel */
+.project-panel--right-inner {
+    width: 240px;
+    height: 480px;
+    border-radius: 36px;
+    --open-x: 360px;
+    --open-y: 10px;
+    --closed-x: 80px;
+    --closed-y: 10px;
+    --z-index: 3;
+}
+
+.hero-project-dock.is-open .project-panel--right-inner {
+    transition-delay: 120ms;
+}
+
+/* Right Outer Panel */
+.project-panel--right-outer {
+    width: 180px;
+    height: 520px;
+    border-radius: 40px;
+    --open-x: 580px;
+    --open-y: 30px;
+    --closed-x: 120px;
+    --closed-y: 30px;
+    --z-index: 2;
+}
+
+.hero-project-dock.is-open .project-panel--right-outer {
+    transition-delay: 180ms;
+}
+
+/* Bottom Base Panel */
+.project-panel--bottom {
+    width: 520px;
+    height: 100px;
+    border-radius: 28px;
+    --open-x: 0px;
+    --open-y: 340px;
+    --closed-x: 0px;
+    --closed-y: 200px;
+    --z-index: 1;
+}
+
+.hero-project-dock.is-open .project-panel--bottom {
+    transition-delay: 240ms;
+}
+
+/* ── Hover Symmetrical Translations ── */
+
+.project-panel:hover {
+    background: rgba(12, 14, 18, 0.92);
+    border-color: rgba(255, 255, 255, 0.16);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.08),
+        inset 0 0 20px rgba(0, 0, 0, 0.6),
+        0 12px 30px rgba(0, 0, 0, 0.5),
+        0 0 20px rgba(255, 255, 255, 0.04);
+    z-index: 10;
+}
+
+.hero-project-dock.is-open .project-panel--left-outer:hover {
+    transform: translate(-50%, -50%) translate3d(-590px, 30px, 0) scale(1.02);
+}
+
+.hero-project-dock.is-open .project-panel--left-inner:hover {
+    transform: translate(-50%, -50%) translate3d(-370px, 10px, 0) scale(1.02);
+}
+
+.hero-project-dock.is-open .project-panel--right-inner:hover {
+    transform: translate(-50%, -50%) translate3d(370px, 10px, 0) scale(1.02);
+}
+
+.hero-project-dock.is-open .project-panel--right-outer:hover {
+    transform: translate(-50%, -50%) translate3d(590px, 30px, 0) scale(1.02);
+}
+
+.hero-project-dock.is-open .project-panel--bottom:hover {
+    transform: translate(-50%, -50%) translate3d(0px, 350px, 0) scale(1.02);
+}
+
+/* ── Panel Content Styling ── */
+
+/* 1. Outer Panels Details */
+.project-panel-label {
+    font-family: var(--font-primary);
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.3);
+    text-align: center;
+    margin-top: 40px;
+    display: block;
+}
+
+.project-panel-slab-detail {
+    width: 1px;
+    height: 180px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.1), transparent);
+    margin: 40px auto;
+}
+
+/* 2. Inner Panels Project Content Zones */
+.project-panel--left-inner .project-panel-inner,
+.project-panel--right-inner .project-panel-inner {
+    padding: 32px 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.project-zone {
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: calc(50% - 15px);
+    position: relative;
+}
+
+.project-zone-divider {
+    height: 1px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.06);
+    margin: 15px 0;
+}
+
+.project-zone-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.project-zone-badge {
+    font-family: var(--font-primary);
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    color: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 3px 8px;
+    border-radius: 99px;
+    text-transform: uppercase;
+}
+
+.project-zone-number {
+    font-family: monospace;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.3);
+    font-weight: 400;
+}
+
+.project-zone-title {
+    font-family: var(--font-primary);
+    font-size: 15px;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0 0 4px 0;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    transition: color 0.3s ease;
+}
+
+.project-zone-desc {
+    font-family: var(--font-primary);
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.45);
+    line-height: 1.4;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.project-zone-cta {
+    position: absolute;
+    bottom: 8px;
+    left: 0;
+    opacity: 0;
+    transform: translateY(5px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.project-zone-cta span {
+    font-family: var(--font-primary);
+    font-size: 12px;
+    font-weight: 500;
+    color: #2997ff;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* Zone Hover States */
+.project-zone:hover .project-zone-title {
+    color: #2997ff;
+}
+
+.project-zone:hover .project-zone-cta {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.project-zone:hover .project-zone-desc {
+    opacity: 0;
+    transform: translateY(-5px);
+}
+
+/* Right Inner Panel Specific Alignment (Mirrors Left Inner) */
+.project-panel--right-inner .project-zone {
+    text-align: right;
+    align-items: flex-end;
+}
+
+.project-panel--right-inner .project-zone-header {
+    flex-direction: row-reverse;
+    width: 100%;
+}
+
+.project-panel--right-inner .project-zone-cta {
+    left: auto;
+    right: 0;
+}
+
+/* 3. Bottom Panel Horizontal Content Zone */
+.project-panel--bottom .project-panel-inner {
+    padding: 20px 30px;
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.project-zone--horizontal {
+    text-decoration: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    position: relative;
+}
+
+.horizontal-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.project-zone--horizontal .project-zone-title {
+    margin: 0;
+}
+
+.project-zone-separator {
+    color: rgba(255, 255, 255, 0.15);
+    font-size: 14px;
+    font-weight: 300;
+}
+
+.project-zone--horizontal .project-zone-desc {
+    transition: opacity 0.3s ease;
+}
+
+.project-zone--horizontal .project-zone-cta {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    opacity: 0;
+    transform: translateX(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Bottom Zone Hover */
+.project-zone--horizontal:hover .project-zone-title {
+    color: #2997ff;
+}
+
+.project-zone--horizontal:hover .project-zone-cta {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.project-zone--horizontal:hover .project-zone-desc {
+    opacity: 0.2;
+}
 
 /* Experience Section - List Layout */
 .experience-list {
@@ -2957,10 +3507,8 @@ footer {
     }
 
     /* ── HeroTop — scale glass text for tablet ── */
-    .glass-text-highlight,
-    .glass-text-edge,
-    .glass-text-edge::after,
-    .glass-text-dispersion {
+    .glass-text-multiline,
+    .glass-frost-line {
         font-size: 14vw;
     }
 
@@ -3052,10 +3600,8 @@ footer {
         inset: -20px;
     }
 
-    .glass-text-highlight,
-    .glass-text-edge,
-    .glass-text-edge::after,
-    .glass-text-dispersion {
+    .glass-text-multiline,
+    .glass-frost-line {
         font-size: 18vw;
     }
 
@@ -3333,10 +3879,8 @@ footer {
 
 
 
-    .glass-text-highlight,
-    .glass-text-edge,
-    .glass-text-edge::after,
-    .glass-text-dispersion {
+    .glass-text-multiline,
+    .glass-frost-line {
         font-size: 22vw;
     }
 
@@ -3474,146 +4018,7 @@ footer {
 }
 
 
-/* ── Kinetic Left Vertical text strip ── */
-.hero-vertical-strip-wrap {
-    position: absolute;
-    top: 0;
-    width: 25vw;
-    height: 100vh;
-    overflow: visible;
-    /* Banish horizontal word clipping */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    pointer-events: none;
-    z-index: 3;
-}
-
-.hero-vertical-strip-wrap.fg {
-    left: 4vw;
-}
-
-.hero-vertical-strip-wrap.bg {
-    left: 15vw;
-}
-
-.hero-vertical-strip-list {
-    display: flex;
-    flex-direction: column;
-    gap: 3.5rem;
-    /* Spacious gaps for dynamic growing space */
-    will-change: transform;
-}
-
-.hero-vertical-strip-item {
-    position: relative;
-    padding-left: 10px;
-    transform-origin: left center;
-    will-change: transform, opacity;
-}
-
-.hvs-text {
-    display: block;
-    font-family: "Inter Tight", "SF Pro Display", system-ui, sans-serif;
-    font-size: clamp(24px, 3.2vw, 44px);
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: -0.025em;
-    color: #ffffff;
-    white-space: nowrap;
-    position: relative;
-    transition: none !important;
-    /* Managed by GSAP rAF ticker */
-}
-
-.hero-vertical-strip-wrap.bg .hvs-text {
-    font-size: clamp(16px, 2.2vw, 30px);
-    filter: blur(1.5px);
-    /* Soft cinematic atmospheric blur */
-    -webkit-filter: blur(1.5px);
-}
-
-/* ── Kinetic Right Vertical text strip ── */
-.hero-vertical-strip-wrap.right.fg {
-    right: 4vw;
-    left: auto;
-}
-
-.hero-vertical-strip-wrap.right.bg {
-    right: 15vw;
-    left: auto;
-}
-
-.hero-vertical-strip-wrap.right .hero-vertical-strip-item {
-    padding-left: 0;
-    padding-right: 10px;
-    transform-origin: right center;
-    text-align: right;
-}
-
-/* Dynamic Chromatic Aberration via variable applied in tick loop */
-.hvs-text::before {
-    content: attr(data-text);
-    position: absolute;
-    inset: 0;
-    color: rgba(255, 0, 0, 0.2);
-    transform: translateX(-1px);
-    opacity: var(--aberration, 0);
-    pointer-events: none;
-    z-index: -1;
-}
-
-.hvs-text::after {
-    content: attr(data-text);
-    position: absolute;
-    inset: 0;
-    color: rgba(0, 150, 255, 0.2);
-    transform: translateX(1px);
-    opacity: var(--aberration, 0);
-    pointer-events: none;
-    z-index: -1;
-}
-
-/* Responsive tweaks for mid-sized tablets & small screens */
-@media (max-width: 1024px) {
-    .hero-vertical-strip-wrap.fg {
-        left: 2.5vw;
-    }
-
-    .hero-vertical-strip-wrap.bg {
-        left: 12vw;
-    }
-
-    .hero-vertical-strip-wrap.right.fg {
-        right: 2.5vw;
-        left: auto;
-    }
-
-    .hero-vertical-strip-wrap.right.bg {
-        right: 12vw;
-        left: auto;
-    }
-
-    .hero-vertical-strip-wrap.bg {
-        display: none;
-        /* Hide background kinetic strips to reduce density on tablet */
-    }
-
-    .hvs-text {
-        font-size: clamp(18px, 2.5vw, 32px);
-    }
-
-    .hero-vertical-strip-wrap.bg .hvs-text {
-        font-size: clamp(14px, 1.8vw, 22px);
-    }
-}
-
-@media (max-width: 768px) {
-    .hero-vertical-strip-wrap {
-        display: none;
-        /* Hide on mobile to prevent clutter and maintain visual purity */
-    }
-}
+/* Kinetic Vertical Text Strips Removed for Centered Glass Panel Redesign */
 
 /* ═══════════════════════════════════════════════════
    Get In Touch — Premium Split Socials Section
