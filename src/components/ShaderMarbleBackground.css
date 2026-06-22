@@ -1,0 +1,51 @@
+/* src/components/ShaderMarbleBackground.css */
+
+.shader-marble-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+  background: #050506;
+}
+
+.shader-marble-bg__canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  opacity: 0.72;
+  filter: contrast(1.08) brightness(0.74);
+  transform: scale(1.04);
+}
+
+.shader-marble-bg__soften {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at center, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.54) 68%, rgba(0, 0, 0, 0.88) 100%),
+    linear-gradient(180deg, rgba(0,0,0,0.1), rgba(0,0,0,0.46));
+  z-index: 1;
+}
+
+.shader-marble-bg__grid {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  opacity: 0.18;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: radial-gradient(circle at center, black 0%, black 52%, transparent 86%);
+  -webkit-mask-image: radial-gradient(circle at center, black 0%, black 52%, transparent 86%);
+}
+
+.shader-marble-bg__vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background:
+    radial-gradient(circle at center, transparent 0%, transparent 42%, rgba(0,0,0,0.62) 100%);
+}

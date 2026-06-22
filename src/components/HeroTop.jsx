@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import profilePic from '../../assets/Profilepicture.jpeg';
+import ShaderMarbleBackground from './ShaderMarbleBackground';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -163,6 +164,7 @@ const HeroTop = () => {
         <section ref={sectionRef} className="hero-top-section">
             {/* Sticky viewport lock */}
             <div className="hero-top-sticky">
+                <ShaderMarbleBackground />
 
                 {/* PERSPECTIVE WRAPPER — makes depth possible */}
                 <div className="hero-top-perspective">
@@ -285,6 +287,15 @@ const HeroTop = () => {
 
                                 {/* Central Glass Panel */}
                                 <div className="hero-glass-panel">
+                                    {/* Sculpted Bevel Edge Highlight */}
+                                    <div className="hero-glass-bevel" />
+
+                                    {/* Specular Curvature Sheen */}
+                                    <div className="hero-glass-reflection" />
+
+                                    {/* Animated Edge-Light Sweep */}
+                                    <div className="hero-glass-sweep" />
+
                                     {/* Ambient inner glow behind headline */}
                                     <div className="hero-glass-glow" />
 

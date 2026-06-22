@@ -1,11 +1,10 @@
 import React, { useEffect, useRef, useCallback } from 'react';
-import GridSignalCanvas from './GridSignalCanvas';
 
 const GlobalBackground = () => {
     const sceneRef = useRef(null);
     const bgRef = useRef(null);
     const gridRef = useRef(null);
-    const glowOrbRef = useRef(null);
+    const glowRef = useRef(null);
     const cursorGlowRef = useRef(null);
 
     const target = useRef({ x: 0, y: 0, mx: 0, my: 0 });
@@ -20,8 +19,8 @@ const GlobalBackground = () => {
         const ny = (cx / window.innerWidth - 0.5);     // -0.5 → 0.5
 
         target.current = {
-            x: nx * 10,      // rotateX degrees
-            y: ny * -10,     // rotateY degrees
+            x: nx * 6,      // rotateX degrees (reduced for very subtle movement)
+            y: ny * -6,     // rotateY degrees (reduced for very subtle movement)
             mx: cx,
             my: cy,
         };
@@ -53,22 +52,22 @@ const GlobalBackground = () => {
                     `rotateX(${c.x}deg) rotateY(${c.y}deg)`;
             }
 
-            // Parallax — background layer (0.2x)
+            // Parallax — background layer (0.15x)
             if (bgRef.current) {
                 bgRef.current.style.transform =
-                    `translateZ(-200px) scale(1.4) translate(${c.y * 0.2}px, ${c.x * 0.2}px)`;
+                    `translateZ(-150px) scale(1.2) translate(${c.y * 0.15}px, ${c.x * 0.15}px)`;
             }
 
-            // Parallax — grid layer (0.5x)
+            // Parallax — grid layer (0.3x)
             if (gridRef.current) {
                 gridRef.current.style.transform =
-                    `translateZ(-100px) scale(1.2) translate(${c.y * 0.5}px, ${c.x * 0.5}px)`;
+                    `translateZ(-80px) scale(1.15) translate(${c.y * 0.3}px, ${c.x * 0.3}px)`;
             }
 
-            // Parallax — atmospheric glow (0.8x)
-            if (glowOrbRef.current) {
-                glowOrbRef.current.style.transform =
-                    `translateZ(80px) translate(${c.y * 2}px, ${c.x * 2}px)`;
+            // Parallax — center glow (0.5x)
+            if (glowRef.current) {
+                glowRef.current.style.transform =
+                    `translateZ(-40px) scale(1.05) translate(${c.y * 0.5}px, ${c.x * 0.5}px)`;
             }
 
             // Dynamic reactive spotlight glow based on movement velocity
@@ -101,25 +100,26 @@ const GlobalBackground = () => {
         <div className="global-bg-container">
             <div className="global-bg-perspective">
                 <div ref={sceneRef} className="global-bg-scene">
-                    {/* LAYER 1: Background gradient (deepest) */}
+                    {/* LAYER 1: Background gradient & Noise */}
                     <div ref={bgRef} className="global-bg-layer global-bg-gradient-layer">
                         <div className="hero-top-gradient" />
+                        <div className="global-bg-layer hero-top-noise" />
                     </div>
 
-                    {/* LAYER 2: Noise texture */}
-                    <div className="global-bg-layer hero-top-noise" />
+                    {/* LAYER 2: Subtle Grid Layer */}
+                    <div ref={gridRef} className="global-bg-layer hero-top-grid" />
 
-                    {/* LAYER 3: Ambient grid */}
-                    <div ref={gridRef} className="global-bg-layer hero-top-grid">
-                        <GridSignalCanvas />
+                    {/* LAYER 3: Soft Center Glow (behind card) */}
+                    <div ref={glowRef} className="global-bg-layer">
+                        <div className="hero-center-glow" />
                     </div>
-
-                    {/* LAYER 4: Atmospheric glow orb */}
-                    <div ref={glowOrbRef} className="global-bg-layer hero-top-orb" />
                 </div>
             </div>
 
-            {/* LAYER 6: Cursor light (outside scene so it doesn't rotate) */}
+            {/* LAYER 4: Edge Vignette (fixed, framing viewport) */}
+            <div className="hero-vignette" />
+
+            {/* LAYER 5: Cursor light (outside scene so it doesn't rotate) */}
             <div ref={cursorGlowRef} className="global-bg-cursor-glow" />
         </div>
     );
