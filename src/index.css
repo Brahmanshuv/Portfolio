@@ -375,7 +375,7 @@ section {
 /* Outer scroll track */
 .hero-top-section {
     position: relative;
-    height: 400vh;
+    height: 180vh;
     padding-top: 0;
 }
 
@@ -388,7 +388,7 @@ section {
     background: #050506;
 }
 
-.hero-top-sticky > *:not(.shader-marble-bg) {
+.hero-top-sticky>*:not(.shader-marble-bg) {
     position: absolute;
     inset: 0;
     z-index: 2;

@@ -139,7 +139,7 @@ const HeroTop = () => {
                     trigger: sectionRef.current,
                     scrub: true,
                     start: 'top top',
-                    end: 'bottom top',
+                    end: '50% top',
                 },
             });
 
@@ -151,8 +151,8 @@ const HeroTop = () => {
                 scrollTrigger: {
                     trigger: sectionRef.current,
                     scrub: true,
-                    start: '40% top',
-                    end: '80% top',
+                    start: '20% top',
+                    end: '60% top',
                 },
             });
         }, sectionRef);
