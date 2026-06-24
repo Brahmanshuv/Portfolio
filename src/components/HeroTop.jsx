@@ -370,6 +370,7 @@ const HeroTop = () => {
 
                 </div>{/* end perspective */}
             </div>
+            <div className="section-transition-rect" aria-hidden="true" />
         </section>
     );
 };

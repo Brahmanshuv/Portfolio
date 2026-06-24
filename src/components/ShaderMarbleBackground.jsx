@@ -99,11 +99,11 @@ const ShaderMarbleBackground = () => {
 
     const positions = new Float32Array([
       -1, -1,
-       1, -1,
-      -1,  1,
-      -1,  1,
-       1, -1,
-       1,  1,
+      1, -1,
+      -1, 1,
+      -1, 1,
+      1, -1,
+      1, 1,
     ]);
 
     gl.bufferData(gl.ARRAY_BUFFER, positions, gl.STATIC_DRAW);

@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import RollerCoasterRide from './RollerCoasterRide';
 
 export default function ContactCardSection() {
     const cardRef = useRef(null);
@@ -267,6 +268,8 @@ export default function ContactCardSection() {
                 <div className="socials-mini-footer">
                     © Brahmanshu Verma — Hobbies left the game.
                 </div>
+
+                <RollerCoasterRide />
             </motion.div>
         </section>
     );
