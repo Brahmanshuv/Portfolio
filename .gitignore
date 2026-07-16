@@ -48,3 +48,23 @@ skills-lock.json
 hut8.html
 Plan.md
 DESIGN.md
+
+# Local AI/tooling/temp files
+.agent/
+.agents/
+.gemini/
+temp_scraper/
+scroll refrence powering the future/
+hut8.html
+skills-lock.json
+Plan.md
+
+# Build/env/system
+node_modules/
+dist/
+.vite/
+.env
+.env.local
+.env.*.local
+*.log
+.DS_Store
