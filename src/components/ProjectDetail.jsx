@@ -17,6 +17,8 @@ export default function ProjectDetail({ project }) {
     };
 
     const [isNextHovered, setIsNextHovered] = useState(false);
+    const [isBackHovered, setIsBackHovered] = useState(false);
+    const [isReturnHovered, setIsReturnHovered] = useState(false);
 
     // Calculate loop navigation parameters for Next Project
     const activeSlug = p.slug;
@@ -100,11 +102,13 @@ export default function ProjectDetail({ project }) {
                 <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <button
                         onClick={() => navigateTo('/#projects')}
+                        onMouseEnter={() => setIsBackHovered(true)}
+                        onMouseLeave={() => setIsBackHovered(false)}
                         className="project-detail-back-btn"
                         style={{
                             background: 'transparent',
                             border: 'none',
-                            color: 'rgba(255, 255, 255, 0.6)',
+                            color: isBackHovered ? '#fff' : 'rgba(255, 255, 255, 0.6)',
                             fontSize: '14px',
                             fontWeight: 500,
                             cursor: 'pointer',
@@ -115,10 +119,17 @@ export default function ProjectDetail({ project }) {
                             padding: 0,
                             outline: 'none'
                         }}
-                        onMouseEnter={(e) => e.target.style.color = '#fff'}
-                        onMouseLeave={(e) => e.target.style.color = 'rgba(255, 255, 255, 0.6)'}
                     >
-                        <span>←</span> Back to Projects
+                        <span
+                            style={{
+                                display: 'inline-block',
+                                transform: isBackHovered ? 'translateX(-4px)' : 'translateX(0px)',
+                                transition: 'transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
+                            }}
+                        >
+                            ←
+                        </span>
+                        Back to Projects
                     </button>
 
                     {/* PREMIUM NEXT PROJECT HOVER SYSTEM */}
@@ -457,29 +468,23 @@ export default function ProjectDetail({ project }) {
                     {/* Back home anchor */}
                     <button
                         onClick={() => navigateTo('/#projects')}
+                        onMouseEnter={() => setIsReturnHovered(true)}
+                        onMouseLeave={() => setIsReturnHovered(false)}
                         className="premium-switch-bg"
                         style={{
-                            border: '1px solid rgba(255, 255, 255, 0.1)',
+                            border: `1px solid ${isReturnHovered ? 'rgba(255, 255, 255, 0.2)' : 'rgba(255, 255, 255, 0.1)'}`,
                             borderRadius: '100px',
                             padding: '12px 30px',
                             fontSize: '13px',
                             fontWeight: 500,
                             color: '#fff',
-                            background: 'rgba(255, 255, 255, 0.02)',
+                            background: isReturnHovered ? 'rgba(255, 255, 255, 0.06)' : 'rgba(255, 255, 255, 0.02)',
                             cursor: 'pointer',
                             transition: 'all 0.3s ease',
                             outline: 'none',
                             display: 'inline-flex',
                             alignItems: 'center',
                             gap: '8px'
-                        }}
-                        onMouseEnter={(e) => {
-                            e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.06)';
-                            e.target.style.borderColor = 'rgba(255, 255, 255, 0.2)';
-                        }}
-                        onMouseLeave={(e) => {
-                            e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.02)';
-                            e.target.style.borderColor = 'rgba(255, 255, 255, 0.1)';
                         }}
                     >
                         Return to Projects

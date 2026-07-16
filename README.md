@@ -1,34 +1,55 @@
-# Portfolio React Migration
+# Brahmanshu Verma — Portfolio
 
-This project has been migrated to React using Vite.
+A personal portfolio website for product design, UI/UX, 3D experiments, case studies, and interactive web experiences. Built with React and Vite, featuring WebGL shaders, smooth scroll, and cinematic animations.
 
-## Prerequisites
-- Node.js installed on your machine.
+## Live
 
-## Setup Instructions
+[brahmanshuverma.com](https://brahmanshuverma.com) *(update with your live URL)*
 
-1.  Navigate to this directory:
-    ```bash
-    cd react-migration
-    ```
+## Sections
 
-2.  Install dependencies:
-    ```bash
-    npm install
-    ```
+- **Hero** — Marble WebGL shader, 3D project carousel, mouse-parallax depth
+- **Experience** — Timeline of roles and companies
+- **Selected Work** — Project archive with desktop showcase and mobile accordion views
+- **Skills** — Bento-grid capabilities layout
+- **Case Studies** — Deep-dive editorial breakdowns
+- **Contact** — Card tilt, Roller Coaster Easter egg, music widget
 
-3.  Run the development server:
-    ```bash
-    npm run dev
-    ```
+## Tech Stack
 
-4.  Build for production:
-    ```bash
-    npm run build
-    ```
+| Layer | Tool |
+|---|---|
+| Framework | React 18 + Vite |
+| Styling | Vanilla CSS |
+| 3D / Shaders | Three.js, WebGL (GLSL) |
+| Animation | Framer Motion, GSAP + ScrollTrigger |
+| Scroll | Lenis (smooth scroll) |
+| Loading | Lottie (JSON animation) |
+
+## Getting Started
+
+```bash
+npm install
+npm run dev
+```
+
+Build for production:
+
+```bash
+npm run build
+```
 
 ## Project Structure
--   `src/components/`: Individual section components (Hero, About, Capabilities, etc.)
--   `src/App.jsx`: Main layout and animation logic.
--   `src/index.css`: Global styles (migrated from style.css).
--   `public/assets/`: Static assets (images).
+
+```
+src/
+  components/     # All page section components
+  data/           # Static data (projects, capabilities, case studies)
+  animations/     # Shared Framer Motion variants
+  shaders/        # GLSL fragment shader source strings
+  utils/          # Router utility
+  projects/       # Per-project case study pages and registry
+
+assets/           # Source assets (images, Lottie JSON) — imported by components
+public/           # Static assets served at root (project previews, icons)
+```

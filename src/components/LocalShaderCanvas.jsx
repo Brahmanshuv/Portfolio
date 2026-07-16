@@ -1,3 +1,16 @@
+/**
+ * LocalShaderCanvas — Shadertoy-compatible WebGL canvas component.
+ *
+ * Props:
+ *   fragmentShaderSource {string} - GLSL fragment shader source. Must contain
+ *     a `mainImage(out vec4 fragColor, in vec2 fragCoord)` function.
+ *     Uniforms `iResolution`, `iTime`, and `iMouse` are injected automatically
+ *     if not already declared in the source.
+ *   className {string} - CSS class applied to the <canvas> element.
+ *
+ * If `fragmentShaderSource` is missing or lacks `mainImage`, a fallback
+ * placeholder card is rendered with an error message.
+ */
 import React, { useEffect, useRef } from "react";
 
 const vertexShaderSource = `
