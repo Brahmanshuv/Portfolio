@@ -1,4 +1,8 @@
 // src/components/ShaderMarbleBackground.jsx
+//
+// Fullscreen animated marble WebGL shader used as the global background
+// on the main portfolio page. Renders a Shadertoy-style cosine distortion
+// pattern in grayscale with a soft overlay and grid layer on top.
 import React, { useEffect, useRef } from "react";
 import "./ShaderMarbleBackground.css";
 
@@ -34,6 +38,8 @@ const fragmentShaderSource = `
     gl_FragColor = vec4(color, 1.0);
   }
 `;
+
+// --- WebGL Helpers ---
 
 function createShader(gl, type, source) {
   const shader = gl.createShader(type);

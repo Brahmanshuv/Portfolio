@@ -1,3 +1,10 @@
+/**
+ * MusicWidget — Static Spotify-style music display widget.
+ *
+ * This is a pure UI component with no live API integration.
+ * Songs and artist names are hardcoded for decorative purposes.
+ * The animated bars (`.loading .load`) are driven entirely by CSS.
+ */
 import React from 'react';
 
 const MusicWidget = () => {

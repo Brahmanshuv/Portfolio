@@ -1,3 +1,15 @@
+/**
+ * SectionWrapper — Animated section container with sensible scroll-reveal defaults.
+ *
+ * Props:
+ *   children     {ReactNode}  - Section content.
+ *   id           {string}     - HTML id attribute for anchor linking.
+ *   className    {string}     - Additional CSS classes.
+ *   animate      {boolean}    - Set false to skip Framer Motion and render a plain <section>. Default: true.
+ *   variants     {object}     - Custom Framer Motion variants. Falls back to built-in cinematic unfold curve.
+ *   transition   {object}     - Custom Framer Motion transition override.
+ *   viewport     {object}     - Framer Motion viewport config. Default: { once: true, amount: 0.25 }.
+ */
 import React from 'react';
 import { motion } from 'framer-motion';
 

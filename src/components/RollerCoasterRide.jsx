@@ -1,3 +1,13 @@
+/**
+ * RollerCoasterRide — Easter egg fullscreen shader overlay.
+ *
+ * Renders a fullscreen WebGL shader (rideShader) triggered by the
+ * "Roller Coaster ⚠️" button in the Contact section.
+ * Press Escape or click the button again to close.
+ *
+ * Side-effects: adds/removes `roller-coaster-open` class on document.body
+ * to allow CSS to respond to the open state (e.g. hide scrollbars).
+ */
 import { useEffect, useState } from "react";
 import LocalShaderCanvas from "./LocalShaderCanvas";
 import { rideShaderSource } from "../shaders/rideShader";
