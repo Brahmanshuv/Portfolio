@@ -1,4 +1,3 @@
-@'
 # Brahmanshu Verma — Portfolio
 
 A React/Vite portfolio website for product design, UI/UX, 3D experiments, case studies, and interactive web experiences.
