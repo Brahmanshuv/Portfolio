@@ -68,3 +68,5 @@ dist/
 .env.*.local
 *.log
 .DS_Store
+
+# Repository hygiene files are intentionally ignored above.
