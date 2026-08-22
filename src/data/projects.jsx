@@ -1,11 +1,78 @@
 export const projectsData = [
     {
+        id: 'cora',
+        title: 'Cora',
+        category: 'RMN / AI Product Design',
+        previewCategory: 'RETAIL MEDIA / AI / PRODUCT DESIGN',
+        slug: 'cora',
+        role: 'Product Designer',
+        description: 'An AI-assisted Retail Media Network experience that helps teams plan, review, approve, launch, and optimize campaigns across fragmented data and workflows.',
+        tags: ['RMN', 'AI UX', 'Campaign Management', 'Product Design'],
+        year: '2024',
+        status: 'Case Study',
+        image: '/assets/spatial_3d_preview.png',
+        accentColor: '#8B5CF6',
+        dossier: [
+            { step: '01', title: 'OVERVIEW', text: 'Designed an AI-assisted Retail Media Network platform for planning, reviewing, and launching campaigns across fragmented data ecosystems.' },
+            { step: '02', title: 'RESEARCH', text: 'Identified critical workflow friction across RMN campaign managers dealing with siloed data, slow approval loops, and manual optimization.' },
+            { step: '03', title: 'STRATEGY', text: 'Introduced AI confidence surfacing and contextual recommendations to reduce decision latency without removing human control.' },
+            { step: '04', title: 'UX', text: 'Mapped the full campaign lifecycle from brief to post-launch monitoring, designing clear review and approval state transitions.' },
+            { step: '05', title: 'UI', text: 'Built an explainability control surface and confidence-state matrix to keep teams informed and in control at every stage.' },
+            { step: '06', title: 'OUTCOME', text: 'Established a human-AI collaboration model that reduced campaign review friction and created a scalable RMN workflow system.' }
+        ]
+    },
+    {
+        id: 'staple',
+        title: 'Staple',
+        category: 'Productivity / Product Design',
+        previewCategory: 'PRODUCTIVITY / PRODUCT DESIGN',
+        slug: 'staple',
+        role: 'Product Designer',
+        description: 'A unified document workspace designed to reduce fragmented file-management and PDF workflows.',
+        tags: ['Productivity', 'Product Design', 'Document Systems', 'Workspace'],
+        year: '2024',
+        status: 'Case Study',
+        image: '/assets/enterprise_dashboard_preview.png',
+        accentColor: '#3B82F6',
+        dossier: [
+            { step: '01', title: 'OVERVIEW', text: 'Designed a unified document workspace to reduce fragmented file-management and PDF workflows.' },
+            { step: '02', title: 'RESEARCH', text: 'Identified friction points across separate document readers, editors, and fragmented storage.' },
+            { step: '03', title: 'STRATEGY', text: 'Created an integrated document lifecycle from initial import to final collaboration.' },
+            { step: '04', title: 'UX', text: 'Streamlined multi-document viewports and fast-action file manipulation controls.' },
+            { step: '05', title: 'UI', text: 'Developed a focused, low-noise workspace interface emphasizing content hierarchy.' },
+            { step: '06', title: 'OUTCOME', text: 'Streamlined multi-format document workflows and established a coherent system for unified asset management.' }
+        ]
+    },
+    {
+        id: '6s-seo',
+        title: '6S SEO',
+        category: 'SaaS / SEO Product Design',
+        previewCategory: 'SAAS / SEO / PRODUCT DESIGN',
+        slug: '6s-marketers-seo-tool',
+        role: 'Product Designer',
+        description: 'An SEO intelligence product designed to turn complex search data into clearer, faster decisions.',
+        tags: ['SaaS', 'SEO', 'Data Vis', 'Product Design'],
+        year: '2024',
+        status: 'Active',
+        image: '/assets/ios_notifications_preview.png',
+        accentColor: '#10B981',
+        dossier: [
+            { step: '01', title: 'OVERVIEW', text: 'Conceived a workflow-driven SEO intelligence platform for translating complex metrics into actionable steps.' },
+            { step: '02', title: 'RESEARCH', text: 'Observed that marketers spent hours navigating fragmented rank tracking and keyword reports.' },
+            { step: '03', title: 'STRATEGY', text: 'Designed high-clarity data hierarchies prioritizing high-impact optimization opportunities.' },
+            { step: '04', title: 'UX', text: 'Streamlined multi-domain keyword analysis into consolidated, filterable views.' },
+            { step: '05', title: 'UI', text: 'Constructed dense yet scannable dashboard views with high-contrast performance indicators.' },
+            { step: '06', title: 'OUTCOME', text: 'Structured complex search and ranking datasets into actionable client-ready workflows.' }
+        ]
+    },
+    {
         id: 'dream-holidays',
         title: 'Dream Holidays',
-        category: 'Travel Tech / Product Design',
+        category: 'Travel / Product Design',
+        previewCategory: 'TRAVEL / PRODUCT DESIGN',
         slug: 'dream-holidays',
-        role: 'Product Designer',
-        description: 'Transforming a traditional travel agency into a discovery-first digital experience that improves destination exploration, reduces agent dependency, and creates a scalable online presence.',
+        role: 'Product Designer · 2024',
+        description: 'Transforming a traditional travel agency into a discovery-first digital experience built around easier exploration and qualified enquiries.',
         tags: ['Travel Tech', 'UX Strategy', 'Digital Transformation', 'Systems Thinking'],
         year: '2024',
         status: 'Case Study',
@@ -17,9 +84,12 @@ export const projectsData = [
             { step: '03', title: 'STRATEGY', text: 'Shifted from a self-serve booking engine to an editorial, discovery-first travel companion.' },
             { step: '04', title: 'UX', text: 'Designed step-by-step interactive itineraries to answer pre-booking questions inline.' },
             { step: '05', title: 'UI', text: 'Established a clean, photography-led aesthetic conveying 25 years of curated trust.' },
-            { step: '06', title: 'OUTCOME', text: 'Reduced repetitive agent inquiries by 40% while doubling qualified booking leads.' }
+            { step: '06', title: 'OUTCOME', text: 'Reduced repetitive discovery friction and created a clearer path from browsing to enquiry.' }
         ]
-    },
+    }
+];
+
+export const archivedProjectsData = [
     {
         id: 'ios-notifications',
         title: 'iOS Notification System Redesign',
@@ -31,15 +101,7 @@ export const projectsData = [
         year: '2024',
         status: 'Concept Project',
         image: '/assets/ios_notifications_preview.png',
-        accentColor: '#EF4444',
-        dossier: [
-            { step: '01', title: 'OVERVIEW', text: 'Redesigned the iOS notification delivery semantics to minimize daily cognitive load.' },
-            { step: '02', title: 'RESEARCH', text: 'Logged that users unlock devices 80+ times daily, primarily triggered by low-priority alerts.' },
-            { step: '03', title: 'STRATEGY', text: 'Structured a notification triage model dividing delivery into active, digest, and silent channels.' },
-            { step: '04', title: 'UX', text: 'Engineered screen-edge gestures to quickly dispatch alerts without entering applications.' },
-            { step: '05', title: 'UI', text: 'Conceived rich dynamic widgets matching the Apple Human Interface Guidelines styling.' },
-            { step: '06', title: 'OUTCOME', text: 'Decreased device screen time by 18% and reduced notification-induced anxiety levels.' }
-        ]
+        accentColor: '#EF4444'
     },
     {
         id: 'enterprise-dashboard',
@@ -52,15 +114,7 @@ export const projectsData = [
         year: '2024',
         status: 'Active',
         image: '/assets/enterprise_dashboard_preview.png',
-        accentColor: '#10B981',
-        dossier: [
-            { step: '01', title: 'OVERVIEW', text: 'Conceived a high-density dashboard for monitoring real-time enterprise energy performance.' },
-            { step: '02', title: 'RESEARCH', text: 'Found that operators struggled to correlate grid spikes with historical weather anomalies.' },
-            { step: '03', title: 'STRATEGY', text: 'Created a modular widgets framework enabling personalized grid configuration.' },
-            { step: '04', title: 'UX', text: 'Maintained clear scanability for hundreds of data points using responsive layout density.' },
-            { step: '05', title: 'UI', text: 'Styled dark-mode charting components with HSL custom-tailored color keys.' },
-            { step: '06', title: 'OUTCOME', text: 'Accelerated critical anomaly detection times by 32% across industrial facilities.' }
-        ]
+        accentColor: '#10B981'
     },
     {
         id: 'spatial-3d',
@@ -73,15 +127,7 @@ export const projectsData = [
         year: '2024',
         status: 'Concept',
         image: '/assets/spatial_3d_preview.png',
-        accentColor: '#A855F7',
-        dossier: [
-            { step: '01', title: 'OVERVIEW', text: 'Bridged e-commerce and interactive physics through a WebGL product customizer.' },
-            { step: '02', title: 'RESEARCH', text: 'Discovered that static 2D product photos failed to convey material depth and texture.' },
-            { step: '03', title: 'STRATEGY', text: 'Developed a responsive, shader-based physical rendering pipeline for mobile browsers.' },
-            { step: '04', title: 'UX', text: 'Optimized multi-touch rotate and explode gestures for intuitive viewport navigation.' },
-            { step: '05', title: 'UI', text: 'Designed minimalist floating UI control panels that preserve the main 3D canvas viewport space.' },
-            { step: '06', title: 'OUTCOME', text: 'Increased user session duration by 150% and reduced return rates by 22%.' }
-        ]
+        accentColor: '#A855F7'
     },
     {
         id: 'enterprise-design-system',
@@ -91,17 +137,6 @@ export const projectsData = [
         role: 'Systems Architect',
         description: 'Scalable multi-product UI architecture, token systems, and cross-platform consistency workflows.',
         tags: ['Design Tokens', 'Component Systems', 'Scalability', 'Enterprise UX'],
-        year: 'Future',
-        status: 'Coming Soon'
-    },
-    {
-        id: 'ai-native-workflow',
-        title: 'AI-Native Product Workflow',
-        category: 'AI / Future Interfaces',
-        slug: 'ai-native-workflow',
-        role: 'Lead AI Product Designer',
-        description: 'Exploring AI-assisted interaction systems, automation-driven UX, and human + AI collaboration patterns.',
-        tags: ['AI UX', 'Automation', 'Workflow Systems', 'Future Interfaces'],
         year: 'Future',
         status: 'Coming Soon'
     }

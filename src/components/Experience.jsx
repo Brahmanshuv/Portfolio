@@ -21,8 +21,14 @@ const Experience = () => {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
-    // Reset scroll to top of Experience section on view mode toggle
+    const isFirstMount = useRef(true);
+
+    // Reset scroll to top of Experience section on view mode toggle (only on user toggle, not on initial mount)
     useEffect(() => {
+        if (isFirstMount.current) {
+            isFirstMount.current = false;
+            return;
+        }
         const container = document.getElementById('experience');
         if (container) {
             if (window.lenis) {

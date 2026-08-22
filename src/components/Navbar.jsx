@@ -38,20 +38,24 @@ const Navbar = () => {
 
     // Handle Scroll Spy
     useEffect(() => {
-        const sections = document.querySelectorAll('section');
+        const sections = document.querySelectorAll('section[id]');
         const handleScrollSpy = () => {
             let current = '';
             sections.forEach(section => {
                 const sectionTop = section.offsetTop;
                 const sectionHeight = section.clientHeight;
                 if (window.scrollY >= (sectionTop - sectionHeight / 3)) {
-                    current = '#' + section.getAttribute('id');
+                    const id = section.getAttribute('id');
+                    if (id && id !== 'home') {
+                        current = '#' + id;
+                    }
                 }
             });
             setActiveSection(current);
         };
 
-        window.addEventListener('scroll', handleScrollSpy);
+        window.addEventListener('scroll', handleScrollSpy, { passive: true });
+        handleScrollSpy();
         return () => window.removeEventListener('scroll', handleScrollSpy);
     }, []);
 
@@ -84,7 +88,24 @@ const Navbar = () => {
         document.body.style.overflow = '';
     }, []);
 
+    const handleNavClick = (e, href) => {
+        closeMenu();
+        if (href === '#home') {
+            e.preventDefault();
+            if (window.lenis) {
+                window.lenis.scrollTo(0, { duration: 1.0 });
+            } else {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+            setActiveSection('');
+            if (window.location.hash) {
+                window.history.replaceState(null, '', window.location.pathname);
+            }
+        }
+    };
+
     const navLinks = [
+        { name: 'Home', href: '#home' },
         { name: 'Experience', href: '#experience' },
         { name: 'Work', href: '#work' },
         { name: 'Skills', href: '#skills' },
@@ -103,7 +124,7 @@ const Navbar = () => {
                                     <a
                                         href={link.href}
                                         className={activeSection === link.href ? 'active' : ''}
-                                        onClick={closeMenu}
+                                        onClick={(e) => handleNavClick(e, link.href)}
                                     >
                                         {link.name}
                                     </a>
@@ -132,7 +153,7 @@ const Navbar = () => {
                                 <a
                                     href={link.href}
                                     className={activeSection === link.href ? 'active' : ''}
-                                    onClick={closeMenu}
+                                    onClick={(e) => handleNavClick(e, link.href)}
                                 >
                                     {link.name}
                                 </a>

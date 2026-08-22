@@ -123,7 +123,7 @@ export default function CaseStudyTemplate({ metadata, content }) {
             >
                 <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <button
-                        onClick={() => navigateTo('/#projects')}
+                        onClick={() => navigateTo('/#work')}
                         onMouseEnter={() => setIsBackHovered(true)}
                         onMouseLeave={() => setIsBackHovered(false)}
                         className="project-detail-back-btn"
@@ -701,7 +701,7 @@ export default function CaseStudyTemplate({ metadata, content }) {
                 >
                     {/* Bottom Left: ← Projects */}
                     <button
-                        onClick={() => navigateTo('/#projects')}
+                        onClick={() => navigateTo('/#work')}
                         onMouseEnter={() => setIsBackHovered(true)}
                         onMouseLeave={() => setIsBackHovered(false)}
                         style={{

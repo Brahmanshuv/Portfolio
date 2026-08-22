@@ -13,8 +13,9 @@ import LoadingScreen from './components/LoadingScreen';
 import GlobalBackground from './components/GlobalBackground';
 import Lenis from '@studio-freight/lenis';
 import ProjectDetail from './components/ProjectDetail';
-import { projectsData } from './data/projects';
+import { projectsData, archivedProjectsData } from './data/projects';
 import { projectsRegistry } from './projects/registry';
+import { useDesktopScale } from './hooks/useDesktopScale';
 
 // Feature toggle to easily show/hide the scroll-driven typography section at the bottom
 const SHOW_POWERING_THE_FUTURE = false;
@@ -34,6 +35,22 @@ function App() {
             window.removeEventListener('popstate', handleLocationChange);
         };
     }, []);
+
+    // Ensure root page starts at the top without browser restoration jumping
+    useEffect(() => {
+        if (typeof window !== 'undefined' && 'scrollRestoration' in window.history) {
+            window.history.scrollRestoration = 'manual';
+        }
+        if (window.location.pathname === '/' && (!window.location.hash || window.location.hash === '#home')) {
+            window.scrollTo(0, 0);
+            if (window.lenis) {
+                window.lenis.scrollTo(0, { immediate: true });
+            }
+        }
+    }, []);
+
+    // Active desktop scale system
+    useDesktopScale();
 
     useEffect(() => {
         const lenis = new Lenis({
@@ -67,7 +84,7 @@ function App() {
     // Route matching selectors
     const isProjectPage = currentPath.startsWith('/projects/');
     const projectSlug = isProjectPage ? currentPath.split('/projects/')[1] : null;
-    const currentProject = projectsData.find(p => p.slug === projectSlug);
+    const currentProject = projectsData.find(p => p.slug === projectSlug) || archivedProjectsData.find(p => p.slug === projectSlug);
     const RegisteredProjectComponent = isProjectPage ? projectsRegistry[projectSlug] : null;
 
     return (

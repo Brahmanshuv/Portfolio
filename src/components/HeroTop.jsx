@@ -33,39 +33,32 @@ const HeroTop = () => {
     // Project Peek Cards list
     const projectPeekCards = [
         {
+            id: 'cora',
+            badge: 'AI / RMN',
+            title: 'Cora',
+            category: 'Retail Media Network',
+            link: '/projects/cora'
+        },
+        {
+            id: '6s-seo',
+            badge: 'SEO / SAAS',
+            title: '6S SEO',
+            category: 'SEO Intelligence Tool',
+            link: '#work'
+        },
+        {
+            id: 'staple',
+            badge: 'PRODUCTIVITY',
+            title: 'Staple',
+            category: 'Document Workspace',
+            link: '/projects/staple'
+        },
+        {
             id: 'dream-holidays',
-            badge: 'Case Study',
+            badge: 'TRAVEL',
             title: 'Dream Holidays',
             category: 'Travel Product Design',
             link: '/projects/dream-holidays'
-        },
-        {
-            id: '6s-marketers',
-            badge: 'Dashboard',
-            title: '6S Marketers',
-            category: 'Client Dashboard',
-            link: '#work' // TODO: Update to exact project page URL when available
-        },
-        {
-            id: 'powertrace',
-            badge: 'Product',
-            title: 'Powertrace',
-            category: 'Enterprise Dashboard System',
-            link: '/projects/enterprise-dashboard'
-        },
-        {
-            id: 'inverted-energy',
-            badge: '3D',
-            title: 'Inverted Energy',
-            category: '3D Product Experience',
-            link: '/projects/spatial-3d'
-        },
-        {
-            id: 'redtape',
-            badge: 'UX',
-            title: 'Redtape',
-            category: 'UX Research & Interface Design',
-            link: '#work' // TODO: Update to exact project page URL when available
         }
     ];
 
@@ -108,10 +101,10 @@ const HeroTop = () => {
             c.mx = lerp(c.mx, t.mx, ease);
             c.my = lerp(c.my, t.my, ease);
 
-            // Scene rotation (camera feel)
+            // Scene rotation (camera feel) with desktop fidelity scale
             if (sceneRef.current) {
                 sceneRef.current.style.transform =
-                    `rotateX(${c.x}deg) rotateY(${c.y}deg)`;
+                    `scale(var(--desktop-ui-scale, 1)) rotateX(${c.x}deg) rotateY(${c.y}deg)`;
             }
 
             // Parallax — Foreground Glass Typography / Panel (moves slightly faster/closer)
@@ -161,7 +154,7 @@ const HeroTop = () => {
     }, []);
 
     return (
-        <section ref={sectionRef} className="hero-top-section">
+        <section ref={sectionRef} id="home" className="hero-top-section">
             {/* Sticky viewport lock */}
             <div className="hero-top-sticky">
                 <ShaderMarbleBackground />
@@ -192,14 +185,14 @@ const HeroTop = () => {
                                     {/* 2. Left Inner Panel */}
                                     <div className="project-panel project-panel--left-inner">
                                         <div className="project-panel-inner">
-                                            {/* Content Zone for Project 1: Dream Holidays */}
-                                            <a href="/projects/dream-holidays" className="project-zone zone-1">
+                                            {/* Content Zone for Project 1: Cora */}
+                                            <a href="/projects/cora" className="project-zone zone-1">
                                                 <div className="project-zone-header">
-                                                    <span className="project-zone-badge">Case Study</span>
+                                                    <span className="project-zone-badge">AI / RMN</span>
                                                     <span className="project-zone-number">[01]</span>
                                                 </div>
-                                                <h3 className="project-zone-title">Dream Holidays</h3>
-                                                <p className="project-zone-desc">Travel Product Design</p>
+                                                <h3 className="project-zone-title">Cora</h3>
+                                                <p className="project-zone-desc">Retail Media Network</p>
                                                 <div className="project-zone-cta">
                                                     <span>View Project →</span>
                                                 </div>
@@ -207,14 +200,14 @@ const HeroTop = () => {
 
                                             <div className="project-zone-divider" />
 
-                                            {/* Content Zone for Project 2: 6S Marketers */}
+                                            {/* Content Zone for Project 2: 6S SEO */}
                                             <a href="#work" className="project-zone zone-2">
                                                 <div className="project-zone-header">
-                                                    <span className="project-zone-badge">Dashboard</span>
+                                                    <span className="project-zone-badge">SEO / SAAS</span>
                                                     <span className="project-zone-number">[02]</span>
                                                 </div>
-                                                <h3 className="project-zone-title">6S Marketers</h3>
-                                                <p className="project-zone-desc">Client Dashboard</p>
+                                                <h3 className="project-zone-title">6S SEO</h3>
+                                                <p className="project-zone-desc">SEO Intelligence Tool</p>
                                                 <div className="project-zone-cta">
                                                     <span>View Project →</span>
                                                 </div>
@@ -225,14 +218,14 @@ const HeroTop = () => {
                                     {/* 3. Right Inner Panel */}
                                     <div className="project-panel project-panel--right-inner">
                                         <div className="project-panel-inner">
-                                            {/* Content Zone for Project 5: Redtape */}
-                                            <a href="#work" className="project-zone zone-5">
+                                            {/* Content Zone for Project 3: Staple */}
+                                            <a href="/projects/staple" className="project-zone zone-3">
                                                 <div className="project-zone-header">
-                                                    <span className="project-zone-badge">UX</span>
-                                                    <span className="project-zone-number">[05]</span>
+                                                    <span className="project-zone-badge">PRODUCTIVITY</span>
+                                                    <span className="project-zone-number">[03]</span>
                                                 </div>
-                                                <h3 className="project-zone-title">Redtape</h3>
-                                                <p className="project-zone-desc">UX Research & Interface Design</p>
+                                                <h3 className="project-zone-title">Staple</h3>
+                                                <p className="project-zone-desc">Document Workspace</p>
                                                 <div className="project-zone-cta">
                                                     <span>View Project →</span>
                                                 </div>
@@ -240,14 +233,14 @@ const HeroTop = () => {
 
                                             <div className="project-zone-divider" />
 
-                                            {/* Content Zone for Project 4: Inverted Energy */}
-                                            <a href="/projects/spatial-3d" className="project-zone zone-4">
+                                            {/* Content Zone for Project 4: Dream Holidays */}
+                                            <a href="/projects/dream-holidays" className="project-zone zone-4">
                                                 <div className="project-zone-header">
-                                                    <span className="project-zone-badge">3D</span>
+                                                    <span className="project-zone-badge">TRAVEL</span>
                                                     <span className="project-zone-number">[04]</span>
                                                 </div>
-                                                <h3 className="project-zone-title">Inverted Energy</h3>
-                                                <p className="project-zone-desc">3D Product Experience</p>
+                                                <h3 className="project-zone-title">Dream Holidays</h3>
+                                                <p className="project-zone-desc">Travel Product Design</p>
                                                 <div className="project-zone-cta">
                                                     <span>View Project →</span>
                                                 </div>
@@ -268,19 +261,16 @@ const HeroTop = () => {
 
                                     {/* 5. Bottom Horizontal Panel */}
                                     <div className="project-panel project-panel--bottom">
-                                        <div className="project-panel-inner">
-                                            <a href="/projects/enterprise-dashboard" className="project-zone project-zone--horizontal">
-                                                <div className="horizontal-left">
-                                                    <span className="project-zone-badge">Product</span>
-                                                    <span className="project-zone-number">[03]</span>
-                                                    <h3 className="project-zone-title">Powertrace</h3>
-                                                    <span className="project-zone-separator">—</span>
-                                                    <p className="project-zone-desc">Enterprise Dashboard System</p>
-                                                </div>
-                                                <div className="project-zone-cta">
-                                                    <span>View Project →</span>
-                                                </div>
-                                            </a>
+                                        <div className="project-panel-inner" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
+                                            <span style={{
+                                                fontFamily: 'var(--font-primary)',
+                                                fontSize: '13px',
+                                                color: 'rgba(255, 255, 255, 0.45)',
+                                                letterSpacing: '0.02em',
+                                                fontWeight: 400
+                                            }}>
+                                                Made you look.
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -344,7 +334,8 @@ const HeroTop = () => {
                                             onClick={() => setIsProjectStackOpen(prev => !prev)}
                                             className={`hero-scroll-indicator ${isProjectStackOpen ? 'is-open' : ''}`}
                                             aria-expanded={isProjectStackOpen}
-                                            aria-label="Toggle project preview cards"
+                                            aria-label="See the work"
+                                            title="See the work"
                                         >
                                             <div className="hero-scroll-circle">
                                                 <div className="hero-scroll-line" />

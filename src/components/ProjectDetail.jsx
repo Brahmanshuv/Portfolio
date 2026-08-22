@@ -101,7 +101,7 @@ export default function ProjectDetail({ project }) {
             >
                 <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <button
-                        onClick={() => navigateTo('/#projects')}
+                        onClick={() => navigateTo('/#work')}
                         onMouseEnter={() => setIsBackHovered(true)}
                         onMouseLeave={() => setIsBackHovered(false)}
                         className="project-detail-back-btn"
@@ -467,7 +467,7 @@ export default function ProjectDetail({ project }) {
 
                     {/* Back home anchor */}
                     <button
-                        onClick={() => navigateTo('/#projects')}
+                        onClick={() => navigateTo('/#work')}
                         onMouseEnter={() => setIsReturnHovered(true)}
                         onMouseLeave={() => setIsReturnHovered(false)}
                         className="premium-switch-bg"

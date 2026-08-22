@@ -9,7 +9,7 @@ const NAV_ITEMS = [
     { id: 'result', label: 'Outcome', targetId: 'result-section' }
 ];
 
-export default function ProjectNav({ activeSection, onSectionClick }) {
+export default function ProjectNav({ activeSection, onSectionClick, navItems = NAV_ITEMS }) {
     return (
         <nav
             className="project-nav-container"
@@ -29,7 +29,7 @@ export default function ProjectNav({ activeSection, onSectionClick }) {
                 zIndex: 50
             }}
         >
-            {NAV_ITEMS.map((item) => {
+            {navItems.map((item) => {
                 const isActive = activeSection === item.id;
                 return (
                     <button
