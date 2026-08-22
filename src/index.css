@@ -143,9 +143,9 @@ ul {
     /* Compact height */
     z-index: 1000;
 
-    /* Frosted dark glass body with backdrop blur */
-    backdrop-filter: blur(20px) saturate(120%);
-    -webkit-backdrop-filter: blur(20px) saturate(120%);
+    /* Layout and blur stay completely constant to avoid browser repaints and flicker */
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
     border-radius: 100px;
     /* Fully rounded pill */
     display: flex;
@@ -153,14 +153,12 @@ ul {
     align-items: center;
     padding: 0;
 
-    /* Base frosted dark glass capsule */
-    background-color: rgba(20, 22, 25, 0.45);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow:
-        0 10px 30px rgba(0, 0, 0, 0.35),
-        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    /* Base top state: fully transparent frosted container pill */
+    background-color: rgba(12, 16, 24, 0);
+    border: 1px solid rgba(255, 255, 255, 0);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0);
 
-    /* Hardware-accelerated transitions for smooth scroll response */
+    /* Hardware-accelerated transitions for cheap paint properties only */
     transition:
         background-color 280ms cubic-bezier(0.22, 1, 0.36, 1),
         border-color 280ms cubic-bezier(0.22, 1, 0.36, 1),
@@ -168,12 +166,10 @@ ul {
 }
 
 #main-header.scrolled {
-    /* Scrolled state: slightly deeper density while maintaining matching glass aesthetic */
-    background-color: rgba(14, 16, 20, 0.65);
-    border-color: rgba(255, 255, 255, 0.1);
-    box-shadow:
-        0 12px 36px rgba(0, 0, 0, 0.45),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    /* Scrolled state: premium glass effect (rgba(12, 16, 24, 0.38) and subtle translucent border) */
+    background-color: rgba(12, 16, 24, 0.38);
+    border-color: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
 }
 
 .header-content {
@@ -228,9 +224,9 @@ ul {
     line-height: 1;
 }
 
-/* Base navigation links under floating header */
+/* Base navigation links transition under floating header */
 #main-header .nav-menu a {
-    color: var(--text-secondary);
+    color: rgba(0, 0, 0, 0.65);
     transition: color 280ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -5875,4 +5871,4 @@ html.lenis body {
 
 .cta-dossier-btn:hover .cta-arrow {
     transform: translateX(4px);
-}
+}
