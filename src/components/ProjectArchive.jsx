@@ -201,7 +201,9 @@ export default function ProjectArchive({ projects }) {
                                                 )}
 
                                                 <button
+                                                    type="button"
                                                     onClick={(e) => {
+                                                        e.preventDefault();
                                                         e.stopPropagation();
                                                         navigateTo(`/projects/${project.slug}`);
                                                     }}
@@ -710,7 +712,9 @@ export default function ProjectArchive({ projects }) {
                                 })()}
 
                                 <button
+                                    type="button"
                                     onClick={(e) => {
+                                        e.preventDefault();
                                         e.stopPropagation();
                                         navigateTo(`/projects/${activeProject.slug}`);
                                     }}

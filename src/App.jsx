@@ -82,8 +82,9 @@ function App() {
     }, []);
 
     // Route matching selectors
-    const isProjectPage = currentPath.startsWith('/projects/');
-    const projectSlug = isProjectPage ? currentPath.split('/projects/')[1] : null;
+    const cleanPath = currentPath.split('#')[0].split('?')[0].replace(/\/+$/, '');
+    const isProjectPage = cleanPath.startsWith('/projects/');
+    const projectSlug = isProjectPage ? cleanPath.split('/projects/')[1] : null;
     const currentProject = projectsData.find(p => p.slug === projectSlug) || archivedProjectsData.find(p => p.slug === projectSlug);
     const RegisteredProjectComponent = isProjectPage ? projectsRegistry[projectSlug] : null;
 

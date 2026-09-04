@@ -3,22 +3,22 @@ export const projectsData = [
         id: 'cora',
         title: 'Cora',
         category: 'RMN / AI Product Design',
-        previewCategory: 'RETAIL MEDIA / AGENTIC AI / PRODUCT DESIGN',
+        previewCategory: 'RETAIL MEDIA / AI CONCEPT / PRODUCT DESIGN',
         slug: 'cora',
-        role: 'Product Designer / UX Lead',
-        description: 'An AI-assisted Retail Media Network experience that helps teams plan, review, approve, launch, and optimize campaigns across fragmented data and workflows.',
-        tags: ['Retail Media', 'Agentic AI', 'Workflow Architecture', 'Enterprise UX', 'Confidence Systems'],
+        role: 'Product Designer',
+        description: 'An AI-assisted campaign concept connecting the brief, the proposal, the people reviewing it, and the next decision after launch.',
+        tags: ['Retail Media', 'Workflow Architecture', 'Enterprise UX', 'Campaign Planning'],
         year: '2024',
         status: 'Case Study',
-        image: '/assets/CORA/11.jpeg',
+        image: '/assets/CORA/Cora_Showcase_Poster.jpg',
         accentColor: '#8B5CF6',
         dossier: [
-            { step: '01', title: 'OVERVIEW', text: 'Designed an AI-assisted Retail Media Network platform for planning, reviewing, and launching campaigns across fragmented data ecosystems.' },
-            { step: '02', title: 'RESEARCH', text: 'Identified critical workflow friction across RMN campaign managers dealing with siloed data, slow approval loops, and manual optimization.' },
-            { step: '03', title: 'STRATEGY', text: 'Introduced AI confidence surfacing and contextual recommendations to reduce decision latency without removing human control.' },
-            { step: '04', title: 'UX', text: 'Mapped the full campaign lifecycle from brief to post-launch monitoring, designing clear review and approval state transitions.' },
-            { step: '05', title: 'UI', text: 'Built an explainability control surface and confidence-state matrix to keep teams informed and in control at every stage.' },
-            { step: '06', title: 'OUTCOME', text: 'Established a human-AI collaboration model that reduced campaign review friction and created a scalable RMN workflow system.' }
+            { step: '01', title: 'OVERVIEW', text: 'An AI-assisted Retail Media Network concept connecting brief extraction, proposal review, approval, and live monitoring.' },
+            { step: '02', title: 'WORKFLOW', text: 'Documented campaign manager pain points across fragmented inputs and manual operational handoffs.' },
+            { step: '03', title: 'STRATEGY', text: 'Preserved source context end-to-end and introduced explicit human-in-the-loop review checkpoints.' },
+            { step: '04', title: 'PROPOSAL', text: 'Designed interactive lookalike audience tuning and baseline budget allocation with source references.' },
+            { step: '05', title: 'REVIEW', text: 'Structured collaborative comment threads, staged approval checkpoints, and explicit launch actions.' },
+            { step: '06', title: 'OUTCOME', text: 'Demonstrated a connected campaign workflow model that keeps people in control of critical decisions.' }
         ]
     },
     {

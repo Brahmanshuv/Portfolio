@@ -6200,4 +6200,109 @@ html.lenis body {
     content: "—";
     color: #007AFF;
     font-weight: 600;
-}
+}
+
+/* Cora 16:9 Reserved Video Box (Prevents Layout Shift) */
+.cs-video-aspect-box {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    position: relative;
+    background: #000;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cs-video-aspect-box video,
+.cs-video-aspect-box img {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    object-fit: contain !important;
+    display: block;
+}
+
+/* Hero Showcase Play Button */
+.cs-hero-play-btn:hover {
+    background: rgba(26, 20, 48, 0.95);
+    border-color: rgba(167, 139, 250, 0.65);
+    transform: translate(-50%, -50%) scale(1.03);
+    box-shadow: 0 16px 44px rgba(0, 0, 0, 0.7), 0 0 32px rgba(139, 92, 246, 0.35);
+}
+
+.cs-hero-play-btn:focus-visible {
+    outline: 2px solid #a78bfa;
+    outline-offset: 4px;
+}
+
+/* Optional Video Disclosure Card */
+.cs-disclosure-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 16px;
+    overflow: hidden;
+    margin: 20px 0;
+    transition: border-color 0.25s ease, background 0.25s ease;
+}
+
+.cs-disclosure-card:hover {
+    border-color: rgba(255, 255, 255, 0.12);
+}
+
+.cs-disclosure-trigger {
+    width: 100%;
+    padding: 16px 20px;
+    background: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 13.5px;
+    font-weight: 500;
+    transition: background 0.2s ease, color 0.2s ease;
+    text-align: left;
+}
+
+.cs-disclosure-trigger:hover {
+    background: rgba(255, 255, 255, 0.03);
+    color: #fff;
+}
+
+.cs-disclosure-trigger:focus-visible {
+    outline: 2px solid #8B5CF6;
+    outline-offset: -2px;
+}
+
+.cs-disclosure-content {
+    padding: 0 20px 20px 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Workflow Step Diagram Grid */
+.cs-workflow-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    margin: 24px 0;
+}
+
+@media (min-width: 900px) {
+    .cs-workflow-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* Respect Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    .cs-hero-play-btn,
+    .cs-disclosure-card,
+    .cs-disclosure-trigger {
+        transition: none !important;
+    }
+}
