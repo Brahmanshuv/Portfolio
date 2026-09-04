@@ -3,14 +3,14 @@ export const projectsData = [
         id: 'cora',
         title: 'Cora',
         category: 'RMN / AI Product Design',
-        previewCategory: 'RETAIL MEDIA / AI / PRODUCT DESIGN',
+        previewCategory: 'RETAIL MEDIA / AGENTIC AI / PRODUCT DESIGN',
         slug: 'cora',
-        role: 'Product Designer',
+        role: 'Product Designer / UX Lead',
         description: 'An AI-assisted Retail Media Network experience that helps teams plan, review, approve, launch, and optimize campaigns across fragmented data and workflows.',
-        tags: ['RMN', 'AI UX', 'Campaign Management', 'Product Design'],
+        tags: ['Retail Media', 'Agentic AI', 'Workflow Architecture', 'Enterprise UX', 'Confidence Systems'],
         year: '2024',
         status: 'Case Study',
-        image: '/assets/spatial_3d_preview.png',
+        image: '/assets/CORA/11.jpeg',
         accentColor: '#8B5CF6',
         dossier: [
             { step: '01', title: 'OVERVIEW', text: 'Designed an AI-assisted Retail Media Network platform for planning, reviewing, and launching campaigns across fragmented data ecosystems.' },
@@ -27,9 +27,9 @@ export const projectsData = [
         category: 'Productivity / Product Design',
         previewCategory: 'PRODUCTIVITY / PRODUCT DESIGN',
         slug: 'staple',
-        role: 'Product Designer',
+        role: 'Product Designer (UI/UX)',
         description: 'A unified document workspace designed to reduce fragmented file-management and PDF workflows.',
-        tags: ['Productivity', 'Product Design', 'Document Systems', 'Workspace'],
+        tags: ['Document Operations', 'Workflow UX', 'Desktop SaaS', 'Information Architecture', 'Interaction Design'],
         year: '2024',
         status: 'Case Study',
         image: '/assets/enterprise_dashboard_preview.png',
@@ -44,16 +44,38 @@ export const projectsData = [
         ]
     },
     {
+        id: 'dream-holidays',
+        title: 'Dream Holidays',
+        category: 'Travel / Product Design',
+        previewCategory: 'TRAVEL TECH / PRODUCT DESIGN',
+        slug: 'dream-holidays',
+        role: 'Lead Product Designer',
+        description: 'Transforming a traditional travel agency into a discovery-first digital experience built around easier exploration and qualified enquiries.',
+        tags: ['Travel Tech', 'UX Strategy', 'Digital Transformation', 'Information Architecture', 'Editorial Design'],
+        year: '2024',
+        status: 'Case Study',
+        image: '/assets/dream_holidays_preview.png',
+        accentColor: '#0EA5E9',
+        dossier: [
+            { step: '01', title: 'OVERVIEW', text: 'Built a digital experience that helped an offline travel agency generate qualified online leads.' },
+            { step: '02', title: 'RESEARCH', text: 'Identified that 70% of advisor time was spent answering repetitive logistical questions.' },
+            { step: '03', title: 'STRATEGY', text: 'Shifted from a self-serve booking engine to an editorial, discovery-first travel companion.' },
+            { step: '04', title: 'UX', text: 'Designed step-by-step interactive itineraries to answer pre-booking questions inline.' },
+            { step: '05', title: 'UI', text: 'Established a clean, photography-led aesthetic conveying 25 years of curated trust.' },
+            { step: '06', title: 'OUTCOME', text: 'Reduced repetitive discovery friction and created a clearer path from browsing to enquiry.' }
+        ]
+    },
+    {
         id: '6s-seo',
-        title: '6S SEO',
+        title: '6s SEO Tool',
         category: 'SaaS / SEO Product Design',
         previewCategory: 'SAAS / SEO / PRODUCT DESIGN',
         slug: '6s-marketers-seo-tool',
-        role: 'Product Designer',
+        role: 'Lead Product Designer',
         description: 'An SEO intelligence product designed to turn complex search data into clearer, faster decisions.',
-        tags: ['SaaS', 'SEO', 'Data Vis', 'Product Design'],
+        tags: ['B2B SaaS', 'SEO Analytics', 'Data Visualization', 'Workflow Design', 'Information Architecture'],
         year: '2024',
-        status: 'Active',
+        status: 'Case Study',
         image: '/assets/ios_notifications_preview.png',
         accentColor: '#10B981',
         dossier: [
@@ -63,28 +85,6 @@ export const projectsData = [
             { step: '04', title: 'UX', text: 'Streamlined multi-domain keyword analysis into consolidated, filterable views.' },
             { step: '05', title: 'UI', text: 'Constructed dense yet scannable dashboard views with high-contrast performance indicators.' },
             { step: '06', title: 'OUTCOME', text: 'Structured complex search and ranking datasets into actionable client-ready workflows.' }
-        ]
-    },
-    {
-        id: 'dream-holidays',
-        title: 'Dream Holidays',
-        category: 'Travel / Product Design',
-        previewCategory: 'TRAVEL / PRODUCT DESIGN',
-        slug: 'dream-holidays',
-        role: 'Product Designer · 2024',
-        description: 'Transforming a traditional travel agency into a discovery-first digital experience built around easier exploration and qualified enquiries.',
-        tags: ['Travel Tech', 'UX Strategy', 'Digital Transformation', 'Systems Thinking'],
-        year: '2024',
-        status: 'Case Study',
-        image: '/assets/dream_holidays_preview.png',
-        accentColor: '#3B82F6',
-        dossier: [
-            { step: '01', title: 'OVERVIEW', text: 'Built a digital experience that helped an offline travel agency generate qualified online leads.' },
-            { step: '02', title: 'RESEARCH', text: 'Identified that 70% of advisor time was spent answering repetitive logistical questions.' },
-            { step: '03', title: 'STRATEGY', text: 'Shifted from a self-serve booking engine to an editorial, discovery-first travel companion.' },
-            { step: '04', title: 'UX', text: 'Designed step-by-step interactive itineraries to answer pre-booking questions inline.' },
-            { step: '05', title: 'UI', text: 'Established a clean, photography-led aesthetic conveying 25 years of curated trust.' },
-            { step: '06', title: 'OUTCOME', text: 'Reduced repetitive discovery friction and created a clearer path from browsing to enquiry.' }
         ]
     }
 ];

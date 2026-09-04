@@ -5344,50 +5344,7 @@ html.lenis body {
     }
 }
 
-/* ==========================================================================
-   Project Detail / Case Study Layout
-   ========================================================================== */
-
-/* Overrides the default 640px/900px container for project case studies */
-.project-detail-layout .container {
-    max-width: 1200px !important;
-}
-
-/* Metadata column styles */
-.project-meta-col {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    border-right: 1px solid rgba(255, 255, 255, 0.05);
-    padding-right: 20px;
-}
-
-/* Hide navigation and adjust layout on mobile/tablet viewports */
-@media (max-width: 900px) {
-    .project-detail-layout .container {
-        max-width: 100% !important;
-        padding: 0 20px;
-    }
-
-    .project-main-grid {
-        grid-template-columns: 1fr !important;
-        gap: 40px !important;
-    }
-
-    .project-left-col,
-    .project-right-col {
-        grid-column: span 12 !important;
-    }
-
-    .project-meta-col {
-        border-right: none !important;
-        padding-right: 0 !important;
-    }
-
-    .project-nav-wrapper {
-        display: none !important;
-    }
-}
+/* Project Detail styles are centralized below in the Project Detail & Case Study Wide Canvas System */
 
 /* Project Navigation Hover & Active States */
 .project-nav-item {
@@ -5872,3 +5829,375 @@ html.lenis body {
 .cta-dossier-btn:hover .cta-arrow {
     transform: translateX(4px);
 }
+
+/* ==========================================================================
+   Project Detail & Case Study Wide Canvas System
+   ========================================================================== */
+
+.project-detail-layout {
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+    z-index: 10;
+    padding-top: 88px;
+    padding-bottom: 120px;
+    box-sizing: border-box;
+}
+
+/* FIXED TOP PROJECT HEADER */
+.project-detail-layout .project-top-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 68px;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    background-color: rgba(10, 10, 10, 0.72);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+}
+
+/* FLUID OUTER GUTTERS & FULL-WIDTH CONTAINERS FOR PROJECT PAGES (Do not constrain to 1200px/1400px) */
+.project-detail-layout .container.project-grid-container,
+.project-detail-layout .container.project-top-header-inner,
+.project-detail-layout .container.project-footer-container,
+.project-detail-layout .project-top-header-inner,
+.project-detail-layout .project-grid-container,
+.project-detail-layout .project-footer-container {
+    max-width: 100% !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding-left: 3.2vw !important;
+    padding-right: 3.2vw !important;
+    box-sizing: border-box;
+}
+
+.project-detail-layout .project-top-header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+/* MAIN TWO-COLUMN LAYOUT: 260px Left Rail + 40px Gap + Full-width Article */
+.project-detail-layout .project-main-grid {
+    display: grid !important;
+    grid-template-columns: 260px minmax(0, 1fr) !important;
+    gap: 40px !important;
+    position: relative;
+    align-items: stretch !important;
+    width: 100% !important;
+    box-sizing: border-box;
+}
+
+.project-detail-layout .project-left-col {
+    grid-column: 1 / 2;
+    width: 260px;
+    min-width: 0;
+    align-self: stretch !important;
+    height: 100% !important;
+}
+
+/* ONE STICKY LEFT WRAPPER: Contains both Project Details & Chapter Navigation */
+.project-detail-layout .project-sticky-sidebar {
+    position: sticky;
+    top: 88px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-height: calc(100vh - 104px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+}
+
+.project-detail-layout .project-sticky-sidebar::-webkit-scrollbar {
+    width: 4px;
+}
+
+.project-detail-layout .project-sticky-sidebar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.project-detail-layout .project-sticky-sidebar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 4px;
+}
+
+/* RIGHT COLUMN: Full Remaining Width Article */
+.project-detail-layout .project-right-col {
+    grid-column: 2 / 3;
+    min-width: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+}
+
+/* Remove nested article & section max-width caps */
+.project-detail-layout .project-right-col .cs-section,
+.project-detail-layout .project-right-col > div,
+.project-detail-layout .project-right-col .editorial-section-wrapper,
+.project-detail-layout .project-right-col .cs-media-wrapper,
+.project-detail-layout .project-right-col .cs-media-card {
+    max-width: 100% !important;
+    width: 100% !important;
+    box-sizing: border-box;
+}
+
+/* Restrict only continuous prose paragraphs to approximately 64ch */
+.project-detail-layout .cs-prose,
+.project-detail-layout .project-right-col p.cs-prose {
+    max-width: 64ch;
+    width: 100%;
+}
+
+/* Ensure headings have scroll-margin for smooth anchor clicks */
+.project-detail-layout [id^="cora-"],
+.project-detail-layout [id^="staple-"],
+.project-detail-layout [id^="dh-"],
+.project-detail-layout [id^="seo-"] {
+    scroll-margin-top: 96px;
+}
+
+/* Responsive adjustments for Tablets & Mobile */
+@media (max-width: 960px) {
+    .project-detail-layout .project-main-grid {
+        grid-template-columns: 1fr !important;
+        gap: 36px !important;
+    }
+
+    .project-detail-layout .project-left-col {
+        grid-column: 1 / -1 !important;
+        width: 100% !important;
+    }
+
+    .project-detail-layout .project-sticky-sidebar {
+        position: static !important;
+        max-height: none !important;
+        overflow-y: visible !important;
+    }
+
+    .project-detail-layout .project-right-col {
+        grid-column: 1 / -1 !important;
+    }
+}
+
+/* Metadata Card */
+.project-meta-col {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 22px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Callout / Takeaway box */
+.cs-takeaway {
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-left: 3px solid #007AFF;
+    border-radius: 0 16px 16px 0;
+    padding: 22px 26px;
+    margin: 28px 0;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.cs-takeaway-label {
+    font-family: 'Fira Code', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #007AFF;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.cs-takeaway-text {
+    font-size: 1.08rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.92);
+    margin: 0;
+    font-style: italic;
+    max-width: none !important;
+}
+
+/* Full-Width Media Cards & Video Player Frames */
+.cs-media-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(12, 16, 24, 0.65);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+    margin: 28px 0;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cs-media-card:hover {
+    border-color: rgba(255, 255, 255, 0.14);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+}
+
+.cs-media-card video,
+.cs-media-card img {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    display: block;
+    object-fit: contain !important;
+    background: #000;
+}
+
+/* Accessible video controls styling */
+.cs-media-card video {
+    outline: none;
+}
+
+/* Zoomable image button trigger */
+.cs-zoom-trigger {
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    display: block;
+    cursor: zoom-in;
+    text-align: left;
+    position: relative;
+}
+
+.cs-zoom-badge {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    background: rgba(10, 14, 22, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(10px);
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 11px;
+    font-family: 'Fira Code', monospace;
+    font-weight: 500;
+    padding: 5px 10px;
+    border-radius: 100px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    pointer-events: none;
+    transition: all 200ms ease;
+    opacity: 0.85;
+}
+
+.cs-zoom-trigger:hover .cs-zoom-badge {
+    opacity: 1;
+    background: rgba(10, 14, 22, 0.92);
+    border-color: rgba(255, 255, 255, 0.35);
+    transform: scale(1.04);
+}
+
+/* External Readable Captions (14–16px) */
+.cs-media-caption {
+    padding: 16px 24px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    background: rgba(0, 0, 0, 0.55);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    box-sizing: border-box;
+}
+
+.cs-media-caption-text {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.75);
+    line-height: 1.5;
+    max-width: none !important;
+}
+
+.cs-media-caption-tag {
+    font-family: 'Fira Code', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #007AFF;
+    white-space: nowrap;
+    flex-shrink: 0;
+    font-weight: 600;
+}
+
+/* Zoomed Detail Comparison Grid */
+.cs-zoom-detail-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 20px;
+    width: 100%;
+    margin: 28px 0;
+    box-sizing: border-box;
+}
+
+.cs-detail-crop-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 18px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.cs-detail-crop-card img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+}
+
+.cs-detail-crop-body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Numbered bullet lists */
+.cs-bullet-list {
+    list-style: none;
+    padding: 0;
+    margin: 16px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.cs-bullet-list li {
+    font-size: 1.02rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.72);
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.cs-bullet-list li::before {
+    content: "—";
+    color: #007AFF;
+    font-weight: 600;
+}

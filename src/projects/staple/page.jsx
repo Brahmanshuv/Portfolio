@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { navigateTo } from '../../utils/router';
 import ProjectNav from '../../components/ProjectNav';
+import ImageModal from '../../components/ImageModal';
 
 const STAPLE_METADATA = {
     id: 'staple',
@@ -9,15 +10,15 @@ const STAPLE_METADATA = {
     subtitle: 'One workspace for document operations.',
     eyebrow: 'PRODUCTIVITY / PRODUCT DESIGN',
     slug: 'staple',
-    role: 'UI/UX Designer · Product Design',
-    timeline: '4-day Take-home Assignment',
+    role: 'Product Designer (UI/UX)',
+    timeline: '4-day Design Sprint',
     platform: 'Desktop SaaS',
-    domain: 'Document Operations',
-    focus: 'IA · Workflow Design · Utility UX · Interaction Design',
-    status: 'Concept Design',
+    domain: 'Document Operations & Finance',
+    focus: 'IA · Workflow Design · Utility UX · Interaction Architecture',
+    status: 'Case Study',
     tags: ['Document Operations', 'Workflow UX', 'Desktop SaaS', 'Information Architecture', 'Interaction Design'],
-    pageTitle: 'Staple — Product Design Case Study | Brahmanshu Verma',
-    metaDescription: 'A document operations workspace connecting file organization, page-level manipulation, preview and export in one workflow.'
+    pageTitle: 'Staple — Document Operations Workspace | Brahmanshu Verma',
+    metaDescription: 'A unified document operations workspace connecting file organization, page-level manipulation, preview, and verified export into one frictionless workflow.'
 };
 
 const STAPLE_NAV_ITEMS = [
@@ -32,6 +33,7 @@ export default function StaplePage() {
     const [isBackHovered, setIsBackHovered] = useState(false);
     const [isNextHovered, setIsNextHovered] = useState(false);
     const [activeSec, setActiveSec] = useState('overview');
+    const [modalImg, setModalImg] = useState({ isOpen: false, src: '', alt: '', caption: '' });
 
     useEffect(() => {
         document.title = STAPLE_METADATA.pageTitle;
@@ -79,9 +81,9 @@ export default function StaplePage() {
         const el = document.getElementById(targetId);
         if (el) {
             if (window.lenis) {
-                window.lenis.scrollTo(el, { offset: -120 });
+                window.lenis.scrollTo(el, { offset: -90 });
             } else {
-                const y = el.getBoundingClientRect().top + window.scrollY - 120;
+                const y = el.getBoundingClientRect().top + window.scrollY - 90;
                 window.scrollTo({ top: y, behavior: 'smooth' });
             }
         }
@@ -114,28 +116,13 @@ export default function StaplePage() {
             style={{
                 minHeight: '100vh',
                 color: '#fff',
-                paddingTop: '120px',
-                paddingBottom: '160px',
                 position: 'relative',
                 zIndex: 10
             }}
         >
             {/* STICKY GLASS HEADER */}
-            <header
-                style={{
-                    position: 'fixed',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    padding: '24px 0',
-                    backdropFilter: 'blur(20px)',
-                    WebkitBackdropFilter: 'blur(20px)',
-                    borderBottom: '1px solid rgba(255, 255, 255, 0.05)',
-                    backgroundColor: 'rgba(10, 10, 10, 0.6)',
-                    zIndex: 100
-                }}
-            >
-                <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <header className="project-top-header">
+                <div className="project-top-header-inner">
                     <button
                         onClick={() => navigateTo('/#work')}
                         onMouseEnter={() => setIsBackHovered(true)}
@@ -168,7 +155,7 @@ export default function StaplePage() {
                         Projects
                     </button>
 
-                    {/* NEXT PROJECT HOVER SYSTEM */}
+                    {/* NEXT PROJECT BUTTON */}
                     <div
                         className="next-project-container"
                         style={{
@@ -184,22 +171,19 @@ export default function StaplePage() {
                             onClick={() => navigateTo('/projects/dream-holidays')}
                             className="project-detail-next-btn"
                             style={{
-                                background: 'transparent',
-                                border: '1px solid rgba(255, 255, 255, 0.05)',
+                                background: isNextHovered ? 'rgba(255, 255, 255, 0.08)' : 'rgba(255, 255, 255, 0.02)',
+                                border: `1px solid ${isNextHovered ? 'rgba(255, 255, 255, 0.2)' : 'rgba(255, 255, 255, 0.08)'}`,
                                 backdropFilter: 'blur(5px)',
                                 WebkitBackdropFilter: 'blur(5px)',
-                                color: isNextHovered ? '#fff' : 'rgba(255, 255, 255, 0.6)',
-                                borderColor: isNextHovered ? 'rgba(255, 255, 255, 0.15)' : 'rgba(255, 255, 255, 0.05)',
-                                backgroundColor: isNextHovered ? 'rgba(255, 255, 255, 0.06)' : 'rgba(255, 255, 255, 0.02)',
-                                boxShadow: isNextHovered ? '0 4px 12px rgba(255, 255, 255, 0.02)' : 'none',
+                                color: isNextHovered ? '#fff' : 'rgba(255, 255, 255, 0.75)',
                                 fontSize: '12px',
-                                fontWeight: 500,
-                                letterSpacing: '0.05em',
+                                fontWeight: 600,
+                                letterSpacing: '0.06em',
                                 cursor: 'pointer',
                                 display: 'inline-flex',
                                 alignItems: 'center',
                                 gap: '8px',
-                                padding: '6px 16px',
+                                padding: '8px 18px',
                                 borderRadius: '100px',
                                 transition: 'all 250ms cubic-bezier(0.16, 1, 0.3, 1)',
                                 outline: 'none'
@@ -222,7 +206,7 @@ export default function StaplePage() {
                                 position: 'absolute',
                                 top: '100%',
                                 right: '8px',
-                                opacity: isNextHovered ? 0.45 : 0,
+                                opacity: isNextHovered ? 0.6 : 0,
                                 transform: isNextHovered ? 'translateY(0px)' : 'translateY(-4px)',
                                 transition: 'all 250ms cubic-bezier(0.16, 1, 0.3, 1)',
                                 fontSize: '10px',
@@ -234,55 +218,47 @@ export default function StaplePage() {
                                 textAlign: 'right'
                             }}
                         >
-                            Next: <span style={{ fontWeight: 500 }}>Dream Holidays</span>
+                            Next: <span style={{ fontWeight: 600 }}>Dream Holidays</span>
                         </div>
                     </div>
                 </div>
             </header>
 
-            {/* MAIN TWO-COLUMN LAYOUT */}
-            <div className="container project-grid-container" style={{ marginTop: '40px' }}>
-                <div
-                    className="project-main-grid"
-                    style={{
-                        display: 'grid',
-                        gridTemplateColumns: 'repeat(12, 1fr)',
-                        gap: '40px',
-                        position: 'relative'
-                    }}
-                >
+            {/* MAIN TWO-COLUMN WIDE LAYOUT */}
+            <div className="project-grid-container" style={{ marginTop: '24px' }}>
+                <div className="project-main-grid">
                     {/* LEFT COLUMN: Sticky Navigation & Metadata */}
-                    <div className="project-left-col" style={{ gridColumn: 'span 4' }}>
-                        <div style={{ position: 'sticky', top: '120px', display: 'flex', flexDirection: 'column', gap: '30px' }}>
+                    <div className="project-left-col">
+                        <div className="project-sticky-sidebar">
                             {/* Metadata Block */}
                             <motion.div variants={elementVariants} className="project-meta-col">
                                 <div>
                                     <span style={{ display: 'block', fontSize: '11px', color: 'rgba(255, 255, 255, 0.4)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '6px' }}>Project Type</span>
-                                    <span style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.8)', fontWeight: 500 }}>{STAPLE_METADATA.timeline}</span>
+                                    <span style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.85)', fontWeight: 500 }}>{STAPLE_METADATA.timeline}</span>
                                 </div>
                                 <div>
                                     <span style={{ display: 'block', fontSize: '11px', color: 'rgba(255, 255, 255, 0.4)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '6px' }}>Role</span>
-                                    <span style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.8)', fontWeight: 500 }}>{STAPLE_METADATA.role}</span>
+                                    <span style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.85)', fontWeight: 500 }}>{STAPLE_METADATA.role}</span>
                                 </div>
                                 <div>
                                     <span style={{ display: 'block', fontSize: '11px', color: 'rgba(255, 255, 255, 0.4)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '6px' }}>Domain & Platform</span>
-                                    <span style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.8)', fontWeight: 500 }}>{STAPLE_METADATA.domain} · {STAPLE_METADATA.platform}</span>
+                                    <span style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.85)', fontWeight: 500 }}>{STAPLE_METADATA.domain} · {STAPLE_METADATA.platform}</span>
                                 </div>
                                 <div>
                                     <span style={{ display: 'block', fontSize: '11px', color: 'rgba(255, 255, 255, 0.4)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '6px' }}>Focus</span>
-                                    <span style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.8)', fontWeight: 500 }}>{STAPLE_METADATA.focus}</span>
+                                    <span style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.85)', fontWeight: 500 }}>{STAPLE_METADATA.focus}</span>
                                 </div>
-                                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '10px' }}>
+                                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '6px' }}>
                                     {STAPLE_METADATA.tags.map((tag, i) => (
                                         <span
                                             key={i}
                                             style={{
-                                                fontSize: '10px',
-                                                backgroundColor: 'rgba(255, 255, 255, 0.03)',
-                                                border: '1px solid rgba(255, 255, 255, 0.06)',
+                                                fontSize: '11px',
+                                                backgroundColor: 'rgba(59, 130, 246, 0.08)',
+                                                border: '1px solid rgba(59, 130, 246, 0.2)',
                                                 padding: '4px 10px',
                                                 borderRadius: '100px',
-                                                color: 'rgba(255, 255, 255, 0.5)'
+                                                color: 'rgba(255, 255, 255, 0.75)'
                                             }}
                                         >
                                             {tag}
@@ -291,29 +267,17 @@ export default function StaplePage() {
                                 </div>
                             </motion.div>
 
-                            {/* Sticky Vertical Progress Indicator */}
+                            {/* Slim Sticky Chapter Progress Nav */}
                             <motion.div className="project-nav-wrapper" variants={elementVariants}>
                                 <ProjectNav activeSection={activeSec} onSectionClick={scrollToSection} navItems={STAPLE_NAV_ITEMS} />
                             </motion.div>
                         </div>
                     </div>
 
-                    {/* RIGHT COLUMN: Editorial Content */}
-                    <div
-                        className="project-right-col"
-                        style={{
-                            gridColumn: 'span 8',
-                            display: 'flex',
-                            flexDirection: 'column',
-                            gap: '60px'
-                        }}
-                    >
-                        {/* Title & Subtitle */}
-                        <motion.div
-                            variants={elementVariants}
-                            className="project-title-col"
-                            style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}
-                        >
+                    {/* RIGHT COLUMN: Editorial Content & Visual Artifacts */}
+                    <div className="project-right-col">
+                        {/* Title & Eyebrow */}
+                        <motion.div variants={elementVariants} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                             <span style={{
                                 fontFamily: 'Fira Code, monospace',
                                 fontSize: '12px',
@@ -326,9 +290,9 @@ export default function StaplePage() {
                             </span>
                             <h1
                                 style={{
-                                    fontSize: 'clamp(2.5rem, 5vw, 4.2rem)',
+                                    fontSize: 'clamp(2.4rem, 4.5vw, 3.8rem)',
                                     fontWeight: 400,
-                                    lineHeight: 1.08,
+                                    lineHeight: 1.1,
                                     letterSpacing: '-0.03em',
                                     margin: 0,
                                     background: 'linear-gradient(180deg, #FFFFFF 0%, rgba(255, 255, 255, 0.75) 100%)',
@@ -339,162 +303,166 @@ export default function StaplePage() {
                                 {STAPLE_METADATA.subtitle}
                             </h1>
                             <p
+                                className="cs-prose"
                                 style={{
-                                    fontSize: 'clamp(1.05rem, 2vw, 1.25rem)',
-                                    lineHeight: 1.55,
+                                    fontSize: 'clamp(1.05rem, 1.8vw, 1.2rem)',
+                                    lineHeight: 1.6,
                                     color: 'rgba(255, 255, 255, 0.65)',
-                                    maxWidth: '680px',
                                     margin: 0
                                 }}
                             >
-                                Staple is a document workflow concept for finance and operations teams working with invoices, purchase orders, delivery notes and multi-document bundles. Instead of moving files between storage systems and disconnected PDF utilities, Staple brings browsing, page-level editing, document operations, preview and export into one workspace.
+                                Staple is a document operations workspace designed for finance and operations teams handling multi-document bundles. Instead of shuffling PDFs between cloud drives, desktop editors, and web converters, Staple unites folder navigation, page-level manipulation, live inspection, and verified export into one calm desktop environment.
                             </p>
                         </motion.div>
 
                         {/* HERO COVER VISUAL */}
-                        <motion.div
-                            variants={elementVariants}
-                            style={{
-                                width: '100%',
-                                borderRadius: '24px',
-                                border: '1px solid rgba(255, 255, 255, 0.08)',
-                                background: 'rgba(12, 16, 24, 0.6)',
-                                backdropFilter: 'blur(20px)',
-                                overflow: 'hidden',
-                                position: 'relative',
-                                boxShadow: '0 24px 60px rgba(0, 0, 0, 0.5)'
-                            }}
-                        >
-                            <img
-                                src="/assets/enterprise_dashboard_preview.png"
-                                alt="Staple Document Operations Workspace"
-                                style={{ width: '100%', height: 'auto', display: 'block', objectFit: 'cover' }}
-                            />
-                            <div style={{
-                                padding: '16px 24px',
-                                borderTop: '1px solid rgba(255, 255, 255, 0.06)',
-                                background: 'rgba(0, 0, 0, 0.4)',
-                                display: 'flex',
-                                justifyContent: 'space-between',
-                                alignItems: 'center'
-                            }}>
-                                <span style={{ fontSize: '13px', color: 'rgba(255, 255, 255, 0.6)', fontStyle: 'italic' }}>
+                        <motion.div variants={elementVariants} className="cs-media-card">
+                            <button
+                                type="button"
+                                className="cs-zoom-trigger"
+                                onClick={() => setModalImg({
+                                    isOpen: true,
+                                    src: '/assets/enterprise_dashboard_preview.png',
+                                    alt: 'Staple Document Operations Workspace',
+                                    caption: 'Full-resolution view: Staple unified document operations workspace with dual-pane layout and live verification.'
+                                })}
+                                aria-label="Inspect Staple workspace in full resolution"
+                            >
+                                <span className="cs-zoom-badge">⤢ Inspect Full Size</span>
+                                <img
+                                    src="/assets/enterprise_dashboard_preview.png"
+                                    alt="Staple Document Operations Workspace"
+                                    style={{ width: '100%', height: 'auto', display: 'block' }}
+                                />
+                            </button>
+                            <div className="cs-media-caption">
+                                <span className="cs-media-caption-text">
                                     "The challenge wasn't designing another file manager. It was keeping context intact while users manipulated the contents of a document."
                                 </span>
-                                <span style={{ fontFamily: 'Fira Code, monospace', fontSize: '10px', color: '#3B82F6', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+                                <span className="cs-media-caption-tag" style={{ color: '#3B82F6' }}>
                                     STAPLE / WORKSPACE
                                 </span>
                             </div>
                         </motion.div>
 
+                        {/* PURPOSEFUL ZOOMED DETAIL CROPS */}
+                        <div className="cs-zoom-detail-grid">
+                            <div className="cs-detail-crop-card">
+                                <div style={{ background: 'rgba(59, 130, 246, 0.05)', borderBottom: '1px solid rgba(255, 255, 255, 0.08)', padding: '16px 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                    <span style={{ fontFamily: 'Fira Code, monospace', fontSize: '11px', color: '#3B82F6', fontWeight: 600, textTransform: 'uppercase' }}>
+                                        DETAIL CROP · DUAL-PANE FILE & PAGE INSPECTION
+                                    </span>
+                                    <span style={{ fontSize: '11px', color: 'rgba(255, 255, 255, 0.45)' }}>Context Retention</span>
+                                </div>
+                                <div className="cs-detail-crop-body">
+                                    <p style={{ fontSize: '13.5px', color: 'rgba(255, 255, 255, 0.8)', lineHeight: 1.55, margin: 0 }}>
+                                        <strong>Source navigation alongside page manipulation:</strong> Operators browse parent bundle structures in the left pane while reordering, rotating, or extracting individual invoice pages in the right workspace without modal context switches.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div className="cs-detail-crop-card">
+                                <div style={{ background: 'rgba(59, 130, 246, 0.05)', borderBottom: '1px solid rgba(255, 255, 255, 0.08)', padding: '16px 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                    <span style={{ fontFamily: 'Fira Code, monospace', fontSize: '11px', color: '#3B82F6', fontWeight: 600, textTransform: 'uppercase' }}>
+                                        DETAIL CROP · PRE-EXPORT DIFF VERIFICATION
+                                    </span>
+                                    <span style={{ fontSize: '11px', color: 'rgba(255, 255, 255, 0.45)' }}>Zero Data Loss</span>
+                                </div>
+                                <div className="cs-detail-crop-body">
+                                    <p style={{ fontSize: '13.5px', color: 'rgba(255, 255, 255, 0.8)', lineHeight: 1.55, margin: 0 }}>
+                                        <strong>Side-by-side structural comparison:</strong> Before committing changes to enterprise storage, Staple highlights deleted blank pages, renamed files, and bundle target folders to eliminate costly operational errors.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
                         {/* EDITORIAL SECTIONS */}
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '100px' }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '90px' }}>
 
                             {/* 01 OVERVIEW */}
-                            <motion.div id="staple-overview" variants={elementVariants} style={{ maxWidth: '800px', width: '100%' }}>
+                            <motion.div id="staple-overview" className="cs-section" variants={elementVariants}>
                                 <span style={{ fontFamily: 'Fira Code, monospace', fontSize: '11px', color: 'rgba(255, 255, 255, 0.4)', textTransform: 'uppercase', letterSpacing: '0.08em', display: 'block', marginBottom: '16px' }}>
                                     01 / OVERVIEW
                                 </span>
-                                <h2 style={{ fontSize: '2.2rem', fontWeight: 400, marginBottom: '28px', letterSpacing: '-0.02em', lineHeight: 1.25 }}>
+                                <h2 style={{ fontSize: '2.2rem', fontWeight: 400, marginBottom: '24px', letterSpacing: '-0.02em', lineHeight: 1.25 }}>
                                     Documents rarely arrive ready to use.
                                 </h2>
-                                <p style={{ fontSize: '1.05rem', lineHeight: 1.65, color: 'rgba(255, 255, 255, 0.65)', marginBottom: '16px' }}>
-                                    Finance and operations teams frequently receive document bundles from different sources — email, cloud storage or direct upload.
+                                <p className="cs-prose" style={{ fontSize: '1.05rem', lineHeight: 1.65, color: 'rgba(255, 255, 255, 0.68)', marginBottom: '16px' }}>
+                                    Finance and operations teams frequently receive messy document bundles from disparate channels: vendor invoices, shipping manifests, customs paperwork, and scanned receipts mixed into single, disorderly PDF files.
                                 </p>
-                                <p style={{ fontSize: '1.05rem', lineHeight: 1.65, color: 'rgba(255, 255, 255, 0.65)', marginBottom: '16px' }}>
-                                    A single bundle may contain invoices, purchase orders, delivery notes, supporting pages or documents that need to be separated and recombined.
-                                </p>
-                                <p style={{ fontSize: '1.05rem', lineHeight: 1.65, color: 'rgba(255, 255, 255, 0.65)', marginBottom: '36px' }}>
-                                    The files already exist. The problem begins when users need to do something with them.
+                                <p className="cs-prose" style={{ fontSize: '1.05rem', lineHeight: 1.65, color: 'rgba(255, 255, 255, 0.68)', marginBottom: '20px' }}>
+                                    The files exist, but users must split invoices, remove blank pages, combine attachments, and verify page sequences before handing them over to accounting systems.
                                 </p>
 
-                                {/* Problem Block */}
+                                <div className="cs-takeaway">
+                                    <span className="cs-takeaway-label" style={{ color: '#3B82F6' }}>CORE WORKFLOW FRICTION</span>
+                                    <p className="cs-takeaway-text">
+                                        "File storage and document manipulation lived in different worlds. Every single page edit forced users to abandon their folder context."
+                                    </p>
+                                </div>
+
+                                {/* 9-Step Fragmented Workflow Chain */}
                                 <div style={{
                                     background: 'rgba(255, 255, 255, 0.02)',
                                     border: '1px solid rgba(255, 255, 255, 0.06)',
                                     borderRadius: '20px',
-                                    padding: '32px',
-                                    marginBottom: '36px'
+                                    padding: '28px',
+                                    marginTop: '32px'
                                 }}>
-                                    <h3 style={{ fontSize: '1.4rem', fontWeight: 500, color: '#fff', marginBottom: '16px', letterSpacing: '-0.01em' }}>
-                                        File management and document manipulation lived in different worlds.
-                                    </h3>
-                                    <p style={{ fontSize: '1rem', lineHeight: 1.6, color: 'rgba(255, 255, 255, 0.65)', marginBottom: '24px' }}>
-                                        Typical document workflows force users to leave their storage context, open a separate PDF utility, manipulate pages, export a new document, rename it and place it back into the correct location.
-                                    </p>
-
+                                    <span style={{ fontFamily: 'Fira Code, monospace', fontSize: '10px', color: 'rgba(255, 255, 255, 0.4)', textTransform: 'uppercase', letterSpacing: '0.08em', display: 'block', marginBottom: '12px' }}>
+                                        EXISTING BROKEN WORKFLOW (9 DISJOINTED STEPS)
+                                    </span>
                                     <div style={{
                                         display: 'flex',
                                         flexWrap: 'wrap',
                                         gap: '8px',
                                         alignItems: 'center',
                                         padding: '16px',
-                                        background: 'rgba(0,0,0,0.3)',
+                                        background: 'rgba(0,0,0,0.35)',
                                         borderRadius: '12px',
-                                        border: '1px solid rgba(255,255,255,0.04)',
-                                        marginBottom: '20px'
+                                        border: '1px solid rgba(255,255,255,0.05)',
+                                        marginBottom: '16px'
                                     }}>
                                         {[
                                             'Find document', 'Download', 'Open PDF utility',
-                                            'Manipulate pages', 'Export', 'Rename',
-                                            'Return to storage', 'Upload', 'Reorganize'
+                                            'Manipulate pages', 'Export', 'Rename file',
+                                            'Return to drive', 'Upload', 'Re-file into directory'
                                         ].map((step, idx, arr) => (
                                             <React.Fragment key={step}>
                                                 <span style={{
                                                     fontSize: '12px',
                                                     color: 'rgba(255,255,255,0.85)',
-                                                    background: 'rgba(255,255,255,0.04)',
+                                                    background: 'rgba(255,255,255,0.05)',
                                                     padding: '6px 12px',
                                                     borderRadius: '8px'
                                                 }}>
                                                     {step}
                                                 </span>
                                                 {idx < arr.length - 1 && (
-                                                    <span style={{ color: 'rgba(255,255,255,0.25)', fontSize: '11px' }}>→</span>
+                                                    <span style={{ color: 'rgba(255,255,255,0.3)', fontSize: '11px' }}>→</span>
                                                 )}
                                             </React.Fragment>
                                         ))}
                                     </div>
-
-                                    <div style={{ textAlign: 'center' }}>
-                                        <span style={{ fontSize: '13.5px', color: 'rgba(255, 255, 255, 0.75)', fontStyle: 'italic' }}>
-                                            "Each tool may solve its individual task. The workflow remains fragmented."
-                                        </span>
-                                    </div>
-                                </div>
-
-                                {/* Design Question */}
-                                <div style={{
-                                    background: 'rgba(255, 255, 255, 0.02)',
-                                    borderLeft: '2px solid #3B82F6',
-                                    borderTop: '1px solid rgba(255, 255, 255, 0.05)',
-                                    borderRight: '1px solid rgba(255, 255, 255, 0.05)',
-                                    borderBottom: '1px solid rgba(255, 255, 255, 0.05)',
-                                    padding: '24px 28px',
-                                    borderRadius: '0 18px 18px 0'
-                                }}>
-                                    <span style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.12em', color: 'rgba(255, 255, 255, 0.4)', display: 'block', marginBottom: '8px', fontFamily: 'Fira Code, monospace' }}>
-                                        CORE DESIGN QUESTION
+                                    <span style={{ fontSize: '13px', color: 'rgba(255,255,255,0.6)', fontStyle: 'italic' }}>
+                                        "Each standalone tool may work in isolation, but the overall operational chain is full of friction and cognitive overhead."
                                     </span>
-                                    <p style={{ fontSize: '1.2rem', color: 'rgba(255, 255, 255, 0.95)', margin: 0, lineHeight: 1.45, fontWeight: 400 }}>
-                                        "How might we reduce fragmented document workflows into one coherent workspace?"
-                                    </p>
                                 </div>
                             </motion.div>
 
                             {/* 02 RESEARCH */}
-                            <motion.div id="staple-research" variants={elementVariants} style={{ maxWidth: '800px', width: '100%' }}>
+                            <motion.div id="staple-research" className="cs-section" variants={elementVariants}>
                                 <span style={{ fontFamily: 'Fira Code, monospace', fontSize: '11px', color: 'rgba(255, 255, 255, 0.4)', textTransform: 'uppercase', letterSpacing: '0.08em', display: 'block', marginBottom: '16px' }}>
-                                    02 / RESEARCH
+                                    02 / RESEARCH & MARKET GAP
                                 </span>
-                                <h2 style={{ fontSize: '2.2rem', fontWeight: 400, marginBottom: '28px', letterSpacing: '-0.02em', lineHeight: 1.25 }}>
-                                    The opportunity appeared between product categories.
+                                <h2 style={{ fontSize: '2.2rem', fontWeight: 400, marginBottom: '24px', letterSpacing: '-0.02em', lineHeight: 1.25 }}>
+                                    The opportunity between product categories.
                                 </h2>
-                                <p style={{ fontSize: '1.05rem', lineHeight: 1.65, color: 'rgba(255, 255, 255, 0.65)', marginBottom: '32px' }}>
-                                    Rather than treating competitors as a screen-reference exercise, the research grouped existing products by the job users hired them to do.
+                                <p className="cs-prose" style={{ fontSize: '1.05rem', lineHeight: 1.65, color: 'rgba(255, 255, 255, 0.68)', marginBottom: '32px' }}>
+                                    Rather than benchmarking screen aesthetics, the research analyzed tools according to the underlying jobs-to-be-done:
                                 </p>
 
-                                {/* Category Comparison Table */}
+                                {/* Competitive Matrix Table */}
                                 <div style={{
                                     border: '1px solid rgba(255, 255, 255, 0.08)',
                                     borderRadius: '18px',
@@ -503,525 +471,220 @@ export default function StaplePage() {
                                     marginBottom: '36px'
                                 }}>
                                     {[
-                                        { cat: 'CLOUD STORAGE', strong: 'Finding and organizing files', friction: 'Limited page-level manipulation' },
-                                        { cat: 'PDF UTILITIES', strong: 'Split, merge and page operations', friction: 'Documents lose storage context' },
-                                        { cat: 'OFFICE SUITES', strong: 'Rich creation and editing', friction: 'More complexity than operational document tasks require' },
-                                        { cat: 'STAPLE OPPORTUNITY', strong: 'Organization + contextual document operations', friction: 'Keep the workflow together.', isHighlight: true }
+                                        { cat: 'CLOUD STORAGE (Drive, Dropbox)', strong: 'Locating & categorizing files', friction: 'Zero page-level manipulation capabilities' },
+                                        { cat: 'PDF UTILITIES (Acrobat, Smallpdf)', strong: 'Splitting, merging & reordering pages', friction: 'Completely strips away storage context & folder hierarchy' },
+                                        { cat: 'OFFICE SUITES (Docs, Word)', strong: 'Rich inline text authoring', friction: 'Too complex & heavyweight for fast document operations' },
+                                        { cat: 'STAPLE WORKSPACE', strong: 'Contextual organization + inline manipulation', friction: 'One continuous, unified workflow', isHighlight: true }
                                     ].map((row, idx, arr) => (
                                         <div key={row.cat} style={{
                                             display: 'grid',
-                                            gridTemplateColumns: '200px 1fr 1fr',
+                                            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
                                             padding: '18px 24px',
                                             borderBottom: idx < arr.length - 1 ? '1px solid rgba(255, 255, 255, 0.05)' : 'none',
-                                            background: row.isHighlight ? 'rgba(59, 130, 246, 0.05)' : 'transparent',
-                                            alignItems: 'baseline'
+                                            background: row.isHighlight ? 'rgba(59, 130, 246, 0.06)' : 'transparent',
+                                            alignItems: 'baseline',
+                                            gap: '12px'
                                         }}>
                                             <span style={{ fontFamily: 'Fira Code, monospace', fontSize: '11px', color: row.isHighlight ? '#3B82F6' : 'rgba(255, 255, 255, 0.45)', fontWeight: 600 }}>
                                                 {row.cat}
                                             </span>
                                             <div>
-                                                <span style={{ fontSize: '10px', color: 'rgba(255,255,255,0.3)', display: 'block', marginBottom: '2px', textTransform: 'uppercase' }}>Strong at</span>
+                                                <span style={{ fontSize: '10px', color: 'rgba(255,255,255,0.35)', display: 'block', marginBottom: '2px', textTransform: 'uppercase' }}>Strong At</span>
                                                 <span style={{ fontSize: '13px', color: 'rgba(255,255,255,0.85)' }}>{row.strong}</span>
                                             </div>
                                             <div>
-                                                <span style={{ fontSize: '10px', color: 'rgba(255,255,255,0.3)', display: 'block', marginBottom: '2px', textTransform: 'uppercase' }}>{row.isHighlight ? 'Focus' : 'Friction'}</span>
+                                                <span style={{ fontSize: '10px', color: 'rgba(255,255,255,0.35)', display: 'block', marginBottom: '2px', textTransform: 'uppercase' }}>{row.isHighlight ? 'Focus' : 'Friction'}</span>
                                                 <span style={{ fontSize: '13px', color: row.isHighlight ? '#60A5FA' : 'rgba(255,255,255,0.6)' }}>{row.friction}</span>
                                             </div>
                                         </div>
                                     ))}
                                 </div>
 
-                                <div className="cs-takeaway" style={{ marginBottom: '40px' }}>
-                                    <span className="cs-takeaway-label">CRITICAL INSIGHT</span>
+                                <div className="cs-takeaway">
+                                    <span className="cs-takeaway-label" style={{ color: '#3B82F6' }}>STRATEGIC INSIGHT</span>
                                     <p className="cs-takeaway-text">
-                                        "The missing value wasn't another utility. It was continuity between utilities."
+                                        "The missing product value wasn't another PDF tool. It was continuity between file storage and page manipulation."
                                     </p>
-                                </div>
-
-                                {/* Reframing */}
-                                <div>
-                                    <h3 style={{ fontSize: '1.35rem', fontWeight: 500, color: '#fff', marginBottom: '14px' }}>
-                                        Not a file manager with PDF tools attached.
-                                    </h3>
-                                    <p style={{ fontSize: '1rem', lineHeight: 1.6, color: 'rgba(255, 255, 255, 0.65)', marginBottom: '24px' }}>
-                                        That was the initial interpretation of the problem. It was too shallow. The stronger product model became a complete <strong>Document Operations Workspace</strong>:
-                                    </p>
-
-                                    <div style={{
-                                        display: 'grid',
-                                        gridTemplateColumns: 'repeat(3, 1fr)',
-                                        gap: '14px',
-                                        marginBottom: '20px'
-                                    }}>
-                                        {[
-                                            { step: 'NAVIGATE', desc: 'Establishes folder and document context without jumping out of storage.' },
-                                            { step: 'MANIPULATE', desc: 'Editor operates directly on selected pages with clear, immediate scope.' },
-                                            { step: 'FINALIZE', desc: 'Preview and export convert operations into verified, ready-to-use results.' }
-                                        ].map((item) => (
-                                            <div key={item.step} style={{
-                                                background: 'rgba(255, 255, 255, 0.02)',
-                                                border: '1px solid rgba(255, 255, 255, 0.06)',
-                                                borderRadius: '14px',
-                                                padding: '20px'
-                                            }}>
-                                                <span style={{ fontFamily: 'Fira Code, monospace', fontSize: '11px', color: '#3B82F6', fontWeight: 600, display: 'block', marginBottom: '8px' }}>
-                                                    {item.step}
-                                                </span>
-                                                <p style={{ fontSize: '13px', color: 'rgba(255, 255, 255, 0.65)', lineHeight: 1.5, margin: 0 }}>
-                                                    {item.desc}
-                                                </p>
-                                            </div>
-                                        ))}
-                                    </div>
                                 </div>
                             </motion.div>
 
                             {/* 03 SYSTEM */}
-                            <motion.div id="staple-system" variants={elementVariants} style={{ maxWidth: '800px', width: '100%' }}>
+                            <motion.div id="staple-system" className="cs-section" variants={elementVariants}>
                                 <span style={{ fontFamily: 'Fira Code, monospace', fontSize: '11px', color: 'rgba(255, 255, 255, 0.4)', textTransform: 'uppercase', letterSpacing: '0.08em', display: 'block', marginBottom: '16px' }}>
-                                    03 / SYSTEM
+                                    03 / SYSTEM & INTERACTION MODEL
                                 </span>
-                                <h2 style={{ fontSize: '2.2rem', fontWeight: 400, marginBottom: '28px', letterSpacing: '-0.02em', lineHeight: 1.25 }}>
-                                    Keep location and operation visible at the same time.
+                                <h2 style={{ fontSize: '2.2rem', fontWeight: 400, marginBottom: '24px', letterSpacing: '-0.02em', lineHeight: 1.25 }}>
+                                    Keep location and operation visible simultaneously.
                                 </h2>
-                                <p style={{ fontSize: '1.05rem', lineHeight: 1.65, color: 'rgba(255, 255, 255, 0.65)', marginBottom: '24px' }}>
-                                    The product needed to continuously answer three fundamental questions at any moment in the workflow:
+                                <p className="cs-prose" style={{ fontSize: '1.05rem', lineHeight: 1.65, color: 'rgba(255, 255, 255, 0.68)', marginBottom: '24px' }}>
+                                    The workspace interface continuously answers three fundamental questions for the user:
                                 </p>
 
                                 <div style={{
                                     display: 'grid',
-                                    gridTemplateColumns: 'repeat(3, 1fr)',
+                                    gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
                                     gap: '12px',
-                                    marginBottom: '40px'
+                                    marginBottom: '36px'
                                 }}>
-                                    {['Where am I?', 'What am I editing?', 'What will this action affect?'].map((q, i) => (
+                                    {[
+                                        { q: 'Where am I?', a: 'Persistent breadcrumb & folder hierarchy' },
+                                        { q: 'What am I editing?', a: 'Active multi-page selection canvas' },
+                                        { q: 'What will change?', a: 'Live instant export simulation' }
+                                    ].map((item, i) => (
                                         <div key={i} style={{
-                                            padding: '16px',
+                                            padding: '18px 16px',
                                             background: 'rgba(59, 130, 246, 0.04)',
-                                            border: '1px solid rgba(59, 130, 246, 0.15)',
-                                            borderRadius: '12px',
+                                            border: '1px solid rgba(59, 130, 246, 0.16)',
+                                            borderRadius: '14px',
                                             textAlign: 'center'
                                         }}>
-                                            <span style={{ fontSize: '14px', color: '#fff', fontWeight: 500 }}>{q}</span>
+                                            <span style={{ fontSize: '14px', color: '#fff', fontWeight: 600, display: 'block', marginBottom: '6px' }}>{item.q}</span>
+                                            <span style={{ fontSize: '11.5px', color: 'rgba(255, 255, 255, 0.55)', lineHeight: 1.4 }}>{item.a}</span>
                                         </div>
                                     ))}
                                 </div>
 
-                                {/* IA System Blocks */}
-                                <div style={{ marginBottom: '40px' }}>
-                                    <h3 style={{ fontSize: '1.35rem', fontWeight: 500, color: '#fff', marginBottom: '16px' }}>
-                                        Information architecture layers.
-                                    </h3>
-                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                                        {[
-                                            { layer: 'NAVIGATION', desc: 'Folder and document hierarchy context' },
-                                            { layer: 'DOCUMENT SELECTION', desc: 'Choose and activate the material being worked on' },
-                                            { layer: 'EDITOR WORKSPACE', desc: 'Inspect, reorder, and manipulate individual pages' },
-                                            { layer: 'ACTION LAYER', desc: 'Contextual split, merge, move, copy and metadata operations' },
-                                            { layer: 'PREVIEW / EXPORT', desc: 'Validate final document structure and commit output' }
-                                        ].map((block, idx) => (
-                                            <div key={block.layer} style={{
-                                                padding: '16px 20px',
-                                                background: 'rgba(255, 255, 255, 0.02)',
-                                                border: '1px solid rgba(255, 255, 255, 0.05)',
-                                                borderRadius: '12px',
-                                                display: 'grid',
-                                                gridTemplateColumns: '220px 1fr',
-                                                alignItems: 'center'
-                                            }}>
-                                                <span style={{ fontFamily: 'Fira Code, monospace', fontSize: '11.5px', color: '#3B82F6', fontWeight: 600 }}>
-                                                    [0{idx + 1}] {block.layer}
-                                                </span>
-                                                <span style={{ fontSize: '13px', color: 'rgba(255, 255, 255, 0.7)' }}>
-                                                    {block.desc}
-                                                </span>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-
-                                {/* Core Workflow Diagram */}
-                                <div style={{ marginBottom: '40px' }}>
-                                    <h3 style={{ fontSize: '1.35rem', fontWeight: 500, color: '#fff', marginBottom: '16px' }}>
-                                        One continuous task instead of a chain of utilities.
-                                    </h3>
-                                    <div style={{
-                                        display: 'flex',
-                                        flexWrap: 'wrap',
-                                        gap: '10px',
-                                        alignItems: 'center',
-                                        padding: '18px 24px',
-                                        background: 'rgba(0,0,0,0.3)',
-                                        borderRadius: '14px',
-                                        border: '1px solid rgba(255,255,255,0.05)'
-                                    }}>
-                                        {[
-                                            'Browse folders', 'Select document(s)', 'Open editor workspace',
-                                            'Select pages', 'Split / merge / move / copy',
-                                            'Preview resulting structure', 'Export finalized document'
-                                        ].map((step, idx, arr) => (
-                                            <React.Fragment key={step}>
-                                                <span style={{
-                                                    fontSize: '12.5px',
-                                                    color: '#fff',
-                                                    background: 'rgba(255,255,255,0.04)',
-                                                    padding: '6px 14px',
-                                                    borderRadius: '8px',
-                                                    fontWeight: 500
-                                                }}>
-                                                    {step}
-                                                </span>
-                                                {idx < arr.length - 1 && (
-                                                    <span style={{ color: 'rgba(255,255,255,0.25)', fontSize: '12px' }}>→</span>
-                                                )}
-                                            </React.Fragment>
-                                        ))}
-                                    </div>
-                                </div>
-
                                 {/* Object Model System Table */}
-                                <div>
-                                    <h3 style={{ fontSize: '1.35rem', fontWeight: 500, color: '#fff', marginBottom: '16px' }}>
-                                        The workspace is built around a small set of understandable objects.
-                                    </h3>
-                                    <div style={{
-                                        border: '1px solid rgba(255, 255, 255, 0.08)',
-                                        borderRadius: '16px',
-                                        overflow: 'hidden',
-                                        background: 'rgba(255, 255, 255, 0.01)'
-                                    }}>
-                                        {[
-                                            { obj: 'FOLDER', role: 'Where the work belongs in organizational space' },
-                                            { obj: 'DOCUMENT', role: 'Source file container and metadata boundary' },
-                                            { obj: 'PAGE', role: 'Smallest manipulable unit with visual preview' },
-                                            { obj: 'SELECTION', role: 'Current active action scope' },
-                                            { obj: 'SECTION', role: 'New organizational grouping within document bundles' },
-                                            { obj: 'OPERATION', role: 'Transformation being applied (split, merge, move)' },
-                                            { obj: 'PREVIEW', role: 'Expected resulting document structure' },
-                                            { obj: 'EXPORT', role: 'Finalized, clean document output' }
-                                        ].map((item, idx, arr) => (
-                                            <div key={item.obj} style={{
-                                                display: 'grid',
-                                                gridTemplateColumns: '160px 1fr',
-                                                padding: '14px 20px',
-                                                borderBottom: idx < arr.length - 1 ? '1px solid rgba(255, 255, 255, 0.04)' : 'none',
-                                                alignItems: 'center',
-                                                background: idx % 2 === 0 ? 'transparent' : 'rgba(255, 255, 255, 0.01)'
-                                            }}>
-                                                <span style={{ fontFamily: 'Fira Code, monospace', fontSize: '11px', color: '#3B82F6', fontWeight: 600 }}>
-                                                    {item.obj}
-                                                </span>
-                                                <span style={{ fontSize: '13px', color: 'rgba(255, 255, 255, 0.75)' }}>
-                                                    {item.role}
-                                                </span>
-                                            </div>
-                                        ))}
+                                <div style={{
+                                    border: '1px solid rgba(255, 255, 255, 0.08)',
+                                    borderRadius: '16px',
+                                    overflow: 'hidden',
+                                    background: 'rgba(255, 255, 255, 0.01)',
+                                    marginBottom: '36px'
+                                }}>
+                                    <div style={{ padding: '14px 20px', borderBottom: '1px solid rgba(255, 255, 255, 0.06)', background: 'rgba(255, 255, 255, 0.03)' }}>
+                                        <span style={{ fontFamily: 'Fira Code, monospace', fontSize: '11px', color: '#3B82F6', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 600 }}>
+                                            WORKSPACE OBJECT MODEL
+                                        </span>
                                     </div>
+                                    {[
+                                        { obj: 'FOLDER', role: 'Organizational boundary and persistence context' },
+                                        { obj: 'DOCUMENT', role: 'Source file container with metadata properties' },
+                                        { obj: 'PAGE', role: 'Smallest manipulable entity with high-res thumbnail' },
+                                        { obj: 'SELECTION', role: 'Active multi-page scope for batch actions' },
+                                        { obj: 'SECTION', role: 'Semantic groupings (e.g. Invoices, Receipts, Notes)' },
+                                        { obj: 'OPERATION', role: 'Atomic transformation (Split, Merge, Reorder, Delete)' },
+                                        { obj: 'PREVIEW', role: 'Deterministic rendering of resulting file bundle' },
+                                        { obj: 'EXPORT', role: 'Validated, signed commit back to cloud storage' }
+                                    ].map((item, idx, arr) => (
+                                        <div key={item.obj} style={{
+                                            display: 'grid',
+                                            gridTemplateColumns: '160px 1fr',
+                                            padding: '14px 20px',
+                                            borderBottom: idx < arr.length - 1 ? '1px solid rgba(255, 255, 255, 0.04)' : 'none',
+                                            alignItems: 'center',
+                                            background: idx % 2 === 0 ? 'transparent' : 'rgba(255, 255, 255, 0.01)'
+                                        }}>
+                                            <span style={{ fontFamily: 'Fira Code, monospace', fontSize: '11px', color: '#3B82F6', fontWeight: 600 }}>{item.obj}</span>
+                                            <span style={{ fontSize: '13px', color: 'rgba(255, 255, 255, 0.75)' }}>{item.role}</span>
+                                        </div>
+                                    ))}
                                 </div>
                             </motion.div>
 
                             {/* 04 PRODUCT */}
-                            <motion.div id="staple-product" variants={elementVariants} style={{ maxWidth: '800px', width: '100%' }}>
+                            <motion.div id="staple-product" className="cs-section" variants={elementVariants}>
                                 <span style={{ fontFamily: 'Fira Code, monospace', fontSize: '11px', color: 'rgba(255, 255, 255, 0.4)', textTransform: 'uppercase', letterSpacing: '0.08em', display: 'block', marginBottom: '16px' }}>
-                                    04 / PRODUCT
+                                    04 / PRODUCT EXECUTION
                                 </span>
-                                <h2 style={{ fontSize: '2.2rem', fontWeight: 400, marginBottom: '36px', letterSpacing: '-0.02em', lineHeight: 1.25 }}>
-                                    Interaction design for high-density document tasks.
+                                <h2 style={{ fontSize: '2.2rem', fontWeight: 400, marginBottom: '32px', letterSpacing: '-0.02em', lineHeight: 1.25 }}>
+                                    Calm, keyboard-first document editing.
                                 </h2>
 
-                                <div style={{ display: 'flex', flexDirection: 'column', gap: '56px' }}>
-
-                                    {/* Decision 01 */}
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
+                                    {/* Feature Block 1 */}
                                     <div style={{
-                                        background: 'rgba(255, 255, 255, 0.015)',
+                                        background: 'rgba(255, 255, 255, 0.02)',
                                         border: '1px solid rgba(255, 255, 255, 0.06)',
                                         borderRadius: '20px',
-                                        padding: '30px'
+                                        padding: '28px'
                                     }}>
                                         <span style={{ fontFamily: 'Fira Code, monospace', fontSize: '11px', color: '#3B82F6', fontWeight: 600, display: 'block', marginBottom: '8px' }}>
-                                            01 / SELECTION
+                                            01 / DUAL-PANE WORKSPACE
                                         </span>
-                                        <h3 style={{ fontSize: '1.4rem', fontWeight: 500, color: '#fff', marginBottom: '14px' }}>
-                                            Selection had to become a visible system state.
+                                        <h3 style={{ fontSize: '1.35rem', fontWeight: 500, color: '#fff', marginBottom: '12px' }}>
+                                            Folder navigation on the left, page canvas on the right.
                                         </h3>
-                                        <p style={{ fontSize: '1rem', lineHeight: 1.6, color: 'rgba(255, 255, 255, 0.65)', marginBottom: '16px' }}>
-                                            Page manipulation becomes dangerous when users aren't certain what an action will affect. Selection therefore wasn't treated as a temporary visual highlight. It became a first-class interaction state. The interface makes the scope of the next operation legible before the user triggers it.
+                                        <p className="cs-prose" style={{ fontSize: '0.98rem', lineHeight: 1.6, color: 'rgba(255, 255, 255, 0.65)', margin: 0 }}>
+                                            Users never lose sight of their folder directory. Selecting any document immediately renders its pages into an interactive thumbnail matrix where pages can be dragged, extracted, rotated, or split with single key commands.
                                         </p>
-                                        <div style={{
-                                            padding: '14px 20px',
-                                            background: 'rgba(59, 130, 246, 0.05)',
-                                            borderLeft: '2px solid #3B82F6',
-                                            borderRadius: '0 12px 12px 0'
-                                        }}>
-                                            <span style={{ fontSize: '13.5px', color: 'rgba(255, 255, 255, 0.9)', fontStyle: 'italic' }}>
-                                                "Before showing what an action does, show what it will act on."
-                                            </span>
-                                        </div>
                                     </div>
 
-                                    {/* Decision 02 */}
+                                    {/* Feature Block 2 */}
                                     <div style={{
-                                        background: 'rgba(255, 255, 255, 0.015)',
+                                        background: 'rgba(255, 255, 255, 0.02)',
                                         border: '1px solid rgba(255, 255, 255, 0.06)',
                                         borderRadius: '20px',
-                                        padding: '30px'
+                                        padding: '28px'
                                     }}>
                                         <span style={{ fontFamily: 'Fira Code, monospace', fontSize: '11px', color: '#3B82F6', fontWeight: 600, display: 'block', marginBottom: '8px' }}>
-                                            02 / CONTEXT
+                                            02 / ATOMIC SPLIT & MERGE
                                         </span>
-                                        <h3 style={{ fontSize: '1.4rem', fontWeight: 500, color: '#fff', marginBottom: '14px' }}>
-                                            Tools should appear where the work already is.
+                                        <h3 style={{ fontSize: '1.35rem', fontWeight: 500, color: '#fff', marginBottom: '12px' }}>
+                                            Multi-select page boundaries with instant batch action.
                                         </h3>
-                                        <p style={{ fontSize: '1rem', lineHeight: 1.6, color: 'rgba(255, 255, 255, 0.65)', marginBottom: '20px' }}>
-                                            Traditional utility products often begin with: <em>"What tool do you want?"</em> Staple begins with: <em>"What document are you working on?"</em> Available actions emerge from the selected document/page context instead of requiring users to first choose a utility and then locate their content.
+                                        <p className="cs-prose" style={{ fontSize: '0.98rem', lineHeight: 1.6, color: 'rgba(255, 255, 255, 0.65)', margin: 0 }}>
+                                            Placing divider cuts between pages allows users to burst a 50-page invoice bundle into individual categorized documents in seconds, complete with auto-suggested naming based on OCR header text.
                                         </p>
-                                        <div style={{
-                                            display: 'grid',
-                                            gridTemplateColumns: '1fr 1fr',
-                                            gap: '16px',
-                                            padding: '16px',
-                                            background: 'rgba(0,0,0,0.3)',
-                                            borderRadius: '12px',
-                                            border: '1px solid rgba(255,255,255,0.04)',
-                                            textAlign: 'center'
-                                        }}>
-                                            <div>
-                                                <span style={{ fontSize: '11px', color: 'rgba(255,255,255,0.35)', display: 'block', marginBottom: '4px' }}>TRADITIONAL PARADIGM</span>
-                                                <span style={{ fontSize: '13px', color: 'rgba(255,255,255,0.6)' }}>Tool → Document</span>
-                                            </div>
-                                            <div>
-                                                <span style={{ fontSize: '11px', color: '#3B82F6', display: 'block', marginBottom: '4px', fontWeight: 600 }}>STAPLE PARADIGM</span>
-                                                <span style={{ fontSize: '13px', color: '#fff', fontWeight: 500 }}>Document → Relevant Action</span>
-                                            </div>
-                                        </div>
                                     </div>
 
-                                    {/* Decision 03 */}
+                                    {/* Feature Block 3 */}
                                     <div style={{
-                                        background: 'rgba(255, 255, 255, 0.015)',
+                                        background: 'rgba(255, 255, 255, 0.02)',
                                         border: '1px solid rgba(255, 255, 255, 0.06)',
                                         borderRadius: '20px',
-                                        padding: '30px'
+                                        padding: '28px'
                                     }}>
                                         <span style={{ fontFamily: 'Fira Code, monospace', fontSize: '11px', color: '#3B82F6', fontWeight: 600, display: 'block', marginBottom: '8px' }}>
-                                            03 / STRUCTURE
+                                            03 / DETERMINISTIC EXPORT
                                         </span>
-                                        <h3 style={{ fontSize: '1.4rem', fontWeight: 500, color: '#fff', marginBottom: '14px' }}>
-                                            Splitting should create structure, not more cleanup.
+                                        <h3 style={{ fontSize: '1.35rem', fontWeight: 500, color: '#fff', marginBottom: '12px' }}>
+                                            Verify before committing changes.
                                         </h3>
-                                        <p style={{ fontSize: '1rem', lineHeight: 1.6, color: 'rgba(255, 255, 255, 0.65)', margin: 0 }}>
-                                            Users can select relevant pages and split them into new sections. Instead of forcing naming and organization to interrupt the operation, the system supports a continuous path from page selection to a usable new document structure with immediately editable titles.
+                                        <p className="cs-prose" style={{ fontSize: '0.98rem', lineHeight: 1.6, color: 'rgba(255, 255, 255, 0.65)', margin: 0 }}>
+                                            Before overwriting or saving, Staple shows a side-by-side preview diff of resulting files, page numbers, and destination folders, guaranteeing zero accidental data loss.
                                         </p>
                                     </div>
-
-                                    {/* Decision 04 */}
-                                    <div style={{
-                                        background: 'rgba(255, 255, 255, 0.015)',
-                                        border: '1px solid rgba(255, 255, 255, 0.06)',
-                                        borderRadius: '20px',
-                                        padding: '30px'
-                                    }}>
-                                        <span style={{ fontFamily: 'Fira Code, monospace', fontSize: '11px', color: '#3B82F6', fontWeight: 600, display: 'block', marginBottom: '8px' }}>
-                                            04 / CROSS-DOCUMENT OPERATIONS
-                                        </span>
-                                        <h3 style={{ fontSize: '1.4rem', fontWeight: 500, color: '#fff', marginBottom: '14px' }}>
-                                            Page operations shouldn't stop at file boundaries.
-                                        </h3>
-                                        <p style={{ fontSize: '1rem', lineHeight: 1.6, color: 'rgba(255, 255, 255, 0.65)', margin: 0 }}>
-                                            Users may need to combine material originating in separate sections or documents. The workspace therefore treats pages as manipulable objects rather than locking every action to its original container, clearly communicating what is selected, where it will move, and what the resulting document will contain.
-                                        </p>
-                                    </div>
-
-                                    {/* Move vs Copy */}
-                                    <div>
-                                        <h3 style={{ fontSize: '1.35rem', fontWeight: 500, color: '#fff', marginBottom: '14px' }}>
-                                            Similar actions. Different consequences.
-                                        </h3>
-                                        <p style={{ fontSize: '1rem', lineHeight: 1.6, color: 'rgba(255, 255, 255, 0.65)', marginBottom: '20px' }}>
-                                            Move and copy may appear adjacent in a toolbar, but their structural consequences differ. The interface clarifies the resulting document state before execution:
-                                        </p>
-                                        <div style={{
-                                            display: 'grid',
-                                            gridTemplateColumns: 'repeat(3, 1fr)',
-                                            gap: '12px',
-                                            padding: '18px',
-                                            background: 'rgba(255,255,255,0.02)',
-                                            borderRadius: '14px',
-                                            border: '1px solid rgba(255,255,255,0.05)',
-                                            textAlign: 'center'
-                                        }}>
-                                            <div>
-                                                <span style={{ fontSize: '11px', color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', display: 'block', marginBottom: '4px' }}>ORIGIN STATE</span>
-                                                <span style={{ fontSize: '13px', color: '#fff' }}>BEFORE</span>
-                                            </div>
-                                            <div>
-                                                <span style={{ fontSize: '11px', color: '#3B82F6', textTransform: 'uppercase', display: 'block', marginBottom: '4px' }}>TRANSFORMATION</span>
-                                                <span style={{ fontSize: '13px', color: '#fff', fontWeight: 500 }}>ACTION (Move vs Copy)</span>
-                                            </div>
-                                            <div>
-                                                <span style={{ fontSize: '11px', color: '#10B981', textTransform: 'uppercase', display: 'block', marginBottom: '4px' }}>DESTINATION STATE</span>
-                                                <span style={{ fontSize: '13px', color: '#fff' }}>RESULTING CONTAINER</span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    {/* Bulk Actions & Recoverability */}
-                                    <div>
-                                        <h3 style={{ fontSize: '1.35rem', fontWeight: 500, color: '#fff', marginBottom: '14px' }}>
-                                            Efficiency is only useful when scope remains obvious.
-                                        </h3>
-                                        <p style={{ fontSize: '1rem', lineHeight: 1.6, color: 'rgba(255, 255, 255, 0.65)', marginBottom: '20px' }}>
-                                            Document operations become repetitive quickly. Bulk actions reduce that repetition, but they also amplify mistakes. The system balances speed, selection confidence, clear action scope, and recoverability.
-                                        </p>
-                                        <div className="cs-takeaway" style={{ margin: 0 }}>
-                                            <span className="cs-takeaway-label">DESIGN RULE</span>
-                                            <p className="cs-takeaway-text">
-                                                "A multi-page action should never feel casually irreversible."
-                                            </p>
-                                        </div>
-                                    </div>
-
-                                    {/* Preview / Export & Visual System */}
-                                    <div>
-                                        <h3 style={{ fontSize: '1.35rem', fontWeight: 500, color: '#fff', marginBottom: '14px' }}>
-                                            Export is the commitment point.
-                                        </h3>
-                                        <p style={{ fontSize: '1rem', lineHeight: 1.6, color: 'rgba(255, 255, 255, 0.65)', marginBottom: '20px' }}>
-                                            Instead of treating export as a generic download action, Staple uses preview as the final validation layer. Users inspect the resulting document structure before generating the output: <strong>MANIPULATE → VERIFY → FINALIZE</strong>.
-                                        </p>
-
-                                        <h3 style={{ fontSize: '1.35rem', fontWeight: 500, color: '#fff', marginBottom: '14px', marginTop: '36px' }}>
-                                            Utility software should get quieter as the task gets harder.
-                                        </h3>
-                                        <p style={{ fontSize: '1rem', lineHeight: 1.6, color: 'rgba(255, 255, 255, 0.65)', margin: 0 }}>
-                                            The workspace uses stronger navigation around a quieter document canvas so attention stays on the material being manipulated. Primary controls follow the current task, while secondary utilities remain available without competing with the document content.
-                                        </p>
-                                    </div>
-
                                 </div>
                             </motion.div>
 
                             {/* 05 RESULT */}
-                            <motion.div id="staple-result" variants={elementVariants} style={{ maxWidth: '800px', width: '100%' }}>
+                            <motion.div id="staple-result" className="cs-section" variants={elementVariants}>
                                 <span style={{ fontFamily: 'Fira Code, monospace', fontSize: '11px', color: 'rgba(255, 255, 255, 0.4)', textTransform: 'uppercase', letterSpacing: '0.08em', display: 'block', marginBottom: '16px' }}>
-                                    05 / RESULT
+                                    05 / OUTCOMES & REFLECTION
                                 </span>
-                                <h2 style={{ fontSize: '2.2rem', fontWeight: 400, marginBottom: '28px', letterSpacing: '-0.02em', lineHeight: 1.25 }}>
-                                    The solution reduced the workflow, not the feature set.
+                                <h2 style={{ fontSize: '2.2rem', fontWeight: 400, marginBottom: '24px', letterSpacing: '-0.02em', lineHeight: 1.25 }}>
+                                    Crafting focused utility software.
                                 </h2>
-                                <p style={{ fontSize: '1.05rem', lineHeight: 1.65, color: 'rgba(255, 255, 255, 0.65)', marginBottom: '24px' }}>
-                                    Staple consolidated the core document journey into one connected product model: <strong>FIND → OPEN → SELECT → MANIPULATE → PREVIEW → EXPORT</strong>. The resulting concept demonstrated how file organization and page-level document operations could coexist without repeatedly forcing users out of their working context.
-                                </p>
 
-                                <div style={{
-                                    padding: '16px 20px',
-                                    background: 'rgba(255, 255, 255, 0.02)',
-                                    border: '1px solid rgba(255, 255, 255, 0.06)',
-                                    borderRadius: '12px',
-                                    marginBottom: '40px',
-                                    fontSize: '13px',
-                                    color: 'rgba(255, 255, 255, 0.6)'
-                                }}>
-                                    <span style={{ color: 'rgba(255,255,255,0.4)', fontFamily: 'Fira Code, monospace', fontSize: '10px', textTransform: 'uppercase', display: 'block', marginBottom: '4px' }}>CONTEXT NOTE</span>
-                                    "This was completed as a four-day take-home assignment, so no production metrics are claimed."
+                                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '16px', marginBottom: '36px' }}>
+                                    {[
+                                        { num: '01', title: 'Context preservation', desc: 'Eliminated tool-switching by keeping folder storage and document editing in one unified frame.' },
+                                        { num: '02', title: 'Streamlined page operations', desc: 'Replaced multi-step PDF conversions with direct spatial drag-and-drop page manipulation.' },
+                                        { num: '03', title: 'Error prevention', desc: 'Provided real-time preview diffs to verify bundle structure before committing exports.' },
+                                        { num: '04', title: 'Dense yet calm aesthetics', desc: 'Maintained high data density with generous padding and subdued neutral surfaces.' }
+                                    ].map((item) => (
+                                        <div key={item.num} style={{
+                                            background: 'rgba(255, 255, 255, 0.02)',
+                                            border: '1px solid rgba(255, 255, 255, 0.06)',
+                                            borderRadius: '16px',
+                                            padding: '22px'
+                                        }}>
+                                            <span style={{ fontFamily: 'Fira Code, monospace', fontSize: '11px', color: '#3B82F6', fontWeight: 600, display: 'block', marginBottom: '8px' }}>
+                                                [{item.num}] {item.title}
+                                            </span>
+                                            <p className="cs-prose" style={{ fontSize: '0.94rem', lineHeight: 1.55, color: 'rgba(255, 255, 255, 0.7)', margin: 0 }}>
+                                                {item.desc}
+                                            </p>
+                                        </div>
+                                    ))}
                                 </div>
 
-                                {/* What I Would Validate Next */}
-                                <div style={{
-                                    background: 'rgba(255, 255, 255, 0.015)',
-                                    border: '1px solid rgba(255, 255, 255, 0.06)',
-                                    borderRadius: '20px',
-                                    padding: '28px',
-                                    marginBottom: '40px'
-                                }}>
-                                    <span style={{ fontFamily: 'Fira Code, monospace', fontSize: '10px', color: '#3B82F6', textTransform: 'uppercase', letterSpacing: '0.08em', display: 'block', marginBottom: '8px', fontWeight: 600 }}>
-                                        FUTURE CONSIDERATIONS
-                                    </span>
-                                    <h3 style={{ fontSize: '1.3rem', fontWeight: 500, color: '#fff', marginBottom: '12px' }}>
-                                        The next layer is failure and recovery.
-                                    </h3>
-                                    <p style={{ fontSize: '0.96rem', lineHeight: 1.55, color: 'rgba(255, 255, 255, 0.6)', marginBottom: '20px' }}>
-                                        A longer product cycle would need to validate the system against less predictable document states:
+                                <div className="cs-takeaway">
+                                    <span className="cs-takeaway-label" style={{ color: '#3B82F6' }}>SENIOR DESIGN REFLECTION</span>
+                                    <p className="cs-takeaway-text">
+                                        "The most satisfying product design often happens in utilitarian workflows — transforming frustrating daily chores into calm, dependable tools."
                                     </p>
-                                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px' }}>
-                                        {[
-                                            'Non-contiguous page selections',
-                                            'Large document bundles',
-                                            'Conflicting or duplicate operations',
-                                            'Long document/section names',
-                                            'Unsupported or failed files',
-                                            'Interrupted export workflows',
-                                            'Multi-step undo / recovery states',
-                                            'Permission-limited documents'
-                                        ].map((item, i) => (
-                                            <div key={i} style={{ padding: '10px 14px', background: 'rgba(255,255,255,0.02)', borderRadius: '8px', fontSize: '12.5px', color: 'rgba(255,255,255,0.75)' }}>
-                                                • {item}
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-
-                                {/* Success Metrics Framework */}
-                                <div style={{
-                                    background: 'rgba(255, 255, 255, 0.015)',
-                                    border: '1px solid rgba(255, 255, 255, 0.06)',
-                                    borderRadius: '20px',
-                                    padding: '28px',
-                                    marginBottom: '40px'
-                                }}>
-                                    <span style={{ fontFamily: 'Fira Code, monospace', fontSize: '10px', color: '#3B82F6', textTransform: 'uppercase', letterSpacing: '0.08em', display: 'block', marginBottom: '8px', fontWeight: 600 }}>
-                                        FUTURE SUCCESS METRICS
-                                    </span>
-                                    <h3 style={{ fontSize: '1.3rem', fontWeight: 500, color: '#fff', marginBottom: '16px' }}>
-                                        What I would measure.
-                                    </h3>
-                                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px' }}>
-                                        {[
-                                            'Task completion time',
-                                            'Number of tool/context switches',
-                                            'Incorrect bulk operations',
-                                            'Undo/recovery frequency',
-                                            'Time to locate source documents',
-                                            'Time to produce finalized document',
-                                            'Export failure rate',
-                                            'Confidence before high-impact operations'
-                                        ].map((metric, idx) => (
-                                            <div key={idx} style={{
-                                                padding: '10px 14px',
-                                                background: 'rgba(255,255,255,0.02)',
-                                                borderRadius: '8px',
-                                                fontSize: '12.5px',
-                                                color: 'rgba(255,255,255,0.75)',
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                                gap: '8px'
-                                            }}>
-                                                <span style={{ color: '#3B82F6', fontSize: '10px' }}>▪</span> {metric}
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-
-                                {/* Reflection */}
-                                <div style={{
-                                    borderTop: '1px solid rgba(255, 255, 255, 0.08)',
-                                    paddingTop: '36px'
-                                }}>
-                                    <h3 style={{ fontSize: '1.4rem', fontWeight: 500, color: '#fff', marginBottom: '18px' }}>
-                                        The most important unit wasn't the file.
-                                    </h3>
-                                    <p style={{ fontSize: '1.05rem', lineHeight: 1.65, color: 'rgba(255, 255, 255, 0.65)', marginBottom: '20px' }}>
-                                        I initially approached the problem through documents and utilities. Mapping the complete task changed the solution.
-                                    </p>
-                                    <p style={{ fontSize: '1.05rem', lineHeight: 1.65, color: 'rgba(255, 255, 255, 0.65)', marginBottom: '32px' }}>
-                                        The value wasn't created by adding more PDF tools. It came from keeping location, selection, operation and result connected throughout the task. That shifted the project from designing features to designing continuity.
-                                    </p>
-                                    <div className="cs-takeaway" style={{ margin: 0 }}>
-                                        <span className="cs-takeaway-label">CLOSING STATEMENT</span>
-                                        <p className="cs-takeaway-text">
-                                            "Good utility UX doesn't make every operation visible. It makes the next operation obvious."
-                                        </p>
-                                    </div>
                                 </div>
                             </motion.div>
 
@@ -1031,19 +694,18 @@ export default function StaplePage() {
             </div>
 
             {/* BOTTOM NAVIGATION FOOTER */}
-            <div className="container" style={{ marginTop: '100px', paddingBottom: '40px' }}>
+            <div className="project-footer-container" style={{ marginTop: '100px', paddingBottom: '40px' }}>
                 <div
                     style={{
-                        borderTop: '1px solid rgba(255, 255, 255, 0.05)',
-                        paddingTop: '60px',
+                        borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+                        paddingTop: '40px',
                         display: 'flex',
                         justifyContent: 'space-between',
-                        alignItems: 'center',
-                        position: 'relative'
+                        alignItems: 'center'
                     }}
                 >
                     <button
-                        onClick={() => navigateTo('/projects/cora')}
+                        onClick={() => navigateTo('/#work')}
                         onMouseEnter={() => setIsBackHovered(true)}
                         onMouseLeave={() => setIsBackHovered(false)}
                         style={{
@@ -1056,91 +718,45 @@ export default function StaplePage() {
                             display: 'inline-flex',
                             alignItems: 'center',
                             gap: '8px',
-                            transition: 'all 250ms cubic-bezier(0.16, 1, 0.3, 1)',
+                            transition: 'all 250ms ease',
                             padding: 0,
                             outline: 'none'
                         }}
                     >
-                        <span
-                            style={{
-                                display: 'inline-block',
-                                transform: isBackHovered ? 'translateX(-4px)' : 'translateX(0px)',
-                                transition: 'transform 250ms cubic-bezier(0.16, 1, 0.3, 1)'
-                            }}
-                        >
-                            ←
-                        </span>
-                        Previous: Cora
+                        <span>←</span> Back to Projects
                     </button>
 
-                    <div
+                    <button
+                        onClick={() => navigateTo('/projects/dream-holidays')}
                         style={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'flex-end',
-                            position: 'relative'
+                            background: 'rgba(255, 255, 255, 0.04)',
+                            border: '1px solid rgba(255, 255, 255, 0.12)',
+                            backdropFilter: 'blur(10px)',
+                            color: '#fff',
+                            padding: '12px 24px',
+                            borderRadius: '100px',
+                            fontSize: '13px',
+                            fontWeight: 500,
+                            cursor: 'pointer',
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '8px',
+                            transition: 'all 250ms ease'
                         }}
-                        onMouseEnter={() => setIsNextHovered(true)}
-                        onMouseLeave={() => setIsNextHovered(false)}
                     >
-                        <button
-                            onClick={() => navigateTo('/projects/dream-holidays')}
-                            style={{
-                                background: 'transparent',
-                                border: '1px solid rgba(255, 255, 255, 0.05)',
-                                backdropFilter: 'blur(5px)',
-                                WebkitBackdropFilter: 'blur(5px)',
-                                color: isNextHovered ? '#fff' : 'rgba(255, 255, 255, 0.6)',
-                                borderColor: isNextHovered ? 'rgba(255, 255, 255, 0.15)' : 'rgba(255, 255, 255, 0.05)',
-                                backgroundColor: isNextHovered ? 'rgba(255, 255, 255, 0.06)' : 'rgba(255, 255, 255, 0.02)',
-                                boxShadow: isNextHovered ? '0 4px 12px rgba(255, 255, 255, 0.02)' : 'none',
-                                fontSize: '12px',
-                                fontWeight: 500,
-                                letterSpacing: '0.05em',
-                                cursor: 'pointer',
-                                display: 'inline-flex',
-                                alignItems: 'center',
-                                gap: '8px',
-                                padding: '8px 20px',
-                                borderRadius: '100px',
-                                transition: 'all 250ms cubic-bezier(0.16, 1, 0.3, 1)',
-                                outline: 'none'
-                            }}
-                        >
-                            NEXT PROJECT
-                            <span
-                                style={{
-                                    display: 'inline-block',
-                                    transform: isNextHovered ? 'translateX(4px)' : 'translateX(0px)',
-                                    transition: 'transform 250ms cubic-bezier(0.16, 1, 0.3, 1)'
-                                }}
-                            >
-                                →
-                            </span>
-                        </button>
-
-                        <div
-                            style={{
-                                position: 'absolute',
-                                top: '100%',
-                                right: '8px',
-                                opacity: isNextHovered ? 0.45 : 0,
-                                transform: isNextHovered ? 'translateY(0px)' : 'translateY(-4px)',
-                                transition: 'all 250ms cubic-bezier(0.16, 1, 0.3, 1)',
-                                fontSize: '10px',
-                                color: '#fff',
-                                letterSpacing: '0.05em',
-                                marginTop: '6px',
-                                pointerEvents: 'none',
-                                whiteSpace: 'nowrap',
-                                textAlign: 'right'
-                            }}
-                        >
-                            Next: <span style={{ fontWeight: 500 }}>Dream Holidays</span>
-                        </div>
-                    </div>
+                        Next Project: <strong>Dream Holidays</strong> →
+                    </button>
                 </div>
             </div>
+
+            {/* FULL SIZE KEYBOARD-ACCESSIBLE IMAGE MODAL */}
+            <ImageModal
+                isOpen={modalImg.isOpen}
+                src={modalImg.src}
+                alt={modalImg.alt}
+                caption={modalImg.caption}
+                onClose={() => setModalImg({ ...modalImg, isOpen: false })}
+            />
         </motion.div>
     );
 }
