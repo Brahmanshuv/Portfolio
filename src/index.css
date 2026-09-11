@@ -6412,6 +6412,596 @@ html.lenis body {
 }
 
 /* ==========================================================================
+   HOMEPAGE CANONICAL EDITORIAL GRID SYSTEM
+   Strictly scoped to .home-page (Project subpages are 100% untouched)
+   ========================================================================== */
+
+.home-page {
+    /* Base Canonical Grid Tokens (12-Column System) */
+    --home-columns: 12;
+    --home-max-width: 1440px;
+    --home-gutter: 20px;
+    --home-margin: clamp(32px, 3.2vw, 56px);
+    --home-grid-line: rgba(255, 255, 255, 0.032);
+
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+}
+
+/* 2K+ / Large Desktop (≥1920px) */
+@media (min-width: 1920px) {
+    .home-page {
+        --home-columns: 12;
+        --home-max-width: 1440px;
+        --home-gutter: 24px;
+        --home-margin: clamp(48px, 4vw, 80px);
+    }
+}
+
+/* Small Desktop / Laptop (1025px – 1279px) */
+@media (max-width: 1279px) {
+    .home-page {
+        --home-columns: 12;
+        --home-max-width: 100%;
+        --home-gutter: 16px;
+        --home-margin: 32px;
+    }
+}
+
+/* Tablet (768px – 1024px) */
+@media (max-width: 1024px) {
+    .home-page {
+        --home-columns: 8;
+        --home-max-width: 100%;
+        --home-gutter: 16px;
+        --home-margin: 28px;
+    }
+}
+
+/* Mobile (≤767px) */
+@media (max-width: 767px) {
+    .home-page {
+        --home-columns: 4;
+        --home-max-width: 100%;
+        --home-gutter: 12px;
+        --home-margin: 20px;
+    }
+}
+
+/* ── Canonical Container ── */
+.home-page .home-container {
+    width: 100%;
+    max-width: var(--home-max-width);
+    margin-inline: auto;
+    padding-inline: var(--home-margin);
+    box-sizing: border-box;
+}
+
+/* ── 12-Column Grid Utility ── */
+.home-page .home-grid {
+    display: grid;
+    grid-template-columns: repeat(var(--home-columns), minmax(0, 1fr));
+    column-gap: var(--home-gutter);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* ── Subtle Visible Architectural Grid Overlay ── */
+.home-grid-overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+    /* Soft vertical mask fade at the top and bottom */
+    mask-image: linear-gradient(to bottom, transparent 0%, black 180px, black calc(100% - 180px), transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 180px, black calc(100% - 180px), transparent 100%);
+}
+
+.home-grid-overlay-inner {
+    height: 100%;
+}
+
+.home-grid-overlay-tracks {
+    display: grid;
+    grid-template-columns: repeat(var(--home-columns), minmax(0, 1fr));
+    column-gap: var(--home-gutter);
+    height: 100%;
+    width: 100%;
+    border-left: 1px solid var(--home-grid-line);
+    border-right: 1px solid var(--home-grid-line);
+}
+
+.home-grid-col-guide {
+    position: relative;
+    height: 100%;
+    border-right: 1px solid var(--home-grid-line);
+}
+
+.home-grid-col-guide:last-child {
+    border-right: none;
+}
+
+/* ── Controlled Section Rhythm & Boundaries ── */
+.home-page section {
+    padding-top: clamp(100px, 12vh, 160px);
+    padding-bottom: 0;
+    position: relative;
+    z-index: 2;
+    scroll-margin-top: 88px;
+}
+
+.home-page #home.hero-top-section {
+    padding-top: 0;
+}
+
+/* ── Global Section Title Editorial Alignment ── */
+.home-page .section-title {
+    margin: 0;
+    padding: 0;
+}
+
+.home-page .section-title h3 {
+    font-size: clamp(24px, 2.2vw, 34px);
+    font-weight: var(--weight-semibold);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--text-headline);
+    margin-bottom: clamp(28px, 3vh, 40px);
+}
+
+/* ── Navigation Boundary Alignment ── */
+.home-page #main-header {
+    max-width: min(calc(100% - 2 * var(--home-margin)), 880px);
+}
+
+/* ── Hero Section Alignment ── */
+.home-page .hero-glass-panel {
+    width: min(680px, 92vw);
+    max-width: 100%;
+    height: min(640px, 85vh);
+}
+
+.home-page .hero-top-card {
+    max-width: min(500px, 90vw);
+}
+
+/* ── Experience Section Alignment ── */
+.home-page .experience-vertical-wrapper {
+    max-width: var(--home-max-width);
+    padding-inline: var(--home-margin);
+    width: 100%;
+}
+
+.home-page .experience-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: clamp(28px, 3.5vh, 44px);
+}
+
+.home-page .experience-header-row .section-title h3 {
+    margin-bottom: 0;
+}
+
+.home-page .experience-list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.home-page .experience-item {
+    width: 100%;
+}
+
+.home-page .timeline-floating-container {
+    max-width: 100%;
+    width: 100%;
+    margin-inline: auto;
+}
+
+/* ── Selected Work Section — Full-Width Typographic Editorial Project Stack ── */
+.home-page #work {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.home-work-scroll-track {
+    position: relative;
+    width: 100%;
+    height: 280vh;
+}
+
+.home-work-section {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-sizing: border-box;
+    padding-top: clamp(48px, 6vh, 80px);
+    padding-bottom: clamp(32px, 4vh, 60px);
+    background-color: transparent;
+}
+
+.home-work-container {
+    width: 100%;
+    max-width: min(1760px, 92vw);
+    padding-inline: clamp(24px, 3.5vw, 64px);
+    margin-inline: auto;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 2;
+}
+
+/* Header Row: Work on Left, [ 01 / 04 ] on Right */
+.home-work-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    width: 100%;
+    margin-bottom: clamp(28px, 4vh, 52px);
+}
+
+.home-work-heading {
+    font-size: clamp(32px, 3.4vw, 48px);
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: -0.02em;
+    margin: 0;
+    line-height: 1;
+}
+
+.home-work-counter {
+    font-family: var(--font-mono, 'Fira Code', monospace);
+    font-size: clamp(13px, 1.1vw, 16px);
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.45);
+    letter-spacing: 0.08em;
+}
+
+/* Full-Width Typographic Stack */
+.home-work-stack {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    position: relative;
+}
+
+/* Active Broad Editorial Focal Row */
+.home-work-active-row {
+    position: relative;
+    width: 100%;
+    padding: clamp(24px, 3.2vh, 44px) 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.16);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: border-color 0.25s ease;
+}
+
+.home-work-active-main {
+    display: flex;
+    align-items: baseline;
+    gap: clamp(20px, 2.5vw, 36px);
+    margin-bottom: clamp(20px, 2.6vh, 32px);
+    position: relative;
+    z-index: 1;
+}
+
+.home-work-active-num {
+    font-family: var(--font-mono, 'Fira Code', monospace);
+    font-size: clamp(20px, 2.2vw, 30px);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    line-height: 1;
+}
+
+.home-work-active-title {
+    font-size: clamp(48px, 6.2vw, 96px);
+    font-weight: 800;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: -0.03em;
+    line-height: 1.0;
+    margin: 0;
+}
+
+/* Metadata Row: 4 Columns Aligned Spanning Full Width */
+.home-work-active-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+    gap: 20px;
+    padding-top: 4px;
+}
+
+.home-work-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.home-work-meta-label {
+    font-family: var(--font-mono, 'Fira Code', monospace);
+    font-size: 11px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.42);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.home-work-meta-value {
+    font-size: clamp(14px, 1.2vw, 17px);
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.92);
+    white-space: nowrap;
+}
+
+.home-work-meta-cta {
+    align-self: flex-end;
+}
+
+.home-work-cta-text {
+    font-size: clamp(14px, 1.2vw, 17px);
+    font-weight: 600;
+    color: #ffffff;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.home-work-cta-arrow {
+    display: inline-block;
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.home-work-active-row:hover .home-work-cta-arrow {
+    transform: translateX(6px);
+}
+
+/* Inactive Large Editorial Project Title Rows */
+.home-work-inactive-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: clamp(20px, 2.6vh, 34px) 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.home-work-inactive-left {
+    display: flex;
+    align-items: baseline;
+    gap: clamp(20px, 2.5vw, 36px);
+}
+
+.home-work-inactive-num {
+    font-family: var(--font-mono, 'Fira Code', monospace);
+    font-size: clamp(16px, 1.8vw, 24px);
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.22);
+    letter-spacing: 0.02em;
+    transition: color 0.2s ease;
+}
+
+.home-work-inactive-title {
+    font-size: clamp(38px, 4.8vw, 76px);
+    font-weight: 700;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.22);
+    letter-spacing: -0.025em;
+    line-height: 1.05;
+    margin: 0;
+    transition: color 0.2s ease;
+}
+
+.home-work-inactive-domain {
+    font-size: clamp(14px, 1.2vw, 18px);
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.22);
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    transition: color 0.2s ease;
+}
+
+.home-work-inactive-row:hover .home-work-inactive-num,
+.home-work-inactive-row:hover .home-work-inactive-title {
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.home-work-inactive-row:hover .home-work-inactive-domain {
+    color: rgba(255, 255, 255, 0.55);
+}
+
+/* Tablet Layout */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .home-work-scroll-track {
+        height: auto;
+    }
+    .home-work-section {
+        position: static;
+        height: auto;
+        padding-top: 80px;
+        padding-bottom: 90px;
+    }
+}
+
+/* Mobile Unpinned Typographic Stack */
+@media (max-width: 768px) {
+    .home-work-scroll-track {
+        height: auto;
+    }
+    .home-work-section {
+        position: static;
+        height: auto;
+        padding-top: 60px;
+        padding-bottom: 70px;
+    }
+    .home-work-mobile-list {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        width: 100%;
+    }
+    .home-work-mobile-card {
+        background: rgba(18, 22, 32, 0.95);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 18px;
+        padding: 24px 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        cursor: pointer;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+    .home-work-mobile-card-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .home-work-mobile-num {
+        font-family: var(--font-mono, 'Fira Code', monospace);
+        font-size: 14px;
+        font-weight: 700;
+    }
+    .home-work-mobile-domain {
+        font-size: 12px;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.45);
+    }
+    .home-work-mobile-title {
+        font-size: 28px;
+        font-weight: 800;
+        text-transform: uppercase;
+        color: #FFFFFF;
+        letter-spacing: -0.01em;
+        margin: 0;
+        line-height: 1.15;
+    }
+    .home-work-mobile-desc {
+        font-size: 13.5px;
+        color: rgba(255, 255, 255, 0.7);
+        line-height: 1.5;
+        margin: 0;
+    }
+    .home-work-mobile-meta-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        padding-top: 12px;
+        margin-top: 4px;
+    }
+}
+
+/* ── Capabilities / Skills Bento Grid Alignment ── */
+.home-page .capabilities-container {
+    width: 100%;
+    max-width: var(--home-max-width);
+    padding-inline: var(--home-margin);
+    margin-inline: auto;
+}
+
+.home-page .capabilities-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: clamp(28px, 3.5vh, 44px);
+}
+
+.home-page .capabilities-header .section-title h3 {
+    margin-bottom: 0;
+}
+
+.home-page .bento-grid {
+    gap: var(--home-gutter);
+    width: 100%;
+    max-width: 100%;
+    margin-inline: auto;
+}
+
+/* ── Contact Section Alignment ── */
+.home-page .contact-card-section .home-container {
+    width: 100%;
+    max-width: var(--home-max-width);
+    padding-inline: var(--home-margin);
+    margin-inline: auto;
+}
+
+.home-page .contact-card-section .section-title h3 {
+    margin-bottom: clamp(28px, 3.5vh, 44px);
+}
+
+.home-page .contact-social-grid {
+    display: grid;
+    grid-template-columns: repeat(var(--home-columns), minmax(0, 1fr));
+    column-gap: var(--home-gutter);
+    row-gap: 28px;
+    width: 100%;
+    max-width: 100%;
+    margin-inline: auto;
+}
+
+/* On 12-column desktop: profile card spans 5 cols, socials span 7 cols */
+@media (min-width: 1025px) {
+    .home-page .socials-left-card {
+        grid-column: span 5;
+    }
+
+    .home-page .socials-right-column {
+        grid-column: span 7;
+    }
+}
+
+/* On 8-column tablet: full width stack */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .home-page .socials-left-card {
+        grid-column: span 8;
+        height: auto;
+        min-height: 260px;
+    }
+
+    .home-page .socials-right-column {
+        grid-column: span 8;
+    }
+}
+
+/* On 4-column mobile: full width stack */
+@media (max-width: 767px) {
+    .home-page .socials-left-card {
+        grid-column: span 4;
+        height: auto;
+        min-height: 240px;
+    }
+
+    .home-page .socials-right-column {
+        grid-column: span 4;
+    }
+}
+
+.home-page .socials-mini-footer {
+    width: 100%;
+    text-align: center;
+    margin-top: clamp(48px, 6vh, 80px);
+    padding-bottom: 32px;
+}
+
+/* ==========================================================================
    Project Detail & Case Study Wide Canvas System
    ========================================================================== */
 
@@ -6887,5 +7477,8 @@ html.lenis body {
     .cs-disclosure-trigger {
         transition: none !important;
     }
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 }

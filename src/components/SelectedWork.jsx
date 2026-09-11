@@ -1,4 +1,5 @@
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 import React from 'react';
 import { motion } from 'framer-motion';
 import { projectsData } from '../data/projects';
@@ -106,6 +107,70 @@ const SelectedWork = () => {
     const [isReducedMotion, setIsReducedMotion] = useState(false);
 >>>>>>> Stashed changes
 
+=======
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence, useScroll } from 'framer-motion';
+import { navigateTo } from '../utils/router';
+
+// Canonical 4 projects preserved with authentic metadata
+const CANONICAL_PROJECTS = [
+    {
+        id: 'dream-holidays',
+        indexStr: '01',
+        title: 'Dream Holidays',
+        slug: 'dream-holidays',
+        category: 'Travel / Product Design',
+        domain: 'Travel Tech',
+        role: 'Lead Product Designer',
+        year: '2024',
+        accentColor: '#0EA5E9',
+        description: 'Transforming a traditional travel agency into a discovery-first digital experience built around easier exploration and qualified enquiries.'
+    },
+    {
+        id: 'cora',
+        indexStr: '02',
+        title: 'Cora',
+        slug: 'cora',
+        category: 'Retail Media / AI Concept',
+        domain: 'Retail Media · AI',
+        role: 'Product Designer',
+        year: '2024',
+        accentColor: '#8B5CF6',
+        description: 'An AI-assisted campaign concept connecting the brief, the proposal, the people reviewing it, and the next decision after launch.'
+    },
+    {
+        id: 'staple',
+        indexStr: '03',
+        title: 'Staple',
+        slug: 'staple',
+        category: 'Productivity / Document Workspace',
+        domain: 'Document Operations',
+        role: 'Product Designer (UI/UX)',
+        year: '2024',
+        accentColor: '#3B82F6',
+        description: 'A unified document workspace designed to reduce fragmented file-management and PDF workflows.'
+    },
+    {
+        id: '6s-seo',
+        indexStr: '04',
+        title: '6s SEO Tool',
+        slug: '6s-marketers-seo-tool',
+        category: 'B2B SaaS / SEO Product Design',
+        domain: 'SEO Analytics',
+        role: 'Lead Product Designer',
+        year: '2024',
+        accentColor: '#10B981',
+        description: 'An SEO intelligence product designed to turn complex search data into clearer, faster decisions.'
+    }
+];
+
+const SelectedWork = () => {
+    const containerRef = useRef(null);
+    const [activeIndex, setActiveIndex] = useState(0);
+    const [isMobile, setIsMobile] = useState(false);
+    const [isReducedMotion, setIsReducedMotion] = useState(false);
+
+>>>>>>> Stashed changes
     // Responsive & accessibility checks
     useEffect(() => {
         const handleResize = () => {
