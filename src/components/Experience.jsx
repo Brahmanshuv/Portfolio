@@ -62,10 +62,10 @@ const Experience = () => {
 
     // Parent orchestrates page transition and stagger children
     const containerVariants = {
-        hidden: { 
-            opacity: 0, 
-            y: 12, 
-            filter: "blur(8px)" 
+        hidden: {
+            opacity: 0,
+            y: 12,
+            filter: "blur(8px)"
         },
         visible: {
             opacity: 1,
@@ -90,10 +90,10 @@ const Experience = () => {
     };
 
     const pageTransitionVariants = {
-        hidden: { 
-            opacity: 0, 
-            y: 12, 
-            filter: "blur(8px)" 
+        hidden: {
+            opacity: 0,
+            y: 12,
+            filter: "blur(8px)"
         },
         visible: {
             opacity: 1,
@@ -145,13 +145,13 @@ const Experience = () => {
         <div ref={containerRef} style={{ position: 'relative', width: '100%' }}>
             <AnimatePresence mode="wait">
                 {isMobile || isExpandedView ? (
-                    <motion.div 
+                    <motion.div
                         key="expanded"
                         variants={containerVariants}
                         initial={isMobile ? false : "hidden"}
                         animate="visible"
                         exit="exit"
-                        className="container section-grid experience-vertical-wrapper"
+                        className="home-container section-grid experience-vertical-wrapper"
                     >
                         <div className="experience-header-row">
                             <motion.div className="section-title" variants={titleVariants} style={{ margin: 0 }}>
@@ -299,7 +299,7 @@ const Experience = () => {
                         </div>
                     </motion.div>
                 ) : (
-                    <motion.div 
+                    <motion.div
                         key="timeline"
                         variants={pageTransitionVariants}
                         initial="hidden"
@@ -308,7 +308,7 @@ const Experience = () => {
                         className="timeline-scroll-wrapper"
                     >
                         <div className="timeline-sticky-viewport">
-                            <div className="container" style={{ width: '100%', marginBottom: '48px' }}>
+                            <div className="home-container" style={{ width: '100%', marginBottom: '48px' }}>
                                 <div className="experience-header-row">
                                     <div className="section-title" style={{ margin: 0 }}>
                                         <h3>Experience</h3>
@@ -357,17 +357,17 @@ const Experience = () => {
 
                             {/* Centered Floating Timeline Composition — 4-card zig-zag */}
                             <div className="timeline-floating-container">
-                                
+
                                 {/* Horizontal Progress Track Line */}
                                 <div className="timeline-progress-line-bg" />
                                 {/* Smooth scroll progress line */}
-                                <motion.div 
-                                    style={{ scaleX: activeScaleX }} 
-                                    className="timeline-progress-line-active" 
+                                <motion.div
+                                    style={{ scaleX: activeScaleX }}
+                                    className="timeline-progress-line-active"
                                 />
 
                                 {/* Glowing Progress Dot traveling along the line */}
-                                <motion.div 
+                                <motion.div
                                     style={{ left: dotX }}
                                     className="timeline-progress-dot-glowing"
                                 />
@@ -388,12 +388,12 @@ const Experience = () => {
 
                                 {/* Card 1: Adorn Abodes — Top Left (oldest) */}
                                 <div style={{ position: 'absolute', left: '10%', bottom: '58%', transform: 'translateX(-50%)', zIndex: 10 }}>
-                                    <motion.div 
-                                        animate={{ 
+                                    <motion.div
+                                        animate={{
                                             y: [0, -6, 0],
                                             scale: activeIndex === 0 ? 1.05 : 0.95
                                         }}
-                                        transition={{ 
+                                        transition={{
                                             y: { duration: 4.2, repeat: Infinity, repeatType: 'reverse', ease: "easeInOut" },
                                             scale: { duration: 0.8, ease: [0.22, 1, 0.36, 1] }
                                         }}
@@ -412,12 +412,12 @@ const Experience = () => {
 
                                 {/* Card 2: Redtape — Bottom Left-Center */}
                                 <div style={{ position: 'absolute', left: '36.66%', top: '58%', transform: 'translateX(-50%)', zIndex: 10 }}>
-                                    <motion.div 
-                                        animate={{ 
+                                    <motion.div
+                                        animate={{
                                             y: [0, 6, 0],
                                             scale: activeIndex === 1 ? 1.05 : 0.95
                                         }}
-                                        transition={{ 
+                                        transition={{
                                             y: { duration: 4.5, repeat: Infinity, repeatType: 'reverse', ease: "easeInOut" },
                                             scale: { duration: 0.8, ease: [0.22, 1, 0.36, 1] }
                                         }}
@@ -436,12 +436,12 @@ const Experience = () => {
 
                                 {/* Card 3: Inverted Energy — Top Right-Center */}
                                 <div style={{ position: 'absolute', left: '63.33%', bottom: '58%', transform: 'translateX(-50%)', zIndex: 10 }}>
-                                    <motion.div 
-                                        animate={{ 
+                                    <motion.div
+                                        animate={{
                                             y: [0, -6, 0],
                                             scale: activeIndex === 2 ? 1.05 : 0.95
                                         }}
-                                        transition={{ 
+                                        transition={{
                                             y: { duration: 5.0, repeat: Infinity, repeatType: 'reverse', ease: "easeInOut" },
                                             scale: { duration: 0.8, ease: [0.22, 1, 0.36, 1] }
                                         }}
@@ -460,12 +460,12 @@ const Experience = () => {
 
                                 {/* Card 4: 6S Marketers — Bottom Right (current) */}
                                 <div style={{ position: 'absolute', left: '90%', top: '58%', transform: 'translateX(-50%)', zIndex: 10 }}>
-                                    <motion.div 
-                                        animate={{ 
+                                    <motion.div
+                                        animate={{
                                             y: [0, 6, 0],
                                             scale: activeIndex === 3 ? 1.05 : 0.95
                                         }}
-                                        transition={{ 
+                                        transition={{
                                             y: { duration: 5.5, repeat: Infinity, repeatType: 'reverse', ease: "easeInOut" },
                                             scale: { duration: 0.8, ease: [0.22, 1, 0.36, 1] }
                                         }}

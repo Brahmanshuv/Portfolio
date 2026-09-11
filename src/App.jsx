@@ -12,6 +12,7 @@ import PoweringTheFuture from './components/PoweringTheFuture';
 import LoadingScreen from './components/LoadingScreen';
 import GlobalBackground from './components/GlobalBackground';
 import Lenis from '@studio-freight/lenis';
+import HomeGridOverlay from './components/HomeGridOverlay';
 import ProjectDetail from './components/ProjectDetail';
 import { projectsData } from './data/projects';
 import { projectsRegistry } from './projects/registry';
@@ -91,7 +92,8 @@ function App() {
                     <ProjectDetail project={currentProject} />
                 )
             ) : (
-                <>
+                <div className="home-page">
+                    <HomeGridOverlay />
                     <Navbar />
                     <main>
                         <HeroTop />
@@ -112,7 +114,7 @@ function App() {
 
                         {SHOW_POWERING_THE_FUTURE && <PoweringTheFuture />}
                     </main>
-                </>
+                </div>
             )}
 
             <MusicWidget />

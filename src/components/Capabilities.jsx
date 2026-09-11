@@ -305,7 +305,7 @@ const Capabilities = () => {
 
     return (
         <motion.div
-            className="container"
+            className="home-container capabilities-container"
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"

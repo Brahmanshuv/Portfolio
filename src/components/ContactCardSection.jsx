@@ -146,7 +146,7 @@ export default function ContactCardSection() {
     return (
         <section className="contact-card-section" id="contact">
             <motion.div 
-                className="container"
+                className="home-container"
                 variants={containerVariants}
                 initial="hidden"
                 whileInView="visible"
